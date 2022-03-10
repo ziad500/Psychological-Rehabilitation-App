@@ -1,0 +1,245 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:phsyo/styles/colors.dart';
+
+void navigateTo(context, Widget) => Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Widget),
+    );
+
+void navigateAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Widget),
+      (Route<dynamic> route) => false,
+    );
+
+Widget defaultFormField(
+  context, {
+  required TextEditingController controller,
+  required TextInputType type,
+  String? Function(String?)? onSubmit,
+  String? Function(String?)? onChange,
+  Function()? onTap,
+  bool isPassword = false,
+  required String? Function(String?)? validate,
+  String? label,
+  String? hint,
+  Color? bodercolor,
+  IconData? prefix,
+  IconData? suffix,
+  int maxlines = 1,
+  double hintsize = 14.0,
+  double verticalpadding = 15.0,
+  double horizontalpadding = 15.0,
+  Color BorderEnableColor = defaultColor,
+  Color BorderColor = Colors.grey,
+  Function()? suffixPressed,
+  bool isClickable = true,
+}) =>
+    TextFormField(
+      textInputAction: TextInputAction.next, // Moves focus to next.
+
+      textAlign: TextAlign.left,
+      controller: controller,
+      keyboardType: type,
+      obscureText: isPassword,
+      enabled: isClickable,
+      maxLines: maxlines,
+      onFieldSubmitted: onSubmit,
+      onChanged: onChange,
+      onTap: onTap,
+      validator: validate,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        filled: true,
+        fillColor: Color(0xffE8E8EE),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide(
+            color: Color(0xffE8E8EE),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(color: BorderEnableColor)),
+        labelText: label,
+        hintText: hint,
+        hintStyle:
+            TextStyle(fontSize: hintsize.sp, fontWeight: FontWeight.w400),
+        prefixIcon: prefix != null
+            ? Icon(
+                prefix,
+              )
+            : null,
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(
+            vertical: verticalpadding, horizontal: horizontalpadding),
+        suffixIcon: suffix != null
+            ? IconButton(
+                onPressed: suffixPressed,
+                icon: Icon(
+                  suffix,
+                  color: defaultColor,
+                ),
+              )
+            : null,
+      ),
+      style: Theme.of(context).textTheme.bodyText1,
+    );
+
+Widget CodeFormField(
+  context, {
+  required TextEditingController controller,
+  required TextInputType type,
+  String? Function(String?)? onSubmit,
+  String? Function(String?)? onChange,
+  Function()? onTap,
+  required String? Function(String?)? validate,
+  int maxlines = 1,
+  double verticalpadding = 13.0,
+  double horizontalpadding = 0.0,
+}) =>
+    TextFormField(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      textAlign: TextAlign.center,
+      textInputAction: TextInputAction.next, // Moves focus to next.
+      controller: controller,
+      keyboardType: type,
+      maxLines: maxlines,
+      maxLength: 1,
+      onFieldSubmitted: onSubmit,
+      onChanged: (_) => FocusScope.of(context).nextFocus(),
+      onTap: onTap,
+      validator: validate,
+      decoration: InputDecoration(
+        counterText: "",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        filled: true,
+        fillColor: Color(0xffE8E8EE),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide(
+            color: Color(0xffE8E8EE),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(color: Colors.red)),
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(
+            vertical: verticalpadding, horizontal: horizontalpadding),
+      ),
+      style: TextStyle(
+        color: Colors.red,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+Widget defaultButton(
+        {double width = 250.0,
+        double? height,
+        bool isUpperCase = true,
+        double radius = 30.0,
+        IconData? icon,
+        Color? textColor = Colors.white,
+        Color? color = defaultColor,
+        Color borderColor = defaultColor,
+        required Function()? function,
+        required String text,
+        double verticalpadding = 14.0,
+        double textsize = 14.0}) =>
+    Container(
+      height: height,
+      width: width,
+      child: MaterialButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+        padding: EdgeInsets.symmetric(vertical: verticalpadding, horizontal: 5),
+        onPressed: function,
+        child: icon != null
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 29,
+                  ),
+                  SizedBox(
+                    width: 5.0,
+                  ),
+                  Text(
+                    isUpperCase ? text.toUpperCase() : text,
+                    style: TextStyle(
+                        color: textColor,
+                        fontSize: textsize,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )
+            : Text(
+                isUpperCase ? text.toUpperCase() : text,
+                style: TextStyle(
+                    color: textColor,
+                    fontSize: textsize,
+                    fontWeight: FontWeight.bold),
+              ),
+      ),
+      decoration: BoxDecoration(
+          border: Border.all(color: borderColor),
+          borderRadius: BorderRadius.circular(
+            radius,
+          ),
+          color: color,
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 6,
+              offset: Offset(0, 4),
+            )
+          ]),
+    );
+
+void showToast({
+  required String? text,
+  required ToastStates state,
+}) =>
+    Fluttertoast.showToast(
+        msg: '$text',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.amber, //chooseToastColor(state)
+        textColor: Colors.white,
+        fontSize: 16.0);
+enum ToastStates { SUCCESS, ERROR, WARNING }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.yellow;
+      break;
+  }
+  return color;
+}
+
+Widget myDivider() => Container(
+      height: 2.0,
+      width: double.infinity,
+      color: Color(0xff707070),
+    );

@@ -1,0 +1,3 @@
+class Usermodel {
+  var firstnamee;
+}
