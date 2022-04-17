@@ -1,20 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:phsyo/shared/components/responsive.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:phsyo/styles/colors.dart';
 
 void navigateTo(context, Widget) => Navigator.push(
+    context, PageTransition(child: Widget, type: PageTransitionType.fade));
+
+/* void navigateTo(context, Widget) => Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Widget),
-    );
+    ); */
 
 void navigateAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => Widget),
       (Route<dynamic> route) => false,
+    );
+
+Widget searchForm() => Container(
+      height: 31,
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: const BorderSide(
+              color: defaultColor,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              borderSide: const BorderSide(color: defaultColor)),
+          hintText: 'Search',
+          prefixIcon: const Icon(Icons.search),
+          isDense: true,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        ),
+      ),
+    );
+
+Widget titleText(String title) => Text(
+      title,
+      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
     );
 
 Widget defaultFormField(
@@ -27,70 +64,84 @@ Widget defaultFormField(
   bool isPassword = false,
   required String? Function(String?)? validate,
   String? label,
+  double height = 7,
   String? hint,
   Color? bodercolor,
   IconData? prefix,
   IconData? suffix,
   int maxlines = 1,
-  double hintsize = 14.0,
+  double hintsize = 2.5 /* 18.0 */,
+  double labelsize = 2.5,
   double verticalpadding = 15.0,
   double horizontalpadding = 15.0,
   Color BorderEnableColor = defaultColor,
   Color BorderColor = Colors.grey,
+  int? maxLength,
+  FocusNode? focusNode,
   Function()? suffixPressed,
   bool isClickable = true,
 }) =>
-    TextFormField(
-      textInputAction: TextInputAction.next, // Moves focus to next.
-
-      textAlign: TextAlign.left,
-      controller: controller,
-      keyboardType: type,
-      obscureText: isPassword,
-      enabled: isClickable,
-      maxLines: maxlines,
-      onFieldSubmitted: onSubmit,
-      onChanged: onChange,
-      onTap: onTap,
-      validator: validate,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        filled: true,
-        fillColor: Color(0xffE8E8EE),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(
-            color: Color(0xffE8E8EE),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
+    SizedBox(
+      height: height.h,
+      child: TextFormField(
+        maxLength: maxLength,
+        textInputAction: TextInputAction.next, // Moves focus to next.
+        textAlign: TextAlign.left,
+        controller: controller,
+        keyboardType: type,
+        focusNode: focusNode,
+        obscureText: isPassword,
+        enabled: isClickable,
+        maxLines: maxlines,
+        onFieldSubmitted: onSubmit,
+        onChanged: onChange,
+        onTap: onTap,
+        validator: validate,
+        decoration: InputDecoration(
+          counterText: "",
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(color: BorderEnableColor)),
-        labelText: label,
-        hintText: hint,
-        hintStyle:
-            TextStyle(fontSize: hintsize.sp, fontWeight: FontWeight.w400),
-        prefixIcon: prefix != null
-            ? Icon(
-                prefix,
-              )
-            : null,
-        isDense: true,
-        contentPadding: EdgeInsets.symmetric(
-            vertical: verticalpadding, horizontal: horizontalpadding),
-        suffixIcon: suffix != null
-            ? IconButton(
-                onPressed: suffixPressed,
-                icon: Icon(
-                  suffix,
-                  color: defaultColor,
-                ),
-              )
-            : null,
+          ),
+          filled: true,
+          fillColor: Color(0xffE8E8EE),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(
+              color: Color(0xffE8E8EE),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: BorderSide(color: defaultColor)),
+          labelText: hint,
+          labelStyle:
+              TextStyle(fontSize: labelsize.h, fontWeight: FontWeight.w400),
+          hintText: label,
+          hintStyle:
+              TextStyle(fontSize: hintsize.h, fontWeight: FontWeight.w400),
+          prefixIcon: prefix != null
+              ? Icon(
+                  prefix,
+                )
+              : null,
+          isDense: true,
+          contentPadding:
+/*               EdgeInsets.only(bottom: 0, left: 15, right: 15, top: 15),
+ */
+              EdgeInsets.symmetric(
+                  vertical: verticalpadding, horizontal: horizontalpadding),
+          suffixIcon: suffix != null
+              ? IconButton(
+                  onPressed: suffixPressed,
+                  icon: Icon(
+                    suffix,
+                    color: defaultColor,
+                  ),
+                )
+              : null,
+        ),
+        style: Theme.of(context).textTheme.bodyText1,
       ),
-      style: Theme.of(context).textTheme.bodyText1,
     );
 
 Widget CodeFormField(
@@ -145,9 +196,9 @@ Widget CodeFormField(
 
 Widget defaultButton(
         {double width = 250.0,
-        double? height,
+        double height = 55,
         bool isUpperCase = true,
-        double radius = 30.0,
+        double radius = 50.0,
         IconData? icon,
         Color? textColor = Colors.white,
         Color? color = defaultColor,
@@ -176,21 +227,27 @@ Widget defaultButton(
                   SizedBox(
                     width: 5.0,
                   ),
-                  Text(
-                    isUpperCase ? text.toUpperCase() : text,
-                    style: TextStyle(
-                        color: textColor,
-                        fontSize: textsize,
-                        fontWeight: FontWeight.bold),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      isUpperCase ? text.toUpperCase() : text,
+                      style: TextStyle(
+                          color: textColor,
+                          fontSize: textsize,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               )
-            : Text(
-                isUpperCase ? text.toUpperCase() : text,
-                style: TextStyle(
-                    color: textColor,
-                    fontSize: textsize,
-                    fontWeight: FontWeight.bold),
+            : FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  isUpperCase ? text.toUpperCase() : text,
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: textsize,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
       ),
       decoration: BoxDecoration(
@@ -208,17 +265,17 @@ Widget defaultButton(
           ]),
     );
 
-void showToast({
-  required String? text,
-  required ToastStates state,
-}) =>
+void showToast(
+        {required String? text,
+        required ToastStates state,
+        Color textColor = Colors.white}) =>
     Fluttertoast.showToast(
         msg: '$text',
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
+        gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.amber, //chooseToastColor(state)
-        textColor: Colors.white,
+        backgroundColor: chooseToastColor(state), //chooseToastColor(state)
+        textColor: textColor,
         fontSize: 16.0);
 enum ToastStates { SUCCESS, ERROR, WARNING }
 
@@ -243,3 +300,81 @@ Widget myDivider() => Container(
       width: double.infinity,
       color: Color(0xff707070),
     );
+
+Widget bottomSheet({Function()? camera, Function()? gallery}) {
+  return Container(
+    height: 100.0,
+    width: double.infinity,
+    margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+    child: Column(
+      children: [
+        Text(
+          'choose Profile Photo',
+          style: TextStyle(fontSize: 20.0),
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Material(
+              borderRadius: BorderRadius.circular(12.0),
+              color: defaultColor,
+              elevation: 2.0,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                    onTap: camera,
+/*                         AppCubit.get(context).getImage(ImageSource.camera);
+ */
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Camera',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    )),
+              ),
+            ),
+            const SizedBox(
+              width: 20.0,
+            ),
+            Material(
+              borderRadius: BorderRadius.circular(12.0),
+              color: defaultColor,
+              elevation: 2.0,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                    onTap: gallery,
+                    /* () {
+                        AppCubit.get(context).getImage(ImageSource.gallery);
+                      }, */
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.image,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Gallery',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    )),
+              ),
+            )
+          ],
+        )
+      ],
+    ),
+  );
+}

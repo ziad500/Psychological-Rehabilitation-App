@@ -1,3 +1,5 @@
+import 'package:phsyo/models/login_model/user_login_model.dart';
+
 abstract class LoginStates {}
 
 class LoginInitialState extends LoginStates {}
@@ -7,9 +9,9 @@ class changePasswordVisiblilityState extends LoginStates {}
 class AppLoginLoadingState extends LoginStates {}
 
 class AppLoginSuccessState extends LoginStates {
-  /* final AppLoginModel loginModel;
+  final UserModel loginModel;
 
-  AppLoginSuccessState(this.loginModel); */
+  AppLoginSuccessState(this.loginModel);
 }
 
 class AppLoginErrorState extends LoginStates {

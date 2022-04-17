@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
+import 'package:phsyo/modules/faqs_screen/faqs_Screen.dart';
+import 'package:phsyo/modules/payment_screen/payment_screen.dart';
+import 'package:phsyo/modules/payment_screen/ppayment_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -10,46 +13,57 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 80, left: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            defaultButton(function: () {}, icon: Icons.logout, text: 'Log Out'),
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 5.0),
         child: Column(
           children: [
-            menuItem(
-                context,
-                'Edit Profile',
-                Icon(
-                  Icons.person,
-                  color: Color(0xFF4A4B4D),
-                ), onTap: () {
-              navigateTo(context, EditeProfileScreen());
-            }),
-            menuItem(
-              context,
-              'Favourite Doctor',
-              Icon(
-                Icons.favorite_border,
-                color: Color(0xFF4A4B4D),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  menuItem(
+                      context,
+                      'Edit Profile',
+                      const Icon(
+                        Icons.person,
+                        color: Color(0xFF4A4B4D),
+                      ),
+                      onTap: () => navigateTo(context, EditeProfileScreen())),
+                  menuItem(
+                    context,
+                    'Favourite Doctor',
+                    const Icon(
+                      Icons.favorite_border,
+                      color: Color(0xFF4A4B4D),
+                    ),
+                  ),
+                  menuItem(
+                      context,
+                      'Payment Info',
+                      const Icon(
+                        Icons.payment,
+                        color: Color(0xFF4A4B4D),
+                      ),
+                      onTap: () => navigateTo(context, PaymentScreen())),
+                  menuItem(
+                    context,
+                    'FAQ\'s',
+                    const Icon(
+                      Icons.quiz_outlined,
+                      color: Color(0xFF4A4B4D),
+                    ),
+                    onTap: () => navigateTo(context, const FaqsScreen()),
+                  ),
+                ],
               ),
-            ),
-            menuItem(
-                context,
-                'Payment Info',
-                Icon(
-                  Icons.payment,
-                  color: Color(0xFF4A4B4D),
-                )),
-            menuItem(
-                context,
-                'FAQ\'s',
-                Icon(
-                  Icons.quiz_outlined,
-                  color: Color(0xFF4A4B4D),
-                )),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 100.0),
-              child: defaultButton(
-                  function: () {}, icon: Icons.logout, text: 'Log Out'),
             ),
           ],
         ),
@@ -67,7 +81,7 @@ class MenuScreen extends StatelessWidget {
             color: Colors.grey.shade300),
         child: Material(
           borderRadius: BorderRadius.circular(22.0),
-          color: Color(0xffE8E8EE),
+          color: const Color(0xffE8E8EE),
           //elevation: 5.0,
           child: InkWell(
             borderRadius: BorderRadius.circular(22.0),
@@ -81,16 +95,16 @@ class MenuScreen extends StatelessWidget {
                   child: icon,
                 ),
                 Text(
-                  '$text',
+                  text,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0XFF4A4B4D),
-                      fontSize: 18),
+                      fontSize: 2.2.h),
                   textAlign: TextAlign.left,
                 ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
+                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Icon(
                     Icons.arrow_forward,
                     color: Color(0xFF4A4B4D),

@@ -62,101 +62,81 @@ class _clientRegister3State extends State<clientRegister3> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(),
-      child: BlocConsumer<RegisterCubit, RegisterStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Scaffold(
-              appBar: AppBar(
-                leading: IconButton(
-                    onPressed: () {
-                      navigateTo(context, clientRegister2());
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    )),
-                title: const Text(
-                  'Services ',
-                  style: TextStyle(color: Colors.black),
-                ),
-                centerTitle: true,
-                backgroundColor: Colors.white,
-                elevation: 0.0,
-              ),
-              body: LayoutBuilder(
-                builder: (context, constraints) {
-                  if (constraints.maxHeight >= 600.0) {
-                    return BigScreen(context);
-                  } else {
-                    return SmallScreen(context);
-                  }
-                },
-              ));
-        },
-      ),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Services ',
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxHeight >= 600.0) {
+              return BigScreen(context);
+            } else {
+              return SmallScreen(context);
+            }
+          },
+        ));
   }
 
-  Widget BigScreen(context) => SingleChildScrollView(
-        child: Column(
-          children: [
-            Text('What type of session are you interested in ?'),
-            SizedBox(
-              height: 10.0,
+  Widget BigScreen(context) => Column(
+        children: [
+          const FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text('What type of session are you interested in ?')),
+          const SizedBox(
+            height: 10.0,
+          ),
+          SizedBox(
+            height: 60.h,
+            child: ListView.separated(
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => myDivider(),
+              scrollDirection: Axis.vertical,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) => ListTileItemm(Services[index]),
+              itemCount: Services.length,
             ),
-            SizedBox(
-              height: 450.0,
-              child: ListView.separated(
-                shrinkWrap: true,
-                separatorBuilder: (context, index) => myDivider(),
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => ListTileItemm(Services[index]),
-                itemCount: Services.length,
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            defaultButton(
-              function: () {
-                if (text.length == 0) {
-                  var ad = AlertDialog(
-                    title: Text(
-                      'Please Choose!',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  );
-                  showDialog(
-                    context: context,
-                    builder: (context) => ad,
-                  );
-                } else {
-                  CasheHelper.saveData(key: 'Service', value: text.toString());
-                  navigateTo(context, clientRegister4());
-                }
-              },
-              text: 'continue',
-            ),
-            SizedBox(
-              height: 1.h,
-            ),
-            Row(
+          ),
+          const Spacer(),
+          defaultButton(
+            function: () {
+              if (text.length == 0) {
+                showToast(text: 'Please Chosse', state: ToastStates.ERROR);
+              } else {
+                CasheHelper.saveData(key: 'Services', value: text.toList());
+                print(text.toList());
+                navigateTo(context, clientRegister4());
+              }
+            },
+            text: 'continue',
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Learn about'),
+                const Text('Learn about'),
                 TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Privacy',
                       style: TextStyle(color: defaultColor),
                     ))
               ],
             ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 20,
+          )
+        ],
       );
 
   Widget SmallScreen(context) => SingleChildScrollView(
@@ -245,9 +225,12 @@ class _clientRegister3State extends State<clientRegister3> {
                   }
                 });
               },
-              title: Text(
-                '${model.title}',
-                style: TextStyle(fontSize: 13.0.sp),
+              title: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  '${model.title}',
+                  style: TextStyle(fontSize: 13.0.sp),
+                ),
               ),
             ),
           ),

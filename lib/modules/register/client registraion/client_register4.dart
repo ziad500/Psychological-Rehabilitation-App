@@ -1,11 +1,15 @@
 import 'dart:ui';
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/forget_password/create_new_password.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register3.dart';
+import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
+import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
@@ -19,241 +23,250 @@ class clientRegister4 extends StatelessWidget {
   var code4controller = TextEditingController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  var name = CasheHelper.getData(key: 'User name');
-  var Phone = CasheHelper.getData(key: 'Phone');
-  var Email = CasheHelper.getData(key: 'Email');
-  var Password = CasheHelper.getData(key: 'Password');
-  var ConfirmPassword = CasheHelper.getData(key: 'Confirm Password');
+  var firstNameClient = CasheHelper.getData(key: 'firstNameClient');
+  var lastNameClient = CasheHelper.getData(key: 'lastNameClient');
+  var phoneClient = CasheHelper.getData(key: 'PhoneClient');
+  var emailClient = CasheHelper.getData(key: 'EmailClient');
+  var passwordClient = CasheHelper.getData(key: 'PasswordClient');
+  var genderClient = CasheHelper.getData(key: 'GenderClient');
   var date = CasheHelper.getData(key: 'date');
-  var Address = CasheHelper.getData(key: 'MopileEmergency');
-  var Country = CasheHelper.getData(key: 'contactRelation');
+  var mopileEmergency = CasheHelper.getData(key: 'MopileEmergency');
+  var contactRelation = CasheHelper.getData(key: 'contactRelation');
   var mediacalHistory = CasheHelper.getData(key: 'mediacalHistory');
-  var pickedImage = CasheHelper.getData(key: 'Image');
-  var Gender = CasheHelper.getData(key: 'Gender');
-  var Service = CasheHelper.getData(key: 'Service');
+  var services = CasheHelper.getData(key: 'Services');
+  var image = CasheHelper.getData(key: 'image');
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: defaultColor,
-        key: scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                navigateTo(context, clientRegister3());
-              },
-              icon: Icon(Icons.arrow_back)),
-          backgroundColor: defaultColor,
-          elevation: 0.0,
-        ),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxHeight >= 600) {
-              return BigScreen(context);
-            } else {
-              return SmallScreen(context);
-            }
-          },
-        ));
+    return BlocConsumer<RegisterCubit, RegisterStates>(
+      listener: (context, state) {
+        if (state is AppRegisterSuccessState) {
+          showModalBottomSheet(
+            barrierColor: Colors.transparent,
+            isDismissible: false,
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            context: context,
+            builder: (context) => bottomSheet(context),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+            backgroundColor: defaultColor,
+            key: scaffoldKey,
+            appBar: AppBar(
+              iconTheme: const IconThemeData(
+                color: Colors.white,
+              ),
+              backgroundColor: defaultColor,
+              elevation: 0.0,
+            ),
+            body: BigScreen(context, state));
+      },
+    );
   }
 
-  Widget BigScreen(context) => ListView(
-        physics: NeverScrollableScrollPhysics(),
+  Widget BigScreen(context, state) => Stack(
         children: [
-          Stack(
+          Column(
             children: [
-              Column(
-                children: [
-                  Container(height: 20.h, color: defaultColor),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(blurRadius: 60.0)],
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(40.0)),
-                    ),
-                    height: 67.h,
-                    width: double.infinity,
+              Container(height: 20.h, color: defaultColor),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(blurRadius: 60.0)],
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(40.0)),
+                  ),
+                  width: double.infinity,
+                  child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Form(
-                                key: formKey,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      SizedBox(
-                                        height: 8.h,
+                      padding: const EdgeInsets.only(top: 60),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 30.0, right: 30.0, bottom: 30.0),
+                          child: Form(
+                              key: formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const Center(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'Verify Your Email',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30),
                                       ),
-                                      Center(
-                                        child: Text(
-                                          'Verify Your Email',
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Please enter the 4 digit code sent ',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 24.sp),
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          'To $emailClient ',
+                                          style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: CodeFormField(
+                                          context,
+                                          verticalpadding: 20.0,
+                                          controller: code1controller,
+                                          type: TextInputType.number,
+                                          validate: (String? value) {
+                                            if (value!.isEmpty) {
+                                              return "Please Enter Your Email";
+                                            }
+                                          },
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 1.h,
+                                      const SizedBox(
+                                        width: 20,
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Please enter the 4 digit code sent ',
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                            ),
-                                          ),
-                                          Text(
-                                            'To ${Email} ',
-                                            style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
+                                      Expanded(
+                                        child: CodeFormField(
+                                          context,
+                                          verticalpadding: 20.0,
+                                          controller: code2controller,
+                                          type: TextInputType.number,
+                                          validate: (String? value) {
+                                            if (value!.isEmpty) {
+                                              return "Please Enter Your Email";
+                                            }
+                                          },
+                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 2.h,
+                                      const SizedBox(
+                                        width: 20,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code1controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code2controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code3controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code4controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                        ],
+                                      Expanded(
+                                        child: CodeFormField(
+                                          context,
+                                          verticalpadding: 20.0,
+                                          controller: code3controller,
+                                          type: TextInputType.number,
+                                          validate: (String? value) {
+                                            if (value!.isEmpty) {
+                                              return "Please Enter Your Email";
+                                            }
+                                          },
+                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 4.h,
+                                      const SizedBox(
+                                        width: 20,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 3.h),
-                                        child: defaultButton(
+                                      Expanded(
+                                        child: CodeFormField(
+                                          context,
+                                          verticalpadding: 20.0,
+                                          controller: code4controller,
+                                          type: TextInputType.number,
+                                          validate: (String? value) {
+                                            if (value!.isEmpty) {
+                                              return "Please Enter Your Email";
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 4.h,
+                                  ),
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 3.h),
+                                      child: ConditionalBuilder(
+                                        condition:
+                                            state is AppRegisterLoadingState,
+                                        builder: (context) => const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        fallback: (context) => defaultButton(
                                             function: () {
                                               if (formKey.currentState!
                                                   .validate()) {
-                                                showModalBottomSheet(
-                                                  barrierColor:
-                                                      Colors.transparent,
-                                                  isDismissible: false,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
-                                                  ),
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      bottomSheet(context),
-                                                );
+                                                RegisterCubit.get(context)
+                                                    .signUp(
+                                                        firstName:
+                                                            firstNameClient,
+                                                        lastName:
+                                                            lastNameClient,
+                                                        email: emailClient,
+                                                        password:
+                                                            passwordClient,
+                                                        mobilePhone:
+                                                            phoneClient,
+                                                        gender: genderClient,
+                                                        birthDate: date,
+                                                        trustContact:
+                                                            mopileEmergency,
+                                                        contactRelation:
+                                                            contactRelation,
+                                                        medicalHistory:
+                                                            mediacalHistory,
+                                                        sessions: services);
                                               }
                                             },
                                             text: 'Verify',
                                             isUpperCase: true),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.only(top: 0.1.h),
-                child: SizedBox(
-                  height: 25.h,
-                  child: Center(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Image(
-                            image: AssetImage(
-                                'icons/undraw_mobile_inbox_re_ciwq.png'),
-                          ),
+                                      )),
+                                ],
+                              )),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              )
             ],
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.only(top: 0.1.h),
+            child: SizedBox(
+              height: 25.h,
+              child: Center(
+                child: Row(
+                  children: const [
+                    Expanded(
+                      child: Image(
+                        image:
+                            AssetImage('icons/undraw_mobile_inbox_re_ciwq.png'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       );
@@ -313,7 +326,7 @@ class clientRegister4 extends StatelessWidget {
                                                     fontSize: 11.5.sp),
                                               ),
                                               Text(
-                                                'To ${Email} ',
+                                                'To $emailClient ',
                                                 style: TextStyle(
                                                     fontSize: 12.sp,
                                                     fontWeight:
@@ -407,22 +420,27 @@ class clientRegister4 extends StatelessWidget {
                                                 function: () {
                                                   if (formKey.currentState!
                                                       .validate()) {
-                                                    showModalBottomSheet(
-                                                      barrierColor:
-                                                          Colors.transparent,
-                                                      isDismissible: false,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40.0),
-                                                      ),
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          bottomSheet(context),
-                                                    );
+                                                    RegisterCubit.get(context)
+                                                        .signUp(
+                                                            firstName:
+                                                                firstNameClient,
+                                                            lastName:
+                                                                lastNameClient,
+                                                            email: emailClient,
+                                                            password:
+                                                                passwordClient,
+                                                            mobilePhone:
+                                                                phoneClient,
+                                                            gender:
+                                                                genderClient,
+                                                            birthDate: date,
+                                                            trustContact:
+                                                                mopileEmergency,
+                                                            contactRelation:
+                                                                contactRelation,
+                                                            medicalHistory:
+                                                                mediacalHistory,
+                                                            sessions: services);
                                                   }
                                                 },
                                                 text: 'Verify',
@@ -506,7 +524,7 @@ class clientRegister4 extends StatelessWidget {
                   ),
                   defaultButton(
                       function: () {
-                        navigateAndFinish(context, AppLayout());
+                        navigateAndFinish(context, Applayout());
                       },
                       text: 'Start Your Journey')
                 ],

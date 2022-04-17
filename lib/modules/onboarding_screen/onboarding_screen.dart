@@ -22,12 +22,12 @@ class BoardingModel {
       required this.image});
 }
 
-class OnBoardingScreen3 extends StatefulWidget {
+class OnBoardingScreen extends StatefulWidget {
   @override
-  State<OnBoardingScreen3> createState() => _OnBoardingScreen3State();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreen3State extends State<OnBoardingScreen3> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   var boardcontroller = PageController();
 
   List<BoardingModel> Boarding = [
@@ -70,7 +70,7 @@ class _OnBoardingScreen3State extends State<OnBoardingScreen3> {
                 onPressed: () {
                   submit();
                 },
-                child: Text(
+                child: const Text(
                   'SKIP',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ))
@@ -96,7 +96,7 @@ class _OnBoardingScreen3State extends State<OnBoardingScreen3> {
                       });
                     }
                   },
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) =>
                       buildBoardingItem(Boarding[index]),
                   itemCount: Boarding.length,
@@ -110,7 +110,7 @@ class _OnBoardingScreen3State extends State<OnBoardingScreen3> {
                   SmoothPageIndicator(
                     controller: boardcontroller,
                     count: Boarding.length,
-                    effect: ExpandingDotsEffect(
+                    effect: const ExpandingDotsEffect(
                         dotHeight: 10.0,
                         dotColor: Colors.grey,
                         expansionFactor: 4,
@@ -143,23 +143,33 @@ class _OnBoardingScreen3State extends State<OnBoardingScreen3> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(child: Image(image: AssetImage('${model.image}'))),
-          SizedBox(
+          const SizedBox(
             height: 51,
           ),
-          Text(
-            '${model.title}',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              '${model.title}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+            ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 18.0,
           ),
-          Text(
-            '${model.text1}',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-          ),
-          Text(
-            '${model.text2}',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              children: [
+                Text(
+                  '${model.text1}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                ),
+                Text(
+                  '${model.text2}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                ),
+              ],
+            ),
           )
         ],
       );

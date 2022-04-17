@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/shared/components/components.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../styles/colors.dart';
 
@@ -41,7 +42,35 @@ class ProfileScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
+                            Card(
+                              elevation: 10,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    const CircularProgressIndicator(
+                                      color: defaultColor,
+                                    ),
+                                    FadeInImage.memoryNetwork(
+                                      fadeInDuration:
+                                          const Duration(milliseconds: 300),
+                                      placeholder: kTransparentImage,
+                                      image:
+                                          'https://scontent.fcai22-1.fna.fbcdn.net/v/t39.30808-6/277168566_3170250476597636_7599140686835869072_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=e68yvALTt1AAX-Xwrt7&_nc_ht=scontent.fcai22-1.fna&oh=00_AT9YshvJapbz6u_cFEWwWW3TKUDvEi_ksBQDP_ymbF6Fbw&oe=62595A3F',
+                                      width: 89,
+                                      height: 134,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+
+                            /* Container(
                               height: 120,
                               width: 110,
                               decoration: BoxDecoration(
@@ -53,11 +82,10 @@ class ProfileScreen extends StatelessWidget {
                                       offset: Offset(0, 3),
                                     )
                                   ],
-                                  image: const DecorationImage(
+                                  image:  DecorationImage(
                                       fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                          "https://scontent.faly3-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=174925&_nc_ohc=qYivtokcF3kAX-5qShK&tn=gDLS0pIvW-5tRwod&_nc_ht=scontent.faly3-1.fna&oh=00_AT8nAdcTadjv2N4z4LtN1JOW4_Gf-lREcmnkKXuRhGNvnA&oe=623A444D"))),
-                            ),
+                                      image: )),
+                            ), */
                           ],
                         ),
                       ),

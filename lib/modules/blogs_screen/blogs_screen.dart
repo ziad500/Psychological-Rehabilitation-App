@@ -17,7 +17,7 @@ class BlogsScreen extends StatelessWidget {
                 'DISCOVER',
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Container(
@@ -27,7 +27,7 @@ class BlogsScreen extends StatelessWidget {
                     physics: ScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => discoveryItem(),
-                    separatorBuilder: (context, index) => SizedBox(
+                    separatorBuilder: (context, index) => const SizedBox(
                           width: 10.0,
                         ),
                     itemCount: 10),
@@ -36,16 +36,16 @@ class BlogsScreen extends StatelessWidget {
                 'LATEST ARTICLES',
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               ListView.separated(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   itemBuilder: (context, index) => articleItem(),
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: 20.0,
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 15.0,
                       ),
                   itemCount: 20),
             ],
@@ -66,7 +66,7 @@ class BlogsScreen extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(
                             'https://upload.wikimedia.org/wikipedia/commons/6/67/Yellow-maple.jpg')),
@@ -82,15 +82,15 @@ class BlogsScreen extends StatelessWidget {
                       color: Colors.black.withOpacity(0.4),
                       // soften the shadow
                       spreadRadius: 0.0, //extend the shadow
-                      offset: Offset(
+                      offset: const Offset(
                         0, // Move to right 10  horizontally
                         0, // Move to bottom 5 Vertically
                       ),
                     )
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(14.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(14.0),
                   child: Text(
                     'Sensationalized media depictions of mental illness',
                     maxLines: 2,
@@ -113,7 +113,7 @@ class BlogsScreen extends StatelessWidget {
             height: 100,
             width: 100,
             decoration: BoxDecoration(
-                image: DecorationImage(
+                image: const DecorationImage(
                   fit: BoxFit.fill,
                   image: NetworkImage(
                     'https://st2.depositphotos.com/2531455/5367/i/950/depositphotos_53675695-stock-photo-blue-roses.jpg',
@@ -122,10 +122,10 @@ class BlogsScreen extends StatelessWidget {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(10.0)),
           ),
-          SizedBox(
+          const SizedBox(
             height: 6.0,
           ),
-          Text(
+          const Text(
             'Depression',
             style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
           )

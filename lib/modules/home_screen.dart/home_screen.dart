@@ -5,6 +5,7 @@ import 'package:phsyo/models/category_item_model/category_item_model.dart';
 import 'package:phsyo/modules/profile_screen/profile_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:sizer/sizer.dart';
 
 class CategoryModel {
@@ -25,18 +26,79 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: defaultColor,
-        body: ListView(
+        /* appBar: AppBar(
+          backgroundColor: defaultColor,
+          elevation: 0.0,
+          toolbarHeight: 140,
+          centerTitle: true,
+          flexibleSpace: Center(
+            child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: ScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return categoryItem(categoryItems[index]);
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                      width: 10.0,
+                    ),
+                itemCount: categoryItems.length),
+          ),
+          /* ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: ScrollPhysics(),
+              itemBuilder: (context, index) {
+                return categoryItem(categoryItems[index]);
+              },
+              separatorBuilder: (context, index) => const SizedBox(
+                    width: 10.0,
+                  ),
+              itemCount: categoryItems.length), */
+          /* Container(
+            height: 150,
+            color: defaultColor,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: ScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return categoryItem(categoryItems[index]);
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                          width: 10.0,
+                        ),
+                    itemCount: categoryItems.length),
+              ),
+            ),
+          ), */
+        ),
+       */
+        body: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Choose a category',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
             Container(
-              height: 150,
+              height: 120,
               color: defaultColor,
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0, bottom: 15),
                   child: ListView.separated(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       itemBuilder: (context, index) {
                         return categoryItem(categoryItems[index]);
                       },
@@ -47,37 +109,46 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0)),
-                color: Colors.white,
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20.0,
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0)),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                              left: 18.0,
+                              right: 18.0,
+                              bottom: 15,
+                            ),
+                            child: ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                physics: const ScrollPhysics(),
+                                itemBuilder: (context, index) =>
+                                    doctorCard(context),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                      height: 15.0,
+                                    ),
+                                itemCount: 10)),
+                      ],
+                    ),
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(
-                        left: 18.0,
-                        right: 18.0,
-                        bottom: 15,
-                      ),
-                      child: ListView.separated(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemBuilder: (context, index) => doctorCard(context),
-                          separatorBuilder: (context, index) => SizedBox(
-                                height: 10.0,
-                              ),
-                          itemCount: 20)),
-                ],
+                ),
               ),
-            )
+            ),
           ],
         ));
   }
@@ -166,16 +237,34 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15.0),
-                          bottomLeft: Radius.circular(15.0)),
-                      child: Image.network(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(15.0),
+                            bottomLeft: Radius.circular(15.0)),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            const CircularProgressIndicator(
+                              color: defaultColor,
+                            ),
+                            FadeInImage.memoryNetwork(
+                              fadeInDuration: const Duration(milliseconds: 300),
+                              placeholder: kTransparentImage,
+                              image:
+                                  'https://scontent.fcai22-1.fna.fbcdn.net/v/t39.30808-6/277168566_3170250476597636_7599140686835869072_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=e68yvALTt1AAX-Xwrt7&_nc_ht=scontent.fcai22-1.fna&oh=00_AT9YshvJapbz6u_cFEWwWW3TKUDvEi_ksBQDP_ymbF6Fbw&oe=62595A3F',
+                              width: 89,
+                              height: 134,
+                              fit: BoxFit.cover,
+                            ),
+                          ],
+                        )
+                        /* Image.network(
                         "https://scontent.faly3-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=174925&_nc_ohc=qYivtokcF3kAX-5qShK&tn=gDLS0pIvW-5tRwod&_nc_ht=scontent.faly3-1.fna&oh=00_AT8nAdcTadjv2N4z4LtN1JOW4_Gf-lREcmnkKXuRhGNvnA&oe=623A444D",
+                        
                         width: 89,
                         height: 134,
                         fit: BoxFit.cover,
-                      ),
-                    ),
+                      ), */
+                        ),
                     const SizedBox(
                       width: 14.89,
                     ),
@@ -200,7 +289,7 @@ class HomeScreen extends StatelessWidget {
                                     Container(
                                       width: 140,
                                       child: const Text(
-                                        'Dr. Ahmed Ali ddddd',
+                                        'Dr. Ziad Elblidy',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(

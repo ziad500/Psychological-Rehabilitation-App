@@ -19,204 +19,190 @@ class VerifyCodeScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: defaultColor,
           elevation: 0.0,
-          leading: IconButton(
-              onPressed: () {
-                navigateAndFinish(context, forgetPassword());
-              },
-              icon: Icon(Icons.arrow_back)),
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
         ),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxHeight >= 600.0) {
-              return BigScreen(context);
-            } else {
-              return SmallScreen(context);
-            }
-          },
-        ));
+        body: BigScreen(context));
   }
 
-  Widget BigScreen(context) => ListView(
-        physics: NeverScrollableScrollPhysics(),
+  Widget BigScreen(context) => Stack(
         children: [
-          Stack(
+          Column(
             children: [
-              Column(
-                children: [
-                  Container(height: 20.h, color: defaultColor),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(blurRadius: 60.0)],
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(40.0)),
-                    ),
-                    height: 67.h,
-                    width: double.infinity,
+              Container(height: 20.h, color: defaultColor),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(blurRadius: 60.0)],
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(40.0)),
+                  ),
+                  height: 67.h,
+                  width: double.infinity,
+                  child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Form(
-                                key: formKey,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      SizedBox(
-                                        height: 8.h,
+                      padding: const EdgeInsets.only(top: 70),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 30.0, right: 30.0, bottom: 30.0),
+                          child: Form(
+                              key: formKey,
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        'Verify Your Email',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24.sp),
                                       ),
-                                      Center(
-                                        child: Text(
-                                          'Verify Your Email',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 24.sp),
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Please enter the 4 digit code sent ',
+                                          style: TextStyle(fontSize: 12.sp),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Please enter the 4 digit code sent ',
-                                            style: TextStyle(fontSize: 12.sp),
-                                          ),
-                                          Text(
-                                            'To email@email.com ',
-                                            style: TextStyle(fontSize: 12.sp),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code1controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code2controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code3controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code4controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 4.h,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 3.h),
-                                        child: defaultButton(
-                                            function: () {
-                                              if (formKey.currentState!
-                                                  .validate()) {
-                                                navigateTo(context,
-                                                    createNewPasswordScreen());
-                                                print('Send Success');
+                                        Text(
+                                          'To email@email.com ',
+                                          style: TextStyle(fontSize: 12.sp),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 60.0,
+                                          child: CodeFormField(
+                                            context,
+                                            verticalpadding: 20.0,
+                                            controller: code1controller,
+                                            type: TextInputType.number,
+                                            validate: (String? value) {
+                                              if (value!.isEmpty) {
+                                                return "Please Enter Your Email";
                                               }
                                             },
-                                            text: 'Verify',
-                                            isUpperCase: true),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.only(top: 0.1.h),
-                child: SizedBox(
-                  height: 25.h,
-                  child: Center(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Image(
-                            image: AssetImage(
-                                'icons/undraw_mobile_inbox_re_ciwq.png'),
-                          ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 2.h,
+                                        ),
+                                        Container(
+                                          width: 60.0,
+                                          child: CodeFormField(
+                                            context,
+                                            verticalpadding: 20.0,
+                                            controller: code2controller,
+                                            type: TextInputType.number,
+                                            validate: (String? value) {
+                                              if (value!.isEmpty) {
+                                                return "Please Enter Your Email";
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 2.h,
+                                        ),
+                                        Container(
+                                          width: 60.0,
+                                          child: CodeFormField(
+                                            context,
+                                            verticalpadding: 20.0,
+                                            controller: code3controller,
+                                            type: TextInputType.number,
+                                            validate: (String? value) {
+                                              if (value!.isEmpty) {
+                                                return "Please Enter Your Email";
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 2.h,
+                                        ),
+                                        Container(
+                                          width: 60.0,
+                                          child: CodeFormField(
+                                            context,
+                                            verticalpadding: 20.0,
+                                            controller: code4controller,
+                                            type: TextInputType.number,
+                                            validate: (String? value) {
+                                              if (value!.isEmpty) {
+                                                return "Please Enter Your Email";
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 3.h),
+                                      child: defaultButton(
+                                          function: () {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              navigateTo(context,
+                                                  createNewPasswordScreen());
+                                              print('Send Success');
+                                            }
+                                          },
+                                          text: 'Verify',
+                                          isUpperCase: true),
+                                    ),
+                                    SizedBox(
+                                      height: 3.h,
+                                    ),
+                                  ],
+                                ),
+                              )),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              )
             ],
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.only(top: 0.1.h),
+            child: SizedBox(
+              height: 25.h,
+              child: Center(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Image(
+                        image:
+                            AssetImage('icons/undraw_mobile_inbox_re_ciwq.png'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       );

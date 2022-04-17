@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:phsyo/models/login_model/user_login_model.dart';
+import 'package:phsyo/shared/network/endpoint.dart';
+import 'package:phsyo/shared/network/http_helper.dart';
+import '../../shared/network/dio_helper.dart';
 import 'login_states.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -24,4 +28,26 @@ class LoginCubit extends Cubit<LoginStates> {
     radiovalue = value;
     emit(changeRadioState());
   }
+
+  UserModel? loginmodel;
+  void userLogin({required String email, required String password}) {
+    emit(AppLoginLoadingState());
+
+    DioHelper.postData(url: LOGIN, data: {'email': email, 'password': password})
+        .then((value) {
+      loginmodel = UserModel.fromJson(value.data);
+      print(value.data);
+      emit(AppLoginSuccessState(loginmodel!));
+    }).catchError((error) {
+      emit(AppLoginErrorState(error.toString()));
+    });
+  }
+
+  /* void userr({required String email, required String password}) {
+    emit(AppLoginLoadingState());
+
+    HttpHelper()
+        .postData(url: LOGIN, data: {'email': email, 'password': password});
+    ;
+  } */
 }
