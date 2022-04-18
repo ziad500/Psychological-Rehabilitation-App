@@ -5,7 +5,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:phsyo/shared/components/responsive.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:phsyo/styles/colors.dart';
 
 void navigateTo(context, Widget) => Navigator.push(
@@ -95,6 +94,7 @@ Widget defaultFormField(
         maxLines: maxlines,
         onFieldSubmitted: onSubmit,
         onChanged: onChange,
+
         onTap: onTap,
         validator: validate,
         decoration: InputDecoration(

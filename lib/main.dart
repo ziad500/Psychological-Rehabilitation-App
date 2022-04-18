@@ -70,10 +70,13 @@ Future<void> main() async {
     widget = OnBoardingScreen();
   }
 
-  runApp(DevicePreview(
-    builder: (context) => MyApp(widget),
-    enabled: !kReleaseMode,
-  ));
+  runApp(
+    /* DevicePreview(
+    builder: (context) => */
+    MyApp(widget),
+    /*  enabled: !kReleaseMode,
+  ) */
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -125,7 +128,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: EditeProfileScreen()
+                  home: doctorRegister2()
                   /*  AnimatedSplashScreen(
                   splash: const SplashScreen(),
                   nextScreen: startWidget(),

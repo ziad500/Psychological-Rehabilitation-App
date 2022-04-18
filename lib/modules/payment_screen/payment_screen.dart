@@ -21,12 +21,50 @@ class _PaymentScreenState extends State<PaymentScreen>
 
   String CardNumber = '';
   String CardHolderName = 'Holder Name';
-  String ExpiryDate = 'MM/YY';
-  String CVV = '****';
+  String? ExpiryDate;
+  String? CVV;
 
   String formatedCardNumber = '**** **** **** ****';
   String formatedExpiryDate = 'MM/YY';
+  String formatedCVV = '****';
+
   var value = 0;
+
+  _PaymentScreenState() {
+    cardNumberController = TextEditingController();
+    cardNumberController.addListener(() {
+      setState(() {
+        CardNumber = cardNumberController.text;
+      });
+    });
+
+    cardHolderNameController = TextEditingController();
+    cardHolderNameController.addListener(() {
+      setState(() {
+        CardHolderName = cardHolderNameController.text;
+      });
+    });
+
+    expiryDateController = TextEditingController();
+    expiryDateController.addListener(() {
+      setState(() {
+        ExpiryDate = expiryDateController.text;
+      });
+    });
+
+    cvvCodeController = TextEditingController();
+    cvvCodeController.addListener(() {
+      setState(() {
+        CVV = cvvCodeController.text;
+      });
+    });
+    cvvFocus.addListener(() {
+      cvvFocus.hasFocus
+          ? animationController!.forward()
+          : animationController!.reverse();
+      setState(() {});
+    });
+  }
 
   AnimationController? animationController;
   Animation<double>? flipAnimation;
@@ -48,12 +86,6 @@ class _PaymentScreenState extends State<PaymentScreen>
           ..addListener(() {
             setState(() {});
           });
-    cvvFocus.addListener(() {
-      cvvFocus.hasFocus
-          ? animationController!.forward()
-          : animationController!.reverse();
-      setState(() {});
-    });
   }
 
   @override
@@ -123,11 +155,6 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 formatedCardNumber.replaceAllMapped(
                                     RegExp(r".{4}"),
                                     (match) => "${match.group(0)} ");
-                            cardNumberController.addListener(() {
-                              setState(() {
-                                CardNumber = cardNumberController.text;
-                              });
-                            });
                           },
                           validate: (String? value) {
                             if (value!.isEmpty) {
@@ -142,13 +169,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                             controller: cardHolderNameController,
                             type: TextInputType.name,
                             hint: ' Name On Card',
-                            maxLength: 20, onChange: (value) {
-                          cardHolderNameController.addListener(() {
-                            setState(() {
-                              CardHolderName = cardHolderNameController.text;
-                            });
-                          });
-                        }, validate: (String? value) {
+                            maxLength: 20, validate: (String? value) {
                           if (value!.isEmpty) {
                             return 'please Enter your name';
                           }
@@ -165,18 +186,12 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 hint: 'Expiry Date',
                                 maxLength: 4, onChange: (value) {
                               formatedExpiryDate =
-                                  this.ExpiryDate.padRight(2, 'MM');
+                                  this.ExpiryDate!.padRight(2, 'YYY');
 
                               formatedExpiryDate =
                                   formatedExpiryDate.replaceFirstMapped(
                                       RegExp(r".{2}"),
                                       (match) => "${match.group(0)}/");
-
-                              expiryDateController.addListener(() {
-                                setState(() {
-                                  ExpiryDate = expiryDateController.text;
-                                });
-                              });
                             }, validate: (String? value) {
                               if (value!.isEmpty) {
                                 return 'please Enter Expiry Date';
@@ -194,11 +209,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 maxLength: 4,
                                 focusNode: cvvFocus,
                                 hint: 'CVV', onChange: (value) {
-                              cvvCodeController.addListener(() {
-                                setState(() {
-                                  CVV = cvvCodeController.text;
-                                });
-                              });
+                              formatedCVV = this.CVV!.padRight(4, '*');
                             }, validate: (String? value) {
                               if (value!.isEmpty) {
                                 return 'please Enter CVV';
@@ -394,7 +405,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                               width: 30,
                             ),
                             Text(
-                              CVV,
+                              formatedCVV,
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontStyle: FontStyle.italic,
