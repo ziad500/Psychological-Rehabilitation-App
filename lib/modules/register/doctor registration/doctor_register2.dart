@@ -96,7 +96,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
   Widget bigScreen(context) => Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.only(left: 18, right: 18, bottom: 18),
             child: Form(
               key: formKey,
               child: Column(
@@ -153,11 +153,11 @@ class _doctorRegister2State extends State<doctorRegister2> {
                         textsize: 9.sp),
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   Container(
                     width: double.infinity,
-                    height: 130,
+                    height: 110,
                     decoration: const BoxDecoration(
                       color: Color(0xffE8E8EE),
                       borderRadius:
@@ -206,6 +206,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                             }, */
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
+                              errorStyle: TextStyle(fontSize: 0),
                               isDense: true,
                               contentPadding:
                                   EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -231,7 +232,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                     ),
                   ),
                   SizedBox(
-                    height: 1.h,
+                    height: 1.5.h,
                   ),
                   Container(
                     padding:
@@ -260,7 +261,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                     ),
                   ),
                   SizedBox(
-                    height: 1.h,
+                    height: 1.5.h,
                   ),
                   Container(
                       padding: const EdgeInsets.only(left: 10, right: 20),
@@ -315,7 +316,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                         ),
                       )),
                   SizedBox(
-                    height: 1.h,
+                    height: 1.5.h,
                   ),
                   InkWell(
                     onTap: () {
@@ -374,7 +375,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                   )),
                   ),
                   SizedBox(
-                    height: 1.h,
+                    height: 1.5.h,
                   ),
                   Row(
                     children: [
@@ -382,7 +383,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                         child: defaultFormField(
                           context,
                           hint: 'Lic. Issued Date',
-                          hintsize: 13,
+                          hintsize: 2,
                           controller: LicIssuedDateController,
                           type: TextInputType.text,
                           validate: (String? value) {
@@ -393,13 +394,13 @@ class _doctorRegister2State extends State<doctorRegister2> {
                         ),
                       ),
                       SizedBox(
-                        width: 1.h,
+                        width: 5,
                       ),
                       Expanded(
                         child: defaultFormField(
                           context,
+                          hintsize: 2,
                           hint: 'Lic. Expiry Date',
-                          hintsize: 13,
                           controller: LicExpiryDateController,
                           type: TextInputType.text,
                           validate: (String? value) {

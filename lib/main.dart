@@ -72,7 +72,7 @@ Future<void> main() async {
 
   runApp(
     /* DevicePreview(
-    builder: (context) => */
+    builder: (context) =>  */
     MyApp(widget),
     /*  enabled: !kReleaseMode,
   ) */
@@ -106,36 +106,36 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             return Sizer(builder: (context, orientation, deviceType) {
               return MaterialApp(
-                  useInheritedMediaQuery: true,
-                  locale: DevicePreview.locale(context),
-                  builder: DevicePreview.appBuilder,
-                  theme: ThemeData(
-                    scaffoldBackgroundColor: Colors.white,
-                    appBarTheme: const AppBarTheme(
-                      backgroundColor: Colors.white,
-                      centerTitle: true,
-                      titleTextStyle: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      iconTheme: IconThemeData(
-                        color: Colors.black,
-                      ),
-                    ),
-                    primarySwatch: Colors.blue,
-                    textTheme: GoogleFonts.poppinsTextTheme(
-                      Theme.of(context).textTheme,
+                useInheritedMediaQuery: true,
+                locale: DevicePreview.locale(context),
+                builder: DevicePreview.appBuilder,
+                theme: ThemeData(
+                  scaffoldBackgroundColor: Colors.white,
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.white,
+                    centerTitle: true,
+                    titleTextStyle: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                    iconTheme: IconThemeData(
+                      color: Colors.black,
                     ),
                   ),
-                  debugShowCheckedModeBanner: false,
-                  home: doctorRegister2()
-                  /*  AnimatedSplashScreen(
+                  primarySwatch: Colors.blue,
+                  textTheme: GoogleFonts.poppinsTextTheme(
+                    Theme.of(context).textTheme,
+                  ),
+                ),
+                debugShowCheckedModeBanner: false,
+                home: /* doctorRegister2() */
+                    AnimatedSplashScreen(
                   splash: const SplashScreen(),
-                  nextScreen: startWidget(),
+                  nextScreen: startWidget,
                   duration: 3000,
                   splashTransition: SplashTransition.fadeTransition,
-                ), */
-                  );
+                ),
+              );
             });
           },
         ));

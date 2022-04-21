@@ -63,7 +63,7 @@ class doctorRegister1 extends StatelessWidget {
   Widget bigScreen(context) => Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.only(left: 18, right: 18, bottom: 10),
             child: Form(
               key: formKey,
               child: Column(
@@ -75,19 +75,17 @@ class doctorRegister1 extends StatelessWidget {
                       children: [
                         Text(
                           'Joining our family to participate in',
-                          style:
-                              TextStyle(color: Colors.grey, fontSize: 15.0.sp),
+                          style: TextStyle(color: Colors.grey, fontSize: 3.h),
                         ),
                         Text(
                           'making people mental health better.',
-                          style:
-                              TextStyle(color: Colors.grey, fontSize: 15.0.sp),
+                          style: TextStyle(color: Colors.grey, fontSize: 3.h),
                         )
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   Row(
                     children: [
@@ -123,7 +121,7 @@ class doctorRegister1 extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   defaultFormField(
                     context,
@@ -137,11 +135,11 @@ class doctorRegister1 extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   Container(
                     width: double.infinity,
-                    height: 90,
+                    height: 85,
                     decoration: BoxDecoration(
                       color: Color(0xffE8E8EE),
                       borderRadius:
@@ -158,7 +156,7 @@ class doctorRegister1 extends StatelessWidget {
                             child: Text(
                               'Select Gender',
                               style: TextStyle(
-                                fontSize: 15.0.sp,
+                                fontSize: 20,
                                 color: Colors.grey.shade800,
                               ),
                             ),
@@ -174,7 +172,7 @@ class doctorRegister1 extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   defaultFormField(
                     context,
@@ -190,7 +188,7 @@ class doctorRegister1 extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   defaultFormField(
                     context,
@@ -209,7 +207,7 @@ class doctorRegister1 extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   defaultFormField(
                     context,
@@ -235,7 +233,7 @@ class doctorRegister1 extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 1.5.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 3.h),
@@ -503,7 +501,7 @@ class doctorRegister1 extends StatelessWidget {
             }),
         Text(
           '$value',
-          style: TextStyle(fontSize: 12.sp),
+          style: TextStyle(fontSize: 2.h),
         )
       ],
     );
@@ -520,7 +518,7 @@ class doctorRegister1 extends StatelessWidget {
             }),
         Text(
           '$value',
-          style: TextStyle(fontSize: 10.sp),
+          style: TextStyle(fontSize: 2.h),
         )
       ],
     );

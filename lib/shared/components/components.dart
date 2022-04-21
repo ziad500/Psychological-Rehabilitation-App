@@ -63,7 +63,7 @@ Widget defaultFormField(
   bool isPassword = false,
   required String? Function(String?)? validate,
   String? label,
-  double height = 7,
+  double height = 7.5,
   String? hint,
   Color? bodercolor,
   IconData? prefix,
@@ -71,7 +71,7 @@ Widget defaultFormField(
   int maxlines = 1,
   double hintsize = 2.5 /* 18.0 */,
   double labelsize = 2.5,
-  double verticalpadding = 15.0,
+  double verticalpadding = 18.0,
   double horizontalpadding = 15.0,
   Color BorderEnableColor = defaultColor,
   Color BorderColor = Colors.grey,
@@ -98,6 +98,7 @@ Widget defaultFormField(
         onTap: onTap,
         validator: validate,
         decoration: InputDecoration(
+          errorStyle: const TextStyle(fontSize: 0),
           counterText: "",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -113,10 +114,10 @@ Widget defaultFormField(
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
               borderSide: BorderSide(color: defaultColor)),
-          labelText: hint,
+          labelText: label,
           labelStyle:
               TextStyle(fontSize: labelsize.h, fontWeight: FontWeight.w400),
-          hintText: label,
+          hintText: hint,
           hintStyle:
               TextStyle(fontSize: hintsize.h, fontWeight: FontWeight.w400),
           prefixIcon: prefix != null

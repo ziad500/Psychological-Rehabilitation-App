@@ -37,7 +37,7 @@ class Applayout extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(40.0),
                       child: Image.network(
-                          "https://scontent.fcai22-1.fna.fbcdn.net/v/t39.30808-6/277168566_3170250476597636_7599140686835869072_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=e68yvALTt1AAX-Xwrt7&_nc_ht=scontent.fcai22-1.fna&oh=00_AT9YshvJapbz6u_cFEWwWW3TKUDvEi_ksBQDP_ymbF6Fbw&oe=62595A3F")),
+                          "https://scontent.fcai22-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=174925&_nc_ohc=9w1vCey7WysAX9eScbQ&_nc_ht=scontent.fcai22-1.fna&oh=00_AT_lRREybImxXPn64hDYskKnm0d_gr_injuVrM-EnM1tew&oe=628569CD")),
                 ),
               ),
               title: cubit.titleScreen[cubit.CurrentIndex]),
