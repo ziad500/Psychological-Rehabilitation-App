@@ -1,535 +1,239 @@
-import 'dart:ui';
-
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phsyo/layout/layout.dart';
-import 'package:phsyo/modules/forget_password/create_new_password.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register3.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register4.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-class doctorRegister3 extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var code1controller = TextEditingController();
-  var code2controller = TextEditingController();
-  var code3controller = TextEditingController();
-  var code4controller = TextEditingController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+import '../../../layout/cubit/app_cubit.dart';
+import '../../../shared/network/cashe_helper.dart';
 
-  var firstName = CasheHelper.getData(key: 'firstNameDoctor');
-  var lastName = CasheHelper.getData(key: 'lastNameDoctor');
-  var Phone = CasheHelper.getData(key: 'PhoneDoctor');
-  var Email = CasheHelper.getData(key: 'EmailDoctor');
-  var Password = CasheHelper.getData(key: 'PasswordDoctor');
-  var date = CasheHelper.getData(key: 'dateDoctor');
-  var LicIssuedDate = CasheHelper.getData(key: 'LicIssuedDateDoctor');
-  var LicExpiryDate = CasheHelper.getData(key: 'LicExpiryDateDoctor');
-  var profileImage = CasheHelper.getData(key: 'profileImageDoctor');
-  var licenseImage = CasheHelper.getData(key: 'licenseImageDoctor');
-  var Gender = CasheHelper.getData(key: 'GenderDoctor');
+class doctorRegister3 extends StatefulWidget {
+  final String firstName;
+  final String lastName;
+  var mobileNumber;
+  final String Gender;
+  final String email;
+  final String password;
+  final String date;
+  final String Profession;
+  final List languages;
+  doctorRegister3(
+      {Key? key,
+      required this.firstName,
+      required this.lastName,
+      required this.Gender,
+      required this.email,
+      required this.mobileNumber,
+      required this.password,
+      required this.date,
+      required this.Profession,
+      required this.languages})
+      : super(key: key);
+
+  @override
+  State<doctorRegister3> createState() => _doctorRegister3State();
+}
+
+class _doctorRegister3State extends State<doctorRegister3> {
+  var formKey = GlobalKey<FormState>();
+  // bool TermsOfService = false;
+
+  var LicIssuedDateController = TextEditingController();
+  var LicExpiryDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: defaultColor,
-        key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: defaultColor,
-          elevation: 0.0,
-        ),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxHeight >= 600) {
-              return BigScreen(context);
-            } else {
-              return SmallScreen(context);
-            }
-          },
-        ));
-  }
-
-  Widget BigScreen(context) => ListView(
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Stack(
-            children: [
-              Column(
-                children: [
-                  Container(height: 20.h, color: defaultColor),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(blurRadius: 60.0)],
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(40.0)),
-                    ),
-                    height: 67.h,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Form(
-                                key: formKey,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      SizedBox(
-                                        height: 8.h,
-                                      ),
-                                      Center(
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Text(
-                                            'Verify Your Email',
+      appBar: AppBar(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Center(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => bottomSheet(
+                            camera: () => AppCubit.get(context)
+                                .getlicenseImage(ImageSource.camera),
+                            gallery: () => AppCubit.get(context)
+                                .getlicenseImage(ImageSource.gallery),
+                          ),
+                        );
+                      },
+                      child: Container(
+                          width: double.infinity,
+                          height: 180,
+                          decoration: const BoxDecoration(
+                            color: Color(0xffE8E8EE),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                          child: /* AppCubit.get(context).licenseImage == null
+                                  ? 
+                                  : */
+                              AppCubit.get(context).licenseImage == null
+                                  ? FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Row(
+                                        children: const [
+                                          Icon(
+                                            Icons.image,
+                                            color: defaultColor,
+                                            size: 35,
+                                          ),
+                                          Text(
+                                            'Upload photo of license',
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 24.sp),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                      FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Please enter the 4 digit code sent ',
-                                              style: TextStyle(
-                                                fontSize: 12.sp,
-                                              ),
-                                            ),
-                                            Text(
-                                              'To ${Email} ',
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code1controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code2controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code3controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.h,
-                                          ),
-                                          Container(
-                                            width: 60.0,
-                                            child: CodeFormField(
-                                              context,
-                                              verticalpadding: 20.0,
-                                              controller: code4controller,
-                                              type: TextInputType.number,
-                                              validate: (String? value) {
-                                                if (value!.isEmpty) {
-                                                  return "Please Enter Your Email";
-                                                }
-                                              },
-                                            ),
-                                          ),
+                                                color: Colors.grey,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
+                                          )
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: 4.h,
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: Image.file(
+                                          AppCubit.get(context).licenseImage!,
+                                          fit: BoxFit.cover,
+                                        ).image)),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 3.h),
-                                        child: defaultButton(
-                                            function: () {
-                                              if (formKey.currentState!
-                                                  .validate()) {
-                                                showModalBottomSheet(
-                                                  barrierColor:
-                                                      Colors.transparent,
-                                                  isDismissible: false,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
-                                                  ),
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      bottomSheet(context),
-                                                );
-                                              }
-                                            },
-                                            text: 'Verify',
-                                            isUpperCase: true),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                        ],
-                      ),
+                                    )),
                     ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.only(top: 0.1.h),
-                child: SizedBox(
-                  height: 25.h,
-                  child: Center(
-                    child: Row(
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Row(
                       children: [
                         Expanded(
-                          child: Image(
-                            image: AssetImage(
-                                'icons/undraw_mobile_inbox_re_ciwq.png'),
+                          child: defaultFormField(
+                            context,
+                            hint: 'Lic. Issued Date',
+                            controller: LicIssuedDateController,
+                            type: TextInputType.text,
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter avalid Date";
+                              }
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 1.h,
+                        ),
+                        Expanded(
+                          child: defaultFormField(
+                            context,
+                            hint: 'Lic. Expiry Date',
+                            controller: LicExpiryDateController,
+                            type: TextInputType.text,
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter avalid Date";
+                              }
+                            },
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-
-  Widget SmallScreen(context) => ListView(
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Stack(
-            children: [
-              Column(
-                children: [
-                  Container(height: 20.h, color: defaultColor),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(blurRadius: 60.0)],
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(40.0)),
-                    ),
-                    height: 75.h,
-                    width: double.infinity,
-                    child: ListView(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(30.0),
+                    /*           ListTile(
+                      title: CheckboxListTile(
+                        contentPadding: EdgeInsets.all(0),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: TermsOfService,
+                        onChanged: (value) {
+                          setState(() {
+                            TermsOfService = value!;
+                            if (value == true) {
+                              TermsOfService = true;
+                            } else if (value == false) {
+                              TermsOfService = false;
+                            }
+                          });
+                        },
+                        title: FittedBox(
+                          fit: BoxFit.scaleDown,
                           child: Row(
                             children: [
-                              Expanded(
-                                child: Form(
-                                    key: formKey,
-                                    child: Center(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          SizedBox(
-                                            height: 8.h,
-                                          ),
-                                          Center(
-                                            child: Text(
-                                              'Verify Your Email',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18.sp),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 1.h,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Please enter the 4 digit code sent ',
-                                                style: TextStyle(
-                                                    fontSize: 11.5.sp),
-                                              ),
-                                              Text(
-                                                'To ${Email} ',
-                                                style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 2.h,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: 60.0,
-                                                child: CodeFormField(
-                                                  context,
-                                                  verticalpadding: 15.0,
-                                                  controller: code1controller,
-                                                  type: TextInputType.number,
-                                                  validate: (String? value) {
-                                                    if (value!.isEmpty) {
-                                                      return "Please Enter Your Email";
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 2.h,
-                                              ),
-                                              Container(
-                                                width: 60.0,
-                                                child: CodeFormField(
-                                                  context,
-                                                  verticalpadding: 15.0,
-                                                  controller: code2controller,
-                                                  type: TextInputType.number,
-                                                  validate: (String? value) {
-                                                    if (value!.isEmpty) {
-                                                      return "Please Enter Your Email";
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 2.h,
-                                              ),
-                                              Container(
-                                                width: 60.0,
-                                                child: CodeFormField(
-                                                  context,
-                                                  verticalpadding: 15.0,
-                                                  controller: code3controller,
-                                                  type: TextInputType.number,
-                                                  validate: (String? value) {
-                                                    if (value!.isEmpty) {
-                                                      return "Please Enter Your Email";
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 2.h,
-                                              ),
-                                              Container(
-                                                width: 60.0,
-                                                child: CodeFormField(
-                                                  context,
-                                                  verticalpadding: 15.0,
-                                                  controller: code4controller,
-                                                  type: TextInputType.number,
-                                                  validate: (String? value) {
-                                                    if (value!.isEmpty) {
-                                                      return "Please Enter Your Email";
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 3.h),
-                                            child: defaultButton(
-                                                verticalpadding: 10.0,
-                                                textsize: 10.0,
-                                                function: () {
-                                                  if (formKey.currentState!
-                                                      .validate()) {
-                                                    showModalBottomSheet(
-                                                      barrierColor:
-                                                          Colors.transparent,
-                                                      isDismissible: false,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40.0),
-                                                      ),
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          bottomSheet(context),
-                                                    );
-                                                  }
-                                                },
-                                                text: 'Verify',
-                                                isUpperCase: true),
-                                          ),
-                                          SizedBox(
-                                            height: 3.h,
-                                          ),
-                                        ],
-                                      ),
-                                    )),
+                              Text(
+                                'I\'ve read and agree with ',
+                                style: TextStyle(
+                                    fontSize: 2.h, fontWeight: FontWeight.bold),
                               ),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Terms of service',
+                                    style: TextStyle(
+                                        color: defaultColor,
+                                        fontSize: 2.h,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                             ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.only(top: 0.1.h),
-                child: SizedBox(
-                  height: 25.h,
-                  child: Center(
-                    child: Row(
+                       */
+                    defaultButton(
+                        verticalpadding: 10.0,
+                        textsize: 10.0,
+                        function: () {
+                          if (formKey.currentState!.validate()) {
+                            print('success');
+                            navigateTo(
+                                context,
+                                doctorRegister4(
+                                  Gender: widget.Gender,
+                                  LicExpiryDate:
+                                      LicExpiryDateController.text.toString(),
+                                  date: widget.date,
+                                  LicIssuedDate:
+                                      LicIssuedDateController.text.toString(),
+                                  email: widget.email,
+                                  firstName: widget.firstName,
+                                  lastName: widget.lastName,
+                                  mobileNumber: widget.mobileNumber,
+                                  password: widget.password,
+                                  Profession: widget.Profession,
+                                  languages: widget.languages,
+                                ));
+                          }
+                        },
+                        text: 'continue'),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Image(
-                            image: AssetImage(
-                                'icons/undraw_mobile_inbox_re_ciwq.png'),
-                          ),
-                        ),
+                        const Text('Learn about'),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'Privacy',
+                              style: TextStyle(color: defaultColor),
+                            ))
                       ],
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
-      );
-
-  Widget bottomSheet(context) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-        child: DottedBorder(
-          dashPattern: [10, 5, 10, 5, 10, 5],
-          radius: Radius.circular(40.0),
-          borderType: BorderType.RRect,
-          color: Colors.red,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
-            ),
-            height: 350.0,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Image(
-                    image: AssetImage('icons/undraw_completed_re_cisp.png'),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    'Registration Done',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
-                  ),
-                  Text(
-                    'Successfully',
-                    style: TextStyle(
-                        fontSize: 13.sp,
-                        color: defaultColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  defaultButton(
-                      function: () {
-                        navigateAndFinish(context, Applayout());
-                      },
-                      text: 'Start Your Journey')
-                ],
               ),
             ),
           ),
         ),
-      );
-
-  /*  Center(
-                child: defaultButton(
-                    function: () {
-                      showModalBottomSheet(
-                        barrierColor: Colors.transparent,
-                        isDismissible: false,
-                        backgroundColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                        context: context,
-                        builder: (context) => bottomSheet(),
-                      );
-                    },
-                    text: 'continue')), */
-
+      ),
+    );
+  }
 }

@@ -25,22 +25,6 @@ class clientRegister1 extends StatelessWidget {
 
   var radioValue = 0;
 
-  void passData(context) {
-    CasheHelper.saveData(
-        key: 'firstNameClient', value: firstNameController.text.toString());
-    CasheHelper.saveData(
-        key: 'lastNameClient', value: lastNameController.text.toString());
-    CasheHelper.saveData(
-        key: 'PhoneClient', value: mopileNumberController.text);
-    CasheHelper.saveData(
-        key: 'EmailClient', value: EmailController.text.toString());
-    CasheHelper.saveData(
-        key: 'PasswordClient', value: passwordController.text.toString());
-    CasheHelper.saveData(
-        key: 'GenderClient',
-        value: RegisterCubit.get(context).radiovalue.toString());
-  }
-
   clientRegister1({Key? key}) : super(key: key);
 
   @override
@@ -61,442 +45,257 @@ class clientRegister1 extends StatelessWidget {
                 backgroundColor: Colors.white,
                 elevation: 0.0,
               ),
-              body: bigScreen(context));
-        },
-      ),
-    );
-  }
-
-  Widget bigScreen(context) => Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 18, right: 18, bottom: 18),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'improve your mental health by',
-                          style: TextStyle(color: Colors.grey, fontSize: 3.h),
-                        ),
-                        Text(
-                          'joining our family .',
-                          style: TextStyle(color: Colors.grey, fontSize: 3.h),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: defaultFormField(
-                          context,
-                          hint: 'first name',
-                          controller: firstNameController,
-                          type: TextInputType.text,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter Your first name";
-                              /* showToast(
-                                  text: "Please Enter Your first name",
-                                  state: ToastStates.ERROR); */
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 1.h,
-                      ),
-                      Expanded(
-                        child: defaultFormField(
-                          context,
-                          hint: 'last name',
-                          controller: lastNameController,
-                          type: TextInputType.text,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter Your last name";
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  defaultFormField(
-                    context,
-                    hint: 'Mobile Number',
-                    controller: mopileNumberController,
-                    type: TextInputType.number,
-                    validate: (value) {
-                      if (value!.length != 11) {
-                        return "please enter avalid number ";
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 85,
-                    decoration: BoxDecoration(
-                      color: Color(0xffE8E8EE),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20.0)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0.0),
+              body: Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 18, right: 18, bottom: 18),
+                    child: Form(
+                      key: formKey,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 5),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'Select Gender',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.grey.shade800,
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'improve your mental health by',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 3.h),
                                 ),
-                              ),
+                                Text(
+                                  'joining our family .',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 3.h),
+                                ),
+                              ],
                             ),
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
                           ),
                           Row(
                             children: [
-                              Expanded(child: buildRadioBig('male', context)),
-                              Expanded(child: buildRadioBig('Female', context)),
+                              Expanded(
+                                child: defaultFormField(
+                                  context,
+                                  hint: 'first name',
+                                  controller: firstNameController,
+                                  type: TextInputType.text,
+                                  validate: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Please Enter Your first name";
+                                      /* showToast(
+                                  text: "Please Enter Your first name",
+                                  state: ToastStates.ERROR); */
+                                    }
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 1.h,
+                              ),
+                              Expanded(
+                                child: defaultFormField(
+                                  context,
+                                  hint: 'last name',
+                                  controller: lastNameController,
+                                  type: TextInputType.text,
+                                  validate: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Please Enter Your last name";
+                                    }
+                                  },
+                                ),
+                              ),
                             ],
-                          )
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          defaultFormField(
+                            context,
+                            hint: 'Mobile Number',
+                            controller: mopileNumberController,
+                            type: TextInputType.number,
+                            validate: (value) {
+                              if (value!.length != 11) {
+                                return "please enter avalid number ";
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 85,
+                            decoration: BoxDecoration(
+                              color: Color(0xffE8E8EE),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20.0)),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 15, top: 5),
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'Select Gender',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child:
+                                              buildRadioBig('male', context)),
+                                      Expanded(
+                                          child:
+                                              buildRadioBig('Female', context)),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          defaultFormField(
+                            context,
+                            hint: 'Email Address',
+                            controller: EmailController,
+                            type: TextInputType.emailAddress,
+                            validate: (String? value) {
+                              final bool isValid =
+                                  EmailValidator.validate(value!);
+
+                              if (isValid == false || value.isEmpty) {
+                                return "Please Enter valid Email";
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          defaultFormField(
+                            context,
+                            hint: 'Password',
+                            isPassword:
+                                RegisterCubit.get(context).passwordvisible,
+                            controller: passwordController,
+                            type: TextInputType.visiblePassword,
+                            suffix: RegisterCubit.get(context)
+                                .suffixpasswordvisible,
+                            suffixPressed: () {
+                              RegisterCubit.get(context)
+                                  .changepasswordvisible();
+                            },
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter Your Password";
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          defaultFormField(
+                            context,
+                            hint: 'Confirm Password',
+                            isPassword: RegisterCubit.get(context)
+                                .passwordConfirmVisible,
+                            controller: confirmPasswordController,
+                            type: TextInputType.visiblePassword,
+                            suffix: RegisterCubit.get(context)
+                                .suffixpasswordConfirmVisible,
+                            suffixPressed: () {
+                              RegisterCubit.get(context)
+                                  .changePasswordConfirmVisible();
+                            },
+                            onSubmit: (value) {
+                              if (formKey.currentState!.validate()) {}
+                            },
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter your passowrd again";
+                              } else if (value != passwordController.text) {
+                                return "password not match";
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: 1.5.h,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 3.h),
+                            child: defaultButton(
+                                function: () {
+                                  //print(RegisterCubit.get(context).radiovalue);
+                                  if (formKey.currentState!.validate()) {
+                                    navigateTo(
+                                        context,
+                                        clientRegister2(
+                                          email:
+                                              EmailController.text.toString(),
+                                          firstName: firstNameController.text
+                                              .toString(),
+                                          lastName: lastNameController.text
+                                              .toString(),
+                                          Gender: RegisterCubit.get(context)
+                                              .radiovalue
+                                              .toString(),
+                                          mobileNumber:
+                                              mopileNumberController.text,
+                                          password: passwordController.text
+                                              .toString(),
+                                        ));
+                                  } else {
+                                    showToast(
+                                        text: 'please enter data',
+                                        state: ToastStates.ERROR);
+                                  }
+                                },
+                                text: 'Continue',
+                                isUpperCase: true),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Learn about'),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Privacy',
+                                    style: TextStyle(color: defaultColor),
+                                  ))
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  defaultFormField(
-                    context,
-                    hint: 'Email Address',
-                    controller: EmailController,
-                    type: TextInputType.emailAddress,
-                    validate: (String? value) {
-                      final bool isValid = EmailValidator.validate(value!);
-
-                      if (isValid == false || value.isEmpty) {
-                        return "Please Enter valid Email";
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  defaultFormField(
-                    context,
-                    hint: 'Password',
-                    isPassword: RegisterCubit.get(context).passwordvisible,
-                    controller: passwordController,
-                    type: TextInputType.visiblePassword,
-                    suffix: RegisterCubit.get(context).suffixpasswordvisible,
-                    suffixPressed: () {
-                      RegisterCubit.get(context).changepasswordvisible();
-                    },
-                    validate: (String? value) {
-                      if (value!.isEmpty) {
-                        return "Please Enter Your Password";
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  defaultFormField(
-                    context,
-                    hint: 'Confirm Password',
-                    isPassword:
-                        RegisterCubit.get(context).passwordConfirmVisible,
-                    controller: confirmPasswordController,
-                    type: TextInputType.visiblePassword,
-                    suffix:
-                        RegisterCubit.get(context).suffixpasswordConfirmVisible,
-                    suffixPressed: () {
-                      RegisterCubit.get(context).changePasswordConfirmVisible();
-                    },
-                    onSubmit: (value) {
-                      if (formKey.currentState!.validate()) {}
-                    },
-                    validate: (String? value) {
-                      if (value!.isEmpty) {
-                        return "Please Enter your passowrd again";
-                      } else if (value != passwordController.text) {
-                        return "password not match";
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 3.h),
-                    child: defaultButton(
-                        function: () {
-                          //print(RegisterCubit.get(context).radiovalue);
-                          if (formKey.currentState!.validate()) {
-                            passData(context);
-                            navigateTo(context, clientRegister2());
-                          } else {
-                            showToast(
-                                text: 'please enter data',
-                                state: ToastStates.ERROR);
-                          }
-                        },
-                        text: 'Continue',
-                        isUpperCase: true),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Learn about'),
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Privacy',
-                            style: TextStyle(color: defaultColor),
-                          ))
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-  Widget smallScreen(context) => SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(4.h),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'improve your mental health by joining our family',
-                        style: TextStyle(color: Colors.grey, fontSize: 12.0.sp),
-                      ),
-                    ),
-                  ],
                 ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: defaultFormField(
-                        context,
-                        hintsize: 10.0,
-                        verticalpadding: 10.0,
-                        hint: 'first name',
-                        controller: firstNameController,
-                        type: TextInputType.text,
-                        validate: (String? value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your first name";
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 1.h,
-                    ),
-                    Expanded(
-                      child: defaultFormField(
-                        context,
-                        hintsize: 10.0,
-                        verticalpadding: 10.0,
-                        hint: 'last name',
-                        controller: lastNameController,
-                        type: TextInputType.text,
-                        validate: (String? value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your last name";
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                defaultFormField(
-                  context,
-                  hintsize: 10.0,
-                  verticalpadding: 10.0,
-                  hint: 'Mobile Number',
-                  controller: mopileNumberController,
-                  type: TextInputType.number,
-                  validate: (value) {
-                    if (value!.length != 11) {
-                      return "please enter avalid number ";
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE8E8EE),
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 5.0),
-                          child: Text(
-                            'Select Gender',
-                            style: TextStyle(
-                              fontSize: 12.0.sp,
-                              color: Colors.grey.shade800,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Expanded(child: buildRadioSmall('male', context)),
-                            Expanded(child: buildRadioSmall('Female', context)),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                defaultFormField(context,
-                    hintsize: 10.0,
-                    verticalpadding: 10.0,
-                    hint: 'Email Address',
-                    controller: EmailController,
-                    type: TextInputType.text, validate: (String? value) {
-                  final bool isValid = EmailValidator.validate(value!);
-
-                  if (isValid == false || value.isEmpty) {
-                    return "Please Enter valid Email";
-                  }
-                }),
-                SizedBox(
-                  height: 2.h,
-                ),
-                defaultFormField(
-                  context,
-                  hintsize: 10.0,
-                  verticalpadding: 10.0,
-                  hint: 'Password',
-                  isPassword: RegisterCubit.get(context).passwordvisible,
-                  controller: passwordController,
-                  type: TextInputType.visiblePassword,
-                  suffix: RegisterCubit.get(context).suffixpasswordvisible,
-                  suffixPressed: () {
-                    RegisterCubit.get(context).changepasswordvisible();
-                  },
-                  validate: (String? value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter Your Password";
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                defaultFormField(
-                  context,
-                  hintsize: 10.0,
-                  verticalpadding: 10.0,
-                  hint: 'Confirm Password',
-                  isPassword: RegisterCubit.get(context).passwordConfirmVisible,
-                  controller: confirmPasswordController,
-                  type: TextInputType.visiblePassword,
-                  suffix:
-                      RegisterCubit.get(context).suffixpasswordConfirmVisible,
-                  suffixPressed: () {
-                    RegisterCubit.get(context).changePasswordConfirmVisible();
-                  },
-                  onSubmit: (value) {
-                    if (formKey.currentState!.validate()) {}
-                  },
-                  validate: (String? value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter your passowrd again";
-                    } else if (value != passwordController.text) {
-                      return "password not match";
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 3.h),
-                  child: defaultButton(
-                      verticalpadding: 10.0,
-                      textsize: 10.0,
-                      function: () {
-                        if (formKey.currentState!.validate()) {
-                          passData(context);
-                          print('login Success');
-                          navigateTo(context, clientRegister2());
-                        }
-                      },
-                      text: 'Continue',
-                      isUpperCase: true),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Learn about'),
-                    TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Privacy',
-                          style: TextStyle(color: defaultColor),
-                        ))
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+              ));
+        },
+      ),
+    );
+  }
 
   Widget buildRadioBig(String value, context) {
     return Row(
@@ -513,23 +312,6 @@ class clientRegister1 extends StatelessWidget {
             '$value',
             style: TextStyle(fontSize: 2.h),
           ),
-        )
-      ],
-    );
-  }
-
-  Widget buildRadioSmall(String value, context) {
-    return Row(
-      children: [
-        Radio(
-            value: value,
-            groupValue: RegisterCubit.get(context).radiovalue,
-            onChanged: (value) {
-              RegisterCubit.get(context).changeRadio(value);
-            }),
-        Text(
-          '$value',
-          style: TextStyle(fontSize: 10.sp),
         )
       ],
     );

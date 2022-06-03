@@ -25,7 +25,7 @@ class EditeProfileScreen extends StatelessWidget {
         trustContactController.text =
             'Trust Contact Phone : ${model?.trustContact}';
         TrustContactRelationController.text =
-            'Trust Contact Relation : ${model?.contactRelation}';
+            'Relation : ${model?.contactRelation}';
         EmailController.text = 'Email : ${model?.message}';
         phoneController.text = 'Phone : ${model?.mobilePhone}';
         mediacalHistoryController.text =
@@ -60,7 +60,7 @@ class EditeProfileScreen extends StatelessWidget {
                     ),
                     defaultFormField(context,
                         controller: NameController,
-                        label: 'user Name',
+                        hint: 'user Name',
                         type: TextInputType.text,
                         height: 8, validate: (String? value) {
                       if (value!.isEmpty) {
@@ -72,7 +72,7 @@ class EditeProfileScreen extends StatelessWidget {
                     ),
                     defaultFormField(context,
                         controller: EmailController,
-                        label: 'Email',
+                        hint: 'Email',
                         height: 8,
                         type: TextInputType.text, validate: (String? value) {
                       final bool isValid = EmailValidator.validate(value!);
@@ -87,7 +87,7 @@ class EditeProfileScreen extends StatelessWidget {
                     defaultFormField(context,
                         controller: phoneController,
                         height: 8,
-                        label: 'phone Number',
+                        hint: 'phone Number',
                         type: TextInputType.text, validate: (String? value) {
                       if (value!.isEmpty) {
                         return "Please Enter Your phone Number";
@@ -102,7 +102,7 @@ class EditeProfileScreen extends StatelessWidget {
                           flex: 2,
                           child: defaultFormField(context,
                               controller: trustContactController,
-                              label: 'Trust Contact',
+                              hint: 'Trust Contact',
                               type: TextInputType.text,
                               height: 8, validate: (String? value) {
                             if (value!.isEmpty) {
@@ -117,7 +117,7 @@ class EditeProfileScreen extends StatelessWidget {
                           flex: 1,
                           child: defaultFormField(context,
                               controller: TrustContactRelationController,
-                              label: 'Relation',
+                              hint: 'Relation',
                               height: 8,
                               type: TextInputType.text,
                               validate: (String? value) {
@@ -133,7 +133,7 @@ class EditeProfileScreen extends StatelessWidget {
                     ),
                     defaultFormField(
                       context,
-                      label: 'Medical History',
+                      hint: 'Medical History',
                       maxlines: 4,
                       height: 13,
                       controller: mediacalHistoryController,

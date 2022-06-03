@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/Doctor/doctor_menu_screen.dart';
+import 'package:phsyo/models/articlesModel/articles_model.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
@@ -132,5 +133,30 @@ class AppCubit extends Cubit<AppStates> {
     String base64 = base64Encode(licenseImage!.readAsBytesSync());
     String imageName = licenseImage!.path.split('/').last;
     CasheHelper.saveData(key: key, value: imageName);
+  }
+
+  List<articlesModel> articles = [
+    articlesModel(
+        name: 'Ziad Elblidy',
+        category: '',
+        title: 'testt new article',
+        article:
+            'testt new article testt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new article',
+        date: DateTime.now().toString())
+  ];
+  articlesModel? articlesmodel;
+  void addToArticles({
+    required String name,
+    required String category,
+    required String title,
+    required String article,
+  }) {
+    articles.add(articlesModel(
+        name: name,
+        category: category,
+        title: title,
+        article: article,
+        date: DateTime.now().toString()));
+    emit(addToArticlesSuccess());
   }
 }

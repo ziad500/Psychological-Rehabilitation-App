@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phsyo/constants.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_Screen.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
@@ -18,7 +19,12 @@ class MenuScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            defaultButton(function: () {}, icon: Icons.logout, text: 'Log Out'),
+            defaultButton(
+                function: () {
+                  signout(context);
+                },
+                icon: Icons.logout,
+                text: 'Log Out'),
           ],
         ),
       ),

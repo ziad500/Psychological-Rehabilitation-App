@@ -4,11 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
+import 'package:phsyo/jisti.dart';
 import 'package:phsyo/layout/Doctor_cubit/cubit/app_cubit.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/layout/Doctor/doctor_layout.dart';
+import 'package:phsyo/modules/appoint_screen/appoint_details.dart';
+import 'package:phsyo/modules/appoint_screen/appoint_payment.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_Screen.dart';
@@ -29,6 +32,7 @@ import 'package:phsyo/modules/register/client%20registraion/client_register3.dar
 import 'package:phsyo/modules/register/client%20registraion/client_register4.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register1.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register2.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register3.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/test.dart';
@@ -46,6 +50,7 @@ import 'package:phsyo/styles/colors.dart';
 import 'layout/Doctor/doctor_profile_screen.dart';
 import 'modules/appoint_screen/complex.dart';
 import 'modules/appoint_screen/s.dart';
+import 'modules/register/doctor registration/doctor_register4.dart';
 import 'modules/splashScreen/splash_screen.dart';
 
 Future<void> main() async {
@@ -106,36 +111,49 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             return Sizer(builder: (context, orientation, deviceType) {
               return MaterialApp(
-                useInheritedMediaQuery: true,
-                locale: DevicePreview.locale(context),
-                builder: DevicePreview.appBuilder,
-                theme: ThemeData(
-                  scaffoldBackgroundColor: Colors.white,
-                  appBarTheme: const AppBarTheme(
-                    backgroundColor: Colors.white,
-                    centerTitle: true,
-                    titleTextStyle: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    iconTheme: IconThemeData(
-                      color: Colors.black,
+                  useInheritedMediaQuery: true,
+                  locale: DevicePreview.locale(context),
+                  builder: DevicePreview.appBuilder,
+                  theme: ThemeData(
+                    scaffoldBackgroundColor: Colors.white,
+                    appBarTheme: const AppBarTheme(
+                      backgroundColor: Colors.white,
+                      centerTitle: true,
+                      titleTextStyle: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      iconTheme: IconThemeData(
+                        color: Colors.black,
+                      ),
+                    ),
+                    primarySwatch: Colors.blue,
+                    textTheme: GoogleFonts.poppinsTextTheme(
+                      Theme.of(context).textTheme,
                     ),
                   ),
-                  primarySwatch: Colors.blue,
-                  textTheme: GoogleFonts.poppinsTextTheme(
-                    Theme.of(context).textTheme,
-                  ),
-                ),
-                debugShowCheckedModeBanner: false,
-                home: /* doctorRegister2() */
-                    AnimatedSplashScreen(
+                  debugShowCheckedModeBanner: false,
+                  home:
+                      AppointDetails() /* doctorRegister4(
+                    Gender: '',
+                    LicExpiryDate: '',
+                    LicIssuedDate: '',
+                    Profession: '',
+                    date: '',
+                    email: '',
+                    firstName: '',
+                    languages: [],
+                    lastName: '',
+                    mobileNumber: '',
+                    password: 's',
+                  ) */
+                  /*     AnimatedSplashScreen(
                   splash: const SplashScreen(),
                   nextScreen: startWidget,
                   duration: 3000,
                   splashTransition: SplashTransition.fadeTransition,
-                ),
-              );
+                ), */
+                  );
             });
           },
         ));

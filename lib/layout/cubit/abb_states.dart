@@ -9,3 +9,5 @@ class AppChangeBottomNav extends AppStates {}
 class ImagePickerProfileSuccess extends AppStates {}
 
 class ImagePickerLicenseSuccess extends AppStates {}
+
+class addToArticlesSuccess extends AppStates {}

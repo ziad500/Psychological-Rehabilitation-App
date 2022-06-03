@@ -20,6 +20,30 @@ class ServicesModel {
 }
 
 class clientRegister3 extends StatefulWidget {
+  final String firstName;
+  final String lastName;
+  var mobileNumber;
+  final String Gender;
+  final String email;
+  final String password;
+  final String date;
+  var MopileEmergency;
+  final String contactRelation;
+  final String mediacalHistory;
+
+  clientRegister3({
+    Key? key,
+    required this.firstName,
+    required this.lastName,
+    required this.mobileNumber,
+    required this.Gender,
+    required this.email,
+    required this.password,
+    required this.date,
+    required this.MopileEmergency,
+    required this.contactRelation,
+    required this.mediacalHistory,
+  }) : super(key: key);
   @override
   State<clientRegister3> createState() => _clientRegister3State();
 }
@@ -72,116 +96,49 @@ class _clientRegister3State extends State<clientRegister3> {
           backgroundColor: Colors.white,
           elevation: 0.0,
         ),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxHeight >= 600.0) {
-              return BigScreen(context);
-            } else {
-              return SmallScreen(context);
-            }
-          },
-        ));
-  }
-
-  Widget BigScreen(context) => Column(
-        children: [
-          const FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text('What type of session are you interested in ?')),
-          const SizedBox(
-            height: 10.0,
-          ),
-          SizedBox(
-            height: 60.h,
-            child: ListView.separated(
-              shrinkWrap: true,
-              separatorBuilder: (context, index) => myDivider(),
-              scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => ListTileItemm(Services[index]),
-              itemCount: Services.length,
-            ),
-          ),
-          const Spacer(),
-          defaultButton(
-            function: () {
-              if (text.length == 0) {
-                showToast(text: 'Please Chosse', state: ToastStates.ERROR);
-              } else {
-                CasheHelper.saveData(key: 'Services', value: text.toList());
-                print(text.toList());
-                navigateTo(context, clientRegister4());
-              }
-            },
-            text: 'continue',
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Learn about'),
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Privacy',
-                      style: TextStyle(color: defaultColor),
-                    ))
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          )
-        ],
-      );
-
-  Widget SmallScreen(context) => SingleChildScrollView(
-        child: Column(
+        body: Column(
           children: [
-            Text(
-              'What type of session are you interested in ?',
-              style: TextStyle(fontSize: 10.0.sp),
+            const FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text('What type of session are you interested in ?')),
+            const SizedBox(
+              height: 10.0,
             ),
             SizedBox(
-              height: 5.0,
-            ),
-            SizedBox(
-              height: 350.0,
+              height: 60.h,
               child: ListView.separated(
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => myDivider(),
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) =>
-                    ListTileItemmSmall(Services[index]),
+                itemBuilder: (context, index) => ListTileItemm(Services[index]),
                 itemCount: Services.length,
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const Spacer(),
             defaultButton(
               function: () {
-                // removeData();
-
+                print(widget.email);
                 if (text.length == 0) {
-                  var ad = AlertDialog(
-                    title: Text(
-                      'please choose! ',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  );
-                  showDialog(
-                    context: context,
-                    builder: (context) => ad,
-                  );
+                  showToast(text: 'Please Chosse', state: ToastStates.ERROR);
                 } else {
-                  CasheHelper.saveData(key: 'Service', value: text.toString());
-                  navigateTo(context, clientRegister4());
+                  CasheHelper.saveData(key: 'Services', value: text.toList());
+                  print(text.toList());
+                  navigateTo(
+                      context,
+                      clientRegister4(
+                        Gender: widget.Gender,
+                        MopileEmergency: widget.MopileEmergency,
+                        contactRelation: widget.contactRelation,
+                        date: widget.date,
+                        email: widget.email,
+                        firstName: widget.firstName,
+                        lastName: widget.lastName,
+                        mediacalHistory: widget.mediacalHistory,
+                        mobileNumber: widget.mobileNumber,
+                        password: widget.password,
+                        services: text.toList(),
+                      ));
                 }
               },
               text: 'continue',
@@ -189,21 +146,27 @@ class _clientRegister3State extends State<clientRegister3> {
             SizedBox(
               height: 1.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Learn about'),
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Privacy',
-                      style: TextStyle(color: defaultColor),
-                    ))
-              ],
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Learn about'),
+                  TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Privacy',
+                        style: TextStyle(color: defaultColor),
+                      ))
+                ],
+              ),
             ),
+            const SizedBox(
+              height: 20,
+            )
           ],
-        ),
-      );
+        ));
+  }
 
   Widget ListTileItemm(ServicesModel model) => Column(
         children: [
@@ -231,35 +194,6 @@ class _clientRegister3State extends State<clientRegister3> {
                   '${model.title}',
                   style: TextStyle(fontSize: 13.0.sp),
                 ),
-              ),
-            ),
-          ),
-        ],
-      );
-
-  Widget ListTileItemmSmall(ServicesModel model) => Column(
-        children: [
-          ListTile(
-            leading: Image.asset(
-              '${model.avatarImage}',
-              width: 30,
-              height: 30,
-            ),
-            title: CheckboxListTile(
-              value: model.isCheck,
-              onChanged: (value) {
-                setState(() {
-                  model.isCheck = value!;
-                  if (value == true) {
-                    text.add('${model.title}');
-                  } else if (value == false) {
-                    text.remove('${model.title}');
-                  }
-                });
-              },
-              title: Text(
-                '${model.title}',
-                style: TextStyle(fontSize: 13.0.sp),
               ),
             ),
           ),

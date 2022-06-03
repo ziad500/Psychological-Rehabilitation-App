@@ -8,11 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:phsyo/models/Doctor_register_model.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 import 'package:http_parser/http_parser.dart';
+
+import '../../../models/login_model/user_login_model.dart';
+import '../../../shared/components/components.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(LoginInitialState());
@@ -63,6 +67,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(ImagePickerProfileSuccess());
     print(profileImage!.path);
   }
+
 /*    void getNameImage(String key) {
     if (profileImage == null) return;
     String base64 = base64Encode(profileImage!.readAsBytesSync());
@@ -71,6 +76,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         emit(ImagePickerProfileSuccess());
 
   } */
+  UserModel? loginmodel;
 
   void signUp(
       {required String firstName,
@@ -112,9 +118,14 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
     await DioHelper.postData(url: REGISTER, data: data).then((value) {
       print(value);
+      loginmodel = UserModel.fromJson(value.data);
       emit(AppRegisterSuccessState());
     }).catchError((error) {
-      print('$error');
+      if (error is DioError) {
+        loginmodel = UserModel.fromJson(error.response!.data);
+        showToast(text: loginmodel!.message, state: ToastStates.ERROR);
+        print(loginmodel!.message);
+      }
       emit(AppRegisterErrorState());
     });
 
@@ -174,5 +185,87 @@ class RegisterCubit extends Cubit<RegisterStates> {
       emit(AppRegisterErrorState());
     });
     return response.toString();
+  }
+
+  File? profileDoctorImage;
+
+  Future getProfileDoctorImage(
+    ImageSource source,
+  ) async {
+    final XFile? image = await picker.pickImage(
+        source: source, imageQuality: 50, maxHeight: 500, maxWidth: 500);
+    if (image == null) {
+      return null;
+    }
+    profileDoctorImage = File(image.path);
+
+    emit(ImagePickerProfileDoctorSuccess());
+    print(profileDoctorImage!.path);
+  }
+
+  DoctorRegisterModel? doctorRegisterModel;
+
+  void signUpDoctor(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password,
+      required String mobilePhone,
+      required String gender,
+      required String birthDate,
+      required List languages,
+      required String profession,
+      required String licIssuedDate,
+      required String licExpiryDate}) async {
+/*     String fileName = file!.path.split('/').last;
+ */
+    var bytes =
+        (await rootBundle.load('icons/pngegg.png')).buffer.asUint8List();
+
+    emit(AppRegisterDoctorLoadingState());
+    var data = FormData.fromMap({
+      'profileImage': profileDoctorImage == null
+          ? await MultipartFile.fromBytes(bytes)
+          : await MultipartFile.fromFile(
+              profileDoctorImage!.path,
+              contentType: new MediaType('image', 'jpg'),
+            ),
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'password': password,
+      'mobilePhone': mobilePhone,
+      'gender': gender,
+      'birthDate': birthDate,
+      'languages': languages,
+      'profession': profession,
+      'licIssuedDate': licIssuedDate,
+      'licExpiryDate': licExpiryDate
+    });
+
+    await DioHelper.postData(url: REGISTER_DOCTOR, data: data).then((value) {
+      print(value);
+      doctorRegisterModel = DoctorRegisterModel.fromJson(value.data);
+      emit(AppRegisterDoctorSuccessState());
+    }).catchError((error) {
+      if (error is DioError) {
+        doctorRegisterModel =
+            DoctorRegisterModel.fromJson(error.response!.data);
+        showToast(
+            text: doctorRegisterModel?.data?.msg, state: ToastStates.ERROR);
+        print(loginmodel!.message);
+        print(error.response);
+        print(error.response?.statusCode);
+      }
+      emit(AppRegisterDoctorErrorState());
+    });
+
+    /*  Dio dio = new Dio();
+
+    dio
+        .post("https://healthmental-you.herokuapp.com/auth/signup/User",
+            data: data)
+        .then((response) => print(response))
+        .catchError((error) => print(error)); */
   }
 }

@@ -21,3 +21,17 @@ class AppLoginErrorState extends LoginStates {
 }
 
 class changeRadioState extends LoginStates {}
+
+class AppLoginDoctorLoadingState extends LoginStates {}
+
+class AppLoginDoctorSuccessState extends LoginStates {
+/*   final UserModel loginModel;
+
+  AppLoginSuccessState(this.loginModel); */
+}
+
+class AppLoginDoctorErrorState extends LoginStates {
+/*   final String error;
+
+  AppLoginErrorState(this.error); */
+}

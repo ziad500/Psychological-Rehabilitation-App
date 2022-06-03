@@ -201,15 +201,22 @@ class LoginScreen extends StatelessWidget {
                                                               password:
                                                                   passwordController
                                                                       .text);
+                                                    } else if (LoginCubit.get(
+                                                                context)
+                                                            .radiovalue ==
+                                                        'Doctor') {
+                                                      LoginCubit.get(context)
+                                                          .doctorLogin(
+                                                              email:
+                                                                  emailController
+                                                                      .text,
+                                                              password:
+                                                                  passwordController
+                                                                      .text);
                                                     }
 
                                                     /* 
-                                            if (LoginCubit.get(
-                                                        context)
-                                                    .radiovalue ==
-                                                'Doctor') {
-                                              print('hi Doctor');
-                                            } else if (LoginCubit
+                                          else if (LoginCubit
                                                         .get(
                                                             context)
                                                     .radiovalue ==

@@ -8,9 +8,9 @@ class DioHelper {
       baseUrl: 'https://healthmental-you.herokuapp.com/',
       receiveDataWhenStatusError: true,
 
-/*       followRedirects: false,
- */ // will not throw errors
-      validateStatus: (status) => true,
+      followRedirects: false,
+      // will not throw errors
+      //validateStatus: (status) => true,
       /* connectTimeout: 20 * 1000,
       receiveTimeout: 20 * 1000, */
       /* sendTimeout: 20 * 1000,
@@ -47,5 +47,20 @@ class DioHelper {
       'Authorization': token,
     };
     return dio.post(url, queryParameters: query, data: data);
+  }
+
+  static Future<Response> putData(
+      {required String url,
+      Map<String, dynamic>? query,
+      String lang = 'en',
+      String? token,
+      required Map<String, dynamic> data}) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'lang': lang,
+      'Authorization': token,
+    };
+
+    return dio.put(url, queryParameters: query, data: data);
   }
 }
