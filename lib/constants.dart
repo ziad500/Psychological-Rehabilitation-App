@@ -1,10 +1,9 @@
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 
 void signout(context) {
-  AppCubit.get(context).CurrentIndex = 0;
+  AppCubit.get(context).currentIndex = 0;
   navigateAndFinish(context, LoginScreen());
   /*  CasheHelper.removeData(key: 'token').then((value) {
     if (value) {
@@ -15,3 +14,4 @@ void signout(context) {
 }
 
 dynamic token = '';
+bool? doctor = true;
