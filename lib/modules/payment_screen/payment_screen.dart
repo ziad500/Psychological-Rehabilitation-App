@@ -19,10 +19,10 @@ class _PaymentScreenState extends State<PaymentScreen>
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String CardNumber = '';
-  String CardHolderName = 'Holder Name';
-  String? ExpiryDate;
-  String? CVV;
+  String cardNumber = '';
+  String cardHolderName = 'Holder Name';
+  String? expiryDate;
+  String? cVV;
 
   String formatedCardNumber = '**** **** **** ****';
   String formatedExpiryDate = 'MM/YY';
@@ -34,28 +34,28 @@ class _PaymentScreenState extends State<PaymentScreen>
     cardNumberController = TextEditingController();
     cardNumberController.addListener(() {
       setState(() {
-        CardNumber = cardNumberController.text;
+        cardNumber = cardNumberController.text;
       });
     });
 
     cardHolderNameController = TextEditingController();
     cardHolderNameController.addListener(() {
       setState(() {
-        CardHolderName = cardHolderNameController.text;
+        cardHolderName = cardHolderNameController.text;
       });
     });
 
     expiryDateController = TextEditingController();
     expiryDateController.addListener(() {
       setState(() {
-        ExpiryDate = expiryDateController.text;
+        expiryDate = expiryDateController.text;
       });
     });
 
     cvvCodeController = TextEditingController();
     cvvCodeController.addListener(() {
       setState(() {
-        CVV = cvvCodeController.text;
+        cVV = cvvCodeController.text;
       });
     });
     cvvFocus.addListener(() {
@@ -132,7 +132,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                 ],
               ),
             ),
-            CrediteCard(),
+            crediteCard(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -149,7 +149,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                           maxLength: 16,
                           onChange: (value) {
                             formatedCardNumber =
-                                this.CardNumber.padRight(16, '*');
+                                this.cardNumber.padRight(16, '*');
 
                             formatedCardNumber =
                                 formatedCardNumber.replaceAllMapped(
@@ -186,7 +186,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 hint: 'Expiry Date',
                                 maxLength: 4, onChange: (value) {
                               formatedExpiryDate =
-                                  this.ExpiryDate!.padRight(2, 'YYY');
+                                  this.expiryDate!.padRight(2, 'YYY');
 
                               formatedExpiryDate =
                                   formatedExpiryDate.replaceFirstMapped(
@@ -209,7 +209,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 maxLength: 4,
                                 focusNode: cvvFocus,
                                 hint: 'CVV', onChange: (value) {
-                              formatedCVV = this.CVV!.padRight(4, '*');
+                              formatedCVV = this.cVV!.padRight(4, '*');
                             }, validate: (String? value) {
                               if (value!.isEmpty) {
                                 return 'please Enter CVV';
@@ -239,7 +239,7 @@ class _PaymentScreenState extends State<PaymentScreen>
     );
   }
 
-  Widget CrediteCard() {
+  Widget crediteCard() {
     return Transform(
         transform: Matrix4.identity()
           ..setEntry(3, 2, 0.001)
@@ -247,7 +247,7 @@ class _PaymentScreenState extends State<PaymentScreen>
               ? pi * flipAnimation!.value
               : (pi * (1 + flipAnimation!.value))),
         origin: Offset(MediaQuery.of(context).size.width / 2, 0),
-        child: flipAnimation!.value < 0.5 ? front() : Back());
+        child: flipAnimation!.value < 0.5 ? front() : back());
   }
 
   /* decoration: BoxDecoration(
@@ -309,7 +309,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 color: Colors.white,
                               ),
                             ),
-                            Text(CardHolderName,
+                            Text(cardHolderName,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -355,7 +355,7 @@ class _PaymentScreenState extends State<PaymentScreen>
     );
   }
 
-  Widget Back() {
+  Widget back() {
     return Transform(
       transform: Matrix4.identity()
         ..setEntry(3, 2, 0.001)

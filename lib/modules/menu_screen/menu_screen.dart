@@ -8,6 +8,8 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../layout/Doctor/doctor_edite_profile_screen.dart';
+
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
@@ -42,15 +44,29 @@ class MenuScreen extends StatelessWidget {
                         Icons.person,
                         color: Color(0xFF4A4B4D),
                       ),
-                      onTap: () => navigateTo(context, EditeProfileScreen())),
-                  menuItem(
-                    context,
-                    'Favourite Doctor',
-                    const Icon(
-                      Icons.favorite_border,
-                      color: Color(0xFF4A4B4D),
+                      onTap: () => navigateTo(
+                          context,
+                          doctor == true
+                              ? EditeProfileDoctorScreen()
+                              : EditeProfileScreen())),
+                  if (doctor == true)
+                    menuItem(
+                      context,
+                      'Available Hours',
+                      const Icon(
+                        Icons.timer,
+                        color: Color(0xFF4A4B4D),
+                      ),
                     ),
-                  ),
+                  if (doctor == false)
+                    menuItem(
+                      context,
+                      'Favourite Doctor',
+                      const Icon(
+                        Icons.favorite_border,
+                        color: Color(0xFF4A4B4D),
+                      ),
+                    ),
                   menuItem(
                       context,
                       'Payment Info',
@@ -59,15 +75,16 @@ class MenuScreen extends StatelessWidget {
                         color: Color(0xFF4A4B4D),
                       ),
                       onTap: () => navigateTo(context, PaymentScreen())),
-                  menuItem(
-                    context,
-                    'FAQ\'s',
-                    const Icon(
-                      Icons.quiz_outlined,
-                      color: Color(0xFF4A4B4D),
+                  if (doctor == false)
+                    menuItem(
+                      context,
+                      'FAQ\'s',
+                      const Icon(
+                        Icons.quiz_outlined,
+                        color: Color(0xFF4A4B4D),
+                      ),
+                      onTap: () => navigateTo(context, const FaqsScreen()),
                     ),
-                    onTap: () => navigateTo(context, const FaqsScreen()),
-                  ),
                 ],
               ),
             ),

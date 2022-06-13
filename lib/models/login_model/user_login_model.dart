@@ -1,7 +1,9 @@
 class UserModel {
   String? message;
-  bool? status;
+  String? token;
   String? userId;
+  bool type = true;
+
   String? name;
   String? mobilePhone;
   String? gender;
@@ -13,7 +15,7 @@ class UserModel {
 
   UserModel(
       {this.message,
-      this.status,
+      this.token,
       this.userId,
       this.name,
       this.mobilePhone,
@@ -26,7 +28,7 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    status = json['status'];
+    token = json['token'];
     userId = json['userId'];
     name = json['name'];
     mobilePhone = json['mobilePhone'];
@@ -41,7 +43,7 @@ class UserModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    data['status'] = this.status;
+    data['token'] = this.token;
     data['userId'] = this.userId;
     data['name'] = this.name;
     data['mobilePhone'] = this.mobilePhone;

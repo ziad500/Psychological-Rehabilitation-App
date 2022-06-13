@@ -23,11 +23,11 @@ class clientRegister3 extends StatefulWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
-  final String Gender;
+  final String gender;
   final String email;
   final String password;
   final String date;
-  var MopileEmergency;
+  var mopileEmergency;
   final String contactRelation;
   final String mediacalHistory;
 
@@ -36,11 +36,11 @@ class clientRegister3 extends StatefulWidget {
     required this.firstName,
     required this.lastName,
     required this.mobileNumber,
-    required this.Gender,
+    required this.gender,
     required this.email,
     required this.password,
     required this.date,
-    required this.MopileEmergency,
+    required this.mopileEmergency,
     required this.contactRelation,
     required this.mediacalHistory,
   }) : super(key: key);
@@ -49,19 +49,10 @@ class clientRegister3 extends StatefulWidget {
 }
 
 class _clientRegister3State extends State<clientRegister3> {
-  var ListController = PageController();
+  var listController = PageController();
   List<String> text = [];
 
-  void removeData() {
-    /* 
-    CasheHelper.removeData(key: 'date');
-    CasheHelper.removeData(key: 'Address');
-    CasheHelper.removeData(key: 'Country');
-    CasheHelper.removeData(key: 'City');
-    CasheHelper.removeData(key: 'mediacal History'); */
-  }
-
-  List<ServicesModel> Services = [
+  List<ServicesModel> services = [
     ServicesModel(
         title: 'individual sessions',
         avatarImage: 'icons/icons8-person-neutral-skin-type-1-and-2-80.png',
@@ -111,24 +102,24 @@ class _clientRegister3State extends State<clientRegister3> {
                 separatorBuilder: (context, index) => myDivider(),
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => ListTileItemm(Services[index]),
-                itemCount: Services.length,
+                itemBuilder: (context, index) => listTileItemm(services[index]),
+                itemCount: services.length,
               ),
             ),
             const Spacer(),
             defaultButton(
               function: () {
-                print(widget.email);
+                // print(widget.email);
                 if (text.length == 0) {
                   showToast(text: 'Please Chosse', state: ToastStates.ERROR);
                 } else {
                   CasheHelper.saveData(key: 'Services', value: text.toList());
-                  print(text.toList());
+                  //  print(text.toList());
                   navigateTo(
                       context,
                       clientRegister4(
-                        Gender: widget.Gender,
-                        MopileEmergency: widget.MopileEmergency,
+                        Gender: widget.gender,
+                        MopileEmergency: widget.mopileEmergency,
                         contactRelation: widget.contactRelation,
                         date: widget.date,
                         email: widget.email,
@@ -168,7 +159,7 @@ class _clientRegister3State extends State<clientRegister3> {
         ));
   }
 
-  Widget ListTileItemm(ServicesModel model) => Column(
+  Widget listTileItemm(ServicesModel model) => Column(
         children: [
           ListTile(
             leading: Image.asset(

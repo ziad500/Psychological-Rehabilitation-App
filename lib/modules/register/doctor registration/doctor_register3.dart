@@ -6,28 +6,27 @@ import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../layout/cubit/app_cubit.dart';
-import '../../../shared/network/cashe_helper.dart';
 
 class doctorRegister3 extends StatefulWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
-  final String Gender;
+  final String gender;
   final String email;
   final String password;
   final String date;
-  final String Profession;
+  final String profession;
   final List languages;
   doctorRegister3(
       {Key? key,
       required this.firstName,
       required this.lastName,
-      required this.Gender,
+      required this.gender,
       required this.email,
       required this.mobileNumber,
       required this.password,
       required this.date,
-      required this.Profession,
+      required this.profession,
       required this.languages})
       : super(key: key);
 
@@ -39,8 +38,8 @@ class _doctorRegister3State extends State<doctorRegister3> {
   var formKey = GlobalKey<FormState>();
   // bool TermsOfService = false;
 
-  var LicIssuedDateController = TextEditingController();
-  var LicExpiryDateController = TextEditingController();
+  var licIssuedDateController = TextEditingController();
+  var licExpiryDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
                           decoration: const BoxDecoration(
                             color: Color(0xffE8E8EE),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(20.0)),
+                                BorderRadius.all(Radius.circular(20.0)),
                           ),
                           child: /* AppCubit.get(context).licenseImage == null
                                   ? 
@@ -120,7 +119,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
                           child: defaultFormField(
                             context,
                             hint: 'Lic. Issued Date',
-                            controller: LicIssuedDateController,
+                            controller: licIssuedDateController,
                             type: TextInputType.text,
                             validate: (String? value) {
                               if (value!.isEmpty) {
@@ -136,7 +135,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
                           child: defaultFormField(
                             context,
                             hint: 'Lic. Expiry Date',
-                            controller: LicExpiryDateController,
+                            controller: licExpiryDateController,
                             type: TextInputType.text,
                             validate: (String? value) {
                               if (value!.isEmpty) {
@@ -191,22 +190,22 @@ class _doctorRegister3State extends State<doctorRegister3> {
                         textsize: 10.0,
                         function: () {
                           if (formKey.currentState!.validate()) {
-                            print('success');
+                            //  print('success');
                             navigateTo(
                                 context,
                                 doctorRegister4(
-                                  Gender: widget.Gender,
-                                  LicExpiryDate:
-                                      LicExpiryDateController.text.toString(),
+                                  gender: widget.gender,
+                                  licExpiryDate:
+                                      licExpiryDateController.text.toString(),
                                   date: widget.date,
-                                  LicIssuedDate:
-                                      LicIssuedDateController.text.toString(),
+                                  licIssuedDate:
+                                      licIssuedDateController.text.toString(),
                                   email: widget.email,
                                   firstName: widget.firstName,
                                   lastName: widget.lastName,
                                   mobileNumber: widget.mobileNumber,
                                   password: widget.password,
-                                  Profession: widget.Profession,
+                                  profession: widget.profession,
                                   languages: widget.languages,
                                 ));
                           }

@@ -20,7 +20,7 @@ class clientRegister2 extends StatefulWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
-  final String Gender;
+  final String gender;
   final String email;
   final String password;
 
@@ -31,7 +31,7 @@ class clientRegister2 extends StatefulWidget {
       required this.mobileNumber,
       required this.email,
       required this.password,
-      required this.Gender})
+      required this.gender})
       : super(key: key);
 
   @override
@@ -45,7 +45,7 @@ class _clientRegister2State extends State<clientRegister2> {
 
   var formKey = GlobalKey<FormState>();
 
-  var MopileEmergencyController = TextEditingController();
+  var mopileEmergencyController = TextEditingController();
 
   var contactRelationController = TextEditingController();
 
@@ -174,11 +174,11 @@ class _clientRegister2State extends State<clientRegister2> {
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                     isDense: true,
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        10, 10, 10, 0),
                                     hintText: '--/--/----',
-                                    hintStyle:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    hintStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
@@ -186,7 +186,7 @@ class _clientRegister2State extends State<clientRegister2> {
                                     fillColor: Colors.white,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: Colors.white, width: 0.0),
                                     ),
                                     /* contentPadding: EdgeInsets.symmetric(
@@ -202,7 +202,7 @@ class _clientRegister2State extends State<clientRegister2> {
                           height: 2.h,
                         ),
                         defaultFormField(context,
-                            controller: MopileEmergencyController,
+                            controller: mopileEmergencyController,
                             type: TextInputType.number, validate: (value) {
                           if (value!.isEmpty) {
                             return "Mopile Emergency must not be Empty";
@@ -240,18 +240,18 @@ class _clientRegister2State extends State<clientRegister2> {
                             function: () {
                               if (formKey.currentState!.validate()) {
                                 // passData();
-                                print('login Success');
+                                ///  print('login Success');
                                 navigateTo(
                                     context,
                                     clientRegister3(
                                       email: widget.email,
-                                      Gender: widget.Gender,
+                                      gender: widget.gender,
                                       lastName: widget.lastName,
                                       firstName: widget.firstName,
                                       mobileNumber: widget.mobileNumber,
                                       password: widget.password,
-                                      MopileEmergency:
-                                          MopileEmergencyController.text,
+                                      mopileEmergency:
+                                          mopileEmergencyController.text,
                                       contactRelation: contactRelationController
                                           .text
                                           .toString(),
@@ -293,7 +293,7 @@ class _clientRegister2State extends State<clientRegister2> {
     return Container(
       height: 100.0,
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
       child: Column(
         children: [
           const Text(

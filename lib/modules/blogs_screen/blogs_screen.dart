@@ -30,7 +30,7 @@ class BlogsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Container(
+                  SizedBox(
                     height: 150.0,
                     child: ListView.separated(
                         shrinkWrap: true,
@@ -99,7 +99,7 @@ class BlogsScreen extends StatelessWidget {
         ),
         elevation: 10,
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -109,11 +109,11 @@ class BlogsScreen extends StatelessWidget {
                     model.title,
                     style: const TextStyle(color: defaultColor),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(model.date)
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(model.article)

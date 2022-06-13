@@ -1,16 +1,11 @@
 import 'dart:ui';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/layout/Doctor_cubit/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
-import 'package:phsyo/modules/forget_password/create_new_password.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register3.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,27 +15,27 @@ class doctorRegister4 extends StatelessWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
-  final String Gender;
+  final String gender;
   final String email;
   final String password;
   final String date;
-  final String Profession;
+  final String profession;
   final List languages;
-  final String LicIssuedDate;
-  final String LicExpiryDate;
+  final String licIssuedDate;
+  final String licExpiryDate;
 
   doctorRegister4(
       {Key? key,
       required this.firstName,
       required this.lastName,
-      required this.Gender,
+      required this.gender,
       required this.email,
       required this.password,
       required this.date,
-      required this.Profession,
+      required this.profession,
       required this.languages,
-      required this.LicIssuedDate,
-      required this.LicExpiryDate,
+      required this.licIssuedDate,
+      required this.licExpiryDate,
       required this.mobileNumber})
       : super(key: key);
 
@@ -77,7 +72,7 @@ class doctorRegister4 extends StatelessWidget {
               elevation: 0.0,
             ),
             body: ListView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 Stack(
                   children: [
@@ -136,7 +131,7 @@ class doctorRegister4 extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                    'To ${email} ',
+                                                    'To $email ',
                                                     style: TextStyle(
                                                         fontSize: 12.sp,
                                                         fontWeight:
@@ -152,7 +147,7 @@ class doctorRegister4 extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Container(
+                                                SizedBox(
                                                   width: 60.0,
                                                   child: CodeFormField(
                                                     context,
@@ -169,7 +164,7 @@ class doctorRegister4 extends StatelessWidget {
                                                 SizedBox(
                                                   width: 2.h,
                                                 ),
-                                                Container(
+                                                SizedBox(
                                                   width: 60.0,
                                                   child: CodeFormField(
                                                     context,
@@ -186,7 +181,7 @@ class doctorRegister4 extends StatelessWidget {
                                                 SizedBox(
                                                   width: 2.h,
                                                 ),
-                                                Container(
+                                                SizedBox(
                                                   width: 60.0,
                                                   child: CodeFormField(
                                                     context,
@@ -203,7 +198,7 @@ class doctorRegister4 extends StatelessWidget {
                                                 SizedBox(
                                                   width: 2.h,
                                                 ),
-                                                Container(
+                                                SizedBox(
                                                   width: 60.0,
                                                   child: CodeFormField(
                                                     context,
@@ -240,16 +235,16 @@ class doctorRegister4 extends StatelessWidget {
                                                                   password,
                                                               mobilePhone:
                                                                   mobileNumber,
-                                                              gender: Gender,
+                                                              gender: gender,
                                                               birthDate: date,
                                                               languages:
                                                                   languages,
                                                               profession:
-                                                                  Profession,
+                                                                  profession,
                                                               licIssuedDate:
-                                                                  LicIssuedDate,
+                                                                  licIssuedDate,
                                                               licExpiryDate:
-                                                                  LicExpiryDate);
+                                                                  licExpiryDate);
                                                     }
                                                   },
                                                   text: 'Verify',
@@ -297,14 +292,15 @@ class doctorRegister4 extends StatelessWidget {
   Widget bottomSheet(context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
         child: DottedBorder(
-          dashPattern: [10, 5, 10, 5, 10, 5],
-          radius: Radius.circular(40.0),
+          dashPattern: const [10, 5, 10, 5, 10, 5],
+          radius: const Radius.circular(40.0),
           borderType: BorderType.RRect,
           color: Colors.red,
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(40.0)),
             ),
             height: 350.0,
             child: Center(
@@ -334,7 +330,7 @@ class doctorRegister4 extends StatelessWidget {
                   ),
                   defaultButton(
                       function: () {
-                        navigateAndFinish(context, Applayout());
+                        navigateAndFinish(context, const Applayout());
                       },
                       text: 'Start Your Journey')
                 ],

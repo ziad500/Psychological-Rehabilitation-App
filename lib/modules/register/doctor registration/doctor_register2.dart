@@ -1,32 +1,21 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:multiselect/multiselect.dart';
-import 'package:phsyo/layout/Doctor_cubit/cubit/abb_states.dart';
-import 'package:phsyo/layout/cubit/abb_states.dart';
-import 'package:phsyo/layout/cubit/app_cubit.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register3.dart';
+
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register3.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../layout/Doctor_cubit/cubit/app_cubit.dart';
 
 class doctorRegister2 extends StatefulWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
-  final String Gender;
+  final String gender;
   final String email;
   final String password;
 
@@ -35,7 +24,7 @@ class doctorRegister2 extends StatefulWidget {
       required this.firstName,
       required this.lastName,
       required this.mobileNumber,
-      required this.Gender,
+      required this.gender,
       required this.email,
       required this.password})
       : super(key: key);
@@ -51,14 +40,14 @@ class _doctorRegister2State extends State<doctorRegister2> {
   List<String> selected = [];
 
   var Profession;
-  List<String> Joblist = [
+  List<String> joblist = [
     'Therapist',
     'Life coach',
     'Yoga instructor',
     'Nutrionist '
   ];
 
-  var LangList = [
+  var langList = [
     'Arabic',
     'English',
     'French',
@@ -73,7 +62,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
-        child: Text('$item'),
+        child: Text(item),
       );
 
   @override
@@ -166,7 +155,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                           decoration: const BoxDecoration(
                             color: Color(0xffE8E8EE),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(20.0)),
+                                BorderRadius.all(Radius.circular(20.0)),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -186,7 +175,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 TextFormField(
@@ -212,13 +201,13 @@ class _doctorRegister2State extends State<doctorRegister2> {
                             }, */
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
-                                    errorStyle: TextStyle(fontSize: 0),
+                                    errorStyle: const TextStyle(fontSize: 0),
                                     isDense: true,
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        10, 10, 10, 0),
                                     hintText: '--/--/----',
-                                    hintStyle:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    hintStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
@@ -226,7 +215,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                     fillColor: Colors.white,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: Colors.white, width: 0.0),
                                     ),
                                     /* contentPadding: EdgeInsets.symmetric(
@@ -259,7 +248,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                             isExpanded: true,
                             hint: const Text('Your Profession'),
                             value: Profession,
-                            items: Joblist.map(buildMenuItem).toList(),
+                            items: joblist.map(buildMenuItem).toList(),
                             onChanged: (x) {
                               setState(() {
                                 Profession = x;
@@ -276,7 +265,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                             height: 7.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFFe8e8ee),
+                              color: const Color(0xFFe8e8ee),
                             ),
                             child: Center(
                               child: DropDownMultiSelect(
@@ -302,11 +291,11 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                 onChanged: (List<String> list) {
                                   setState(() {
                                     selected = list;
-                                    print(selected);
-                                    LangList = list;
+                                    // print(selected);
+                                    langList = list;
                                   });
                                 },
-                                options: [
+                                options: const [
                                   'Arabic',
                                   'English',
                                   'French',
@@ -463,14 +452,14 @@ class _doctorRegister2State extends State<doctorRegister2> {
       */
                         defaultButton(
                             function: () {
-                              print(Profession);
+                              //  print(Profession);
                               if (formKey.currentState!.validate()) {
                                 // passData();
                                 navigateTo(
                                     context,
                                     doctorRegister3(
-                                      Gender: widget.Gender,
-                                      Profession: Profession,
+                                      gender: widget.gender,
+                                      profession: Profession,
                                       date: dateController.text.toString(),
                                       email: widget.email,
                                       firstName: widget.firstName,

@@ -24,10 +24,10 @@ class RegisterScreen extends StatelessWidget {
           backgroundColor: defaultColor,
           elevation: 0.0,
         ),
-        body: BigScreen(context));
+        body: bigScreen(context));
   }
 
-  Widget BigScreen(context) => Stack(
+  Widget bigScreen(context) => Stack(
         children: [
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -47,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
                   child: Center(
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: EdgeInsets.all(30.0),
+                        padding: const EdgeInsets.all(30.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -108,7 +108,7 @@ class RegisterScreen extends StatelessWidget {
                                             child: Column(
                                               children: [
                                                 Image(
-                                                  image: AssetImage(
+                                                  image: const AssetImage(
                                                       'icons/icons8-id-verified-64.png'),
                                                   height: 7.h,
                                                 ),
@@ -157,7 +157,7 @@ class RegisterScreen extends StatelessWidget {
                                             child: Column(
                                               children: [
                                                 Image(
-                                                  image: AssetImage(
+                                                  image: const AssetImage(
                                                       'icons/icons8-user-48.png'),
                                                   height: 7.h,
                                                 ),
@@ -203,214 +203,5 @@ class RegisterScreen extends StatelessWidget {
             ),
           ),
         ],
-      );
-
-  Widget SmallScreen(context) => SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 100.h),
-          child: SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 80.h,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [BoxShadow(blurRadius: 60.0)],
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(40.0)),
-                        ),
-                        /* height: (MediaQuery.of(context).size.height -
-                                        appbar.preferredSize.height -
-                                        MediaQuery.of(context).padding.top //-
-                                    //120
-                                    ), */
-                        width: double.infinity,
-                        child: ListView(
-                          physics: NeverScrollableScrollPhysics(),
-                          children: [
-                            Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(30.0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        'Register as',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 19.sp),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 1.h,
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        'Choose your account type',
-                                        style: TextStyle(fontSize: 14.0.sp),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 3.h,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 1.h),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Material(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                              color: Colors.white,
-                                              elevation: 2.0,
-                                              child: InkWell(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                                splashColor: Colors.grey,
-                                                splashFactory:
-                                                    InkSplash.splashFactory,
-                                                onTap: () {
-                                                  navigateTo(context,
-                                                      doctorRegister1());
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  10.0)),
-                                                      border: Border.all(
-                                                          color: Colors.black)),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 2.h,
-                                                            vertical: 2.h),
-                                                    child: Column(
-                                                      children: [
-                                                        Image(
-                                                          image: AssetImage(
-                                                              'icons/icons8-id-verified-64.png'),
-                                                          height: 5.h,
-                                                        ),
-                                                        Text(
-                                                          'Admin',
-                                                          style: TextStyle(
-                                                              fontSize: 13.0.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                          maxLines: 1,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          Expanded(
-                                            child: Material(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                              color: Colors.white,
-                                              elevation: 2.0,
-                                              child: InkWell(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                                splashColor: Colors.grey,
-                                                splashFactory:
-                                                    InkSplash.splashFactory,
-                                                onTap: () {
-                                                  navigateTo(context,
-                                                      clientRegister1());
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  10.0)),
-                                                      border: Border.all(
-                                                          color: Colors.black)),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 2.h,
-                                                            vertical: 2.h),
-                                                    child: Column(
-                                                      children: [
-                                                        Image(
-                                                          image: AssetImage(
-                                                            'icons/icons8-user-48.png',
-                                                          ),
-                                                          height: 5.h,
-                                                        ),
-                                                        Text(
-                                                          'User',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 14.0.sp,
-                                                          ),
-                                                          maxLines: 1,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 25.h,
-                  child: Center(
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Image(
-                            image: AssetImage(
-                                'icons/undraw_secure_login_pdn4.png'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       );
 }

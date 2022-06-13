@@ -8,7 +8,7 @@ class FaqsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FAQ\'s'),
+        title: const Text('FAQ\'s'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),

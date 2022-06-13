@@ -118,7 +118,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         spacing: 5.0,
                         activeDotColor: defaultColor),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   FloatingActionButton(
                     backgroundColor: defaultColor,
                     onPressed: () {
@@ -126,11 +126,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         submit();
                       } else {
                         boardcontroller.nextPage(
-                            duration: Duration(milliseconds: 750),
+                            duration: const Duration(milliseconds: 750),
                             curve: Curves.fastLinearToSlowEaseIn);
                       }
                     },
-                    child: Icon(Icons.arrow_forward_ios),
+                    child: const Icon(Icons.arrow_forward_ios),
                   )
                 ],
               )
@@ -150,7 +150,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             fit: BoxFit.scaleDown,
             child: Text(
               '${model.title}',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             ),
           ),
           const SizedBox(
@@ -162,11 +163,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 Text(
                   '${model.text1}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
                 Text(
                   '${model.text2}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               ],
             ),

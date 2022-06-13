@@ -45,6 +45,7 @@ class LoginCubit extends Cubit<LoginStates> {
         showToast(text: loginmodel!.message, state: ToastStates.ERROR);
         print(loginmodel!.message);
       }
+      print('error is : $error');
       emit(AppLoginErrorState(error.toString()));
     });
   }

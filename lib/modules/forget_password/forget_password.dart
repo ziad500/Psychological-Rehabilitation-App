@@ -21,10 +21,10 @@ class forgetPassword extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        body: BigScreen(context));
+        body: bigScreen(context));
   }
 
-  Widget BigScreen(context) => Stack(
+  Widget bigScreen(context) => Stack(
         children: [
           Column(
             children: [
@@ -126,152 +126,6 @@ class forgetPassword extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.only(top: 0.1.h),
-            child: SizedBox(
-              height: 25.h,
-              child: Center(
-                child: Row(
-                  children: const [
-                    Expanded(
-                      child: Image(
-                        image: AssetImage(
-                            'icons/undraw_forgot_password_re_hxwm.png'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-
-  Widget SmallScreen(context) => Stack(
-        children: [
-          Column(
-            children: [
-              SizedBox(height: 20.h),
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [BoxShadow(blurRadius: 60.0)],
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(40.0)),
-                  ),
-                  width: double.infinity,
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Form(
-                                  key: formKey,
-                                  child: Center(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        SizedBox(
-                                          height: 8.h,
-                                        ),
-                                        Center(
-                                          child: FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            child: Text(
-                                              'Forget Password',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 17.sp),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Center(
-                                              child: FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                child: Text(
-                                                  'Enter Your email to send a recovery code',
-                                                  style: TextStyle(
-                                                      fontSize: 11.5.sp),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 2.h,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            defaultFormField(context,
-                                                hint: 'Email',
-                                                hintsize: 10.0,
-                                                verticalpadding: 10.0,
-                                                controller:
-                                                    emailForgetController,
-                                                type:
-                                                    TextInputType.emailAddress,
-                                                validate: (String? value) {
-                                              final bool isValid =
-                                                  EmailValidator.validate(
-                                                      value!);
-
-                                              if (isValid == false ||
-                                                  value.isEmpty) {
-                                                return "Please Enter valid Email";
-                                              }
-                                            }, prefix: Icons.email),
-                                            SizedBox(
-                                              height: 4.h,
-                                            )
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 3.h),
-                                          child: defaultButton(
-                                              verticalpadding: 10.0,
-                                              textsize: 10.0,
-                                              function: () {
-                                                if (formKey.currentState!
-                                                    .validate()) {
-                                                  navigateTo(context,
-                                                      VerifyCodeScreen());
-
-                                                  print('Send Success');
-                                                }
-                                              },
-                                              text: 'Send',
-                                              isUpperCase: true),
-                                        ),
-                                        SizedBox(
-                                          height: 3.h,
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               )

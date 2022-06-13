@@ -12,6 +12,6 @@ class articlesModel {
       required this.article,
       required this.date});
   String toString() {
-    return '{title: ${title}, article: ${article},date: ${date}}';
+    return '{title: $title, article: $article,date: $date}';
   }
 }

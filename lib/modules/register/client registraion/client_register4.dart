@@ -131,7 +131,7 @@ class clientRegister4 extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                'To ${email} ',
+                                                'To $email',
                                                 style: const TextStyle(
                                                     fontSize: 18,
                                                     fontWeight:
@@ -291,14 +291,15 @@ class clientRegister4 extends StatelessWidget {
   Widget bottomSheet(context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
         child: DottedBorder(
-          dashPattern: [10, 5, 10, 5, 10, 5],
-          radius: Radius.circular(40.0),
+          dashPattern: const [10, 5, 10, 5, 10, 5],
+          radius: const Radius.circular(40.0),
           borderType: BorderType.RRect,
           color: Colors.red,
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(40.0)),
             ),
             height: 350.0,
             child: Center(
@@ -328,7 +329,7 @@ class clientRegister4 extends StatelessWidget {
                   ),
                   defaultButton(
                       function: () {
-                        navigateAndFinish(context, Applayout());
+                        navigateAndFinish(context, const Applayout());
                       },
                       text: 'Start Your Journey')
                 ],

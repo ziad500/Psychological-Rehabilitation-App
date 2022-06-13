@@ -8,10 +8,10 @@ import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
 class EditeProfileScreen extends StatelessWidget {
-  var NameController = TextEditingController();
+  var nameController = TextEditingController();
   var trustContactController = TextEditingController();
-  var TrustContactRelationController = TextEditingController();
-  var EmailController = TextEditingController();
+  var trustContactRelationController = TextEditingController();
+  var emailController = TextEditingController();
   var phoneController = TextEditingController();
   var mediacalHistoryController = TextEditingController();
 
@@ -21,12 +21,12 @@ class EditeProfileScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var model = LoginCubit.get(context).loginmodel;
-        NameController.text = 'Name : ${model?.name}';
+        nameController.text = 'Name : ${model?.name}';
         trustContactController.text =
             'Trust Contact Phone : ${model?.trustContact}';
-        TrustContactRelationController.text =
+        trustContactRelationController.text =
             'Relation : ${model?.contactRelation}';
-        EmailController.text = 'Email : ${model?.message}';
+        emailController.text = 'Email : ${model?.message}';
         phoneController.text = 'Phone : ${model?.mobilePhone}';
         mediacalHistoryController.text =
             'Medical History : ${model?.medicalHistory}';
@@ -59,7 +59,7 @@ class EditeProfileScreen extends StatelessWidget {
                       height: 20,
                     ),
                     defaultFormField(context,
-                        controller: NameController,
+                        controller: nameController,
                         hint: 'user Name',
                         type: TextInputType.text,
                         height: 8, validate: (String? value) {
@@ -71,7 +71,7 @@ class EditeProfileScreen extends StatelessWidget {
                       height: 15,
                     ),
                     defaultFormField(context,
-                        controller: EmailController,
+                        controller: emailController,
                         hint: 'Email',
                         height: 8,
                         type: TextInputType.text, validate: (String? value) {
@@ -116,7 +116,7 @@ class EditeProfileScreen extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: defaultFormField(context,
-                              controller: TrustContactRelationController,
+                              controller: trustContactRelationController,
                               hint: 'Relation',
                               height: 8,
                               type: TextInputType.text,

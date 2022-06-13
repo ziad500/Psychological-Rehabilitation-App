@@ -1,24 +1,18 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register2.dart';
-import 'package:phsyo/modules/register/register_screen.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:sizer/sizer.dart';
-import 'package:phsyo/modules/login_screen/login_cubit.dart';
-import 'package:phsyo/modules/login_screen/login_states.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/constraints.dart';
 import 'package:phsyo/styles/colors.dart';
 
 class clientRegister1 extends StatelessWidget {
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var mopileNumberController = TextEditingController();
-  var EmailController = TextEditingController();
+  var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -131,13 +125,14 @@ class clientRegister1 extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             height: 85,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xffE8E8EE),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 0.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +171,7 @@ class clientRegister1 extends StatelessWidget {
                           defaultFormField(
                             context,
                             hint: 'Email Address',
-                            controller: EmailController,
+                            controller: emailController,
                             type: TextInputType.emailAddress,
                             validate: (String? value) {
                               final bool isValid =
@@ -249,12 +244,12 @@ class clientRegister1 extends StatelessWidget {
                                         context,
                                         clientRegister2(
                                           email:
-                                              EmailController.text.toString(),
+                                              emailController.text.toString(),
                                           firstName: firstNameController.text
                                               .toString(),
                                           lastName: lastNameController.text
                                               .toString(),
-                                          Gender: RegisterCubit.get(context)
+                                          gender: RegisterCubit.get(context)
                                               .radiovalue
                                               .toString(),
                                           mobileNumber:
@@ -277,10 +272,10 @@ class clientRegister1 extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Learn about'),
+                              const Text('Learn about'),
                               TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     'Privacy',
                                     style: TextStyle(color: defaultColor),
                                   ))
@@ -309,7 +304,7 @@ class clientRegister1 extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            '$value',
+            value,
             style: TextStyle(fontSize: 2.h),
           ),
         )

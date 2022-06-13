@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/layout/cubit/abb_states.dart';
+import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/models/category_item_model/category_item_model.dart';
 import 'package:phsyo/models/category_item_model/category_item_model.dart';
 import 'package:phsyo/models/category_item_model/category_item_model.dart';
@@ -7,6 +10,8 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../constants.dart';
 
 class CategoryModel {
   final String? image;
@@ -24,9 +29,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: defaultColor,
-        /* appBar: AppBar(
+    return BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+              backgroundColor: defaultColor,
+              /* appBar: AppBar(
           backgroundColor: defaultColor,
           elevation: 0.0,
           toolbarHeight: 140,
@@ -77,80 +85,82 @@ class HomeScreen extends StatelessWidget {
           ), */
         ),
        */
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Choose a category',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            Container(
-              height: 120,
-              color: defaultColor,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, bottom: 15),
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      physics: const ScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return categoryItem(categoryItems[index]);
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                            width: 10.0,
-                          ),
-                      itemCount: categoryItems.length),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0)),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(
-                              left: 18.0,
-                              right: 18.0,
-                              bottom: 15,
-                            ),
-                            child: ListView.separated(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                physics: const ScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    doctorCard(context),
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(
-                                      height: 15.0,
-                                    ),
-                                itemCount: 10)),
-                      ],
+              body: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Choose a category',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    height: 120,
+                    color: defaultColor,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, bottom: 15),
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return categoryItem(categoryItems[index]);
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                            itemCount: categoryItems.length),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          ],
-        ));
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.0),
+                            topRight: Radius.circular(30.0)),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 18.0,
+                                    right: 18.0,
+                                    bottom: 15,
+                                  ),
+                                  child: ListView.separated(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      physics: const ScrollPhysics(),
+                                      itemBuilder: (context, index) =>
+                                          doctorCard(context),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(
+                                            height: 15.0,
+                                          ),
+                                      itemCount: 10)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ));
+        });
   }
 
   Widget categoryItem(CategoryModel model) => Row(
@@ -250,7 +260,7 @@ class HomeScreen extends StatelessWidget {
                               fadeInDuration: const Duration(milliseconds: 300),
                               placeholder: kTransparentImage,
                               image:
-                                  'https://scontent.fcai22-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=174925&_nc_ohc=9w1vCey7WysAX9eScbQ&_nc_ht=scontent.fcai22-1.fna&oh=00_AT_lRREybImxXPn64hDYskKnm0d_gr_injuVrM-EnM1tew&oe=628569CD',
+                                  'https://scontent.fcai22-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=tqF-NeJqlL4AX-g4naq&tn=Z5IcDg5zDufeQZq7&_nc_ht=scontent.fcai22-1.fna&oh=00_AT_s-HYkc3whc6kyCLsImEOT7Qbtikh_3ZYgySKqT5S13g&oe=62CC9ACD',
                               width: 89,
                               height: 134,
                               fit: BoxFit.cover,

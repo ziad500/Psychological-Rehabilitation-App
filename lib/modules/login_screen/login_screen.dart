@@ -20,6 +20,7 @@ import 'package:phsyo/shared/constraints.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../constants.dart';
 import '../../shared/network/cashe_helper.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -36,35 +37,36 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is AppLoginSuccessState) {
-          if (state.loginModel.status == true) {
-            /*             CasheHelper.saveData(key: 'token', value: state.loginModel.token);
-     */
-            navigateAndFinish(context, Applayout());
+          CasheHelper.saveData(key: 'token', value: state.loginModel.token)
+              .then((value) {
+            token = state.loginModel.token;
+            doctor = false;
+
+            print('token is $token');
+            navigateAndFinish(context, const Applayout());
             showToast(
                 text: state.loginModel.message.toString(),
                 state: ToastStates.SUCCESS);
-          } else if (State is AppLoginErrorState) {
-            navigateTo(context, Applayout());
-            showToast(text: "error", state: ToastStates.ERROR);
-          }
-          {}
+          });
+        } else if (State is AppLoginErrorState) {
+          showToast(text: "error", state: ToastStates.ERROR);
         }
+        {}
       },
       builder: (context, state) {
         return Scaffold(
-            /*  appBar: AppBar(
+            appBar: AppBar(
               elevation: 0.0,
               backgroundColor: defaultColor,
             ),
-         */
             backgroundColor: defaultColor,
             //appBar: appbar,
-            body: BigScreen(context, state));
+            body: bigScreen(context, state));
       },
     );
   }
 
-  Widget BigScreen(context, state) => SafeArea(
+  Widget bigScreen(context, state) => SafeArea(
         bottom: false,
         child: Stack(
           children: [
@@ -94,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: [
-                                    Center(
+                                    const Center(
                                       child: Text(
                                         'Welcome',
                                         style: TextStyle(
@@ -102,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                                             fontSize: 35),
                                       ),
                                     ),
-                                    FittedBox(
+                                    const FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
                                         'Login to view and manage your sessions.',
@@ -148,7 +150,10 @@ class LoginScreen extends StatelessWidget {
                                           LoginCubit.get(context)
                                               .passwordvisible();
                                         }),
-                                    Row(
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    /*                             Row(
                                       children: [
                                         Expanded(
                                             child:
@@ -158,6 +163,7 @@ class LoginScreen extends StatelessWidget {
                                                 'Doctor', context)),
                                       ],
                                     ),
+        */
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -188,6 +194,14 @@ class LoginScreen extends StatelessWidget {
                                                 horizontal: 3.h),
                                             child: defaultButton(
                                                 function: () {
+                                                  LoginCubit.get(context)
+                                                      .userLogin(
+                                                          email: emailController
+                                                              .text,
+                                                          password:
+                                                              passwordController
+                                                                  .text);
+                                                  /* 
                                                   if (formKey.currentState!
                                                       .validate()) {
                                                     if (LoginCubit.get(context)
@@ -241,7 +255,7 @@ class LoginScreen extends StatelessWidget {
                                                   state: ToastStates
                                                       .WARNING);
                                             } */
-                                                  }
+                                                   */
                                                 },
                                                 text: 'login',
                                                 isUpperCase: true),
@@ -299,7 +313,7 @@ class LoginScreen extends StatelessWidget {
                 height: 18.h,
                 child: Center(
                   child: Row(
-                    children: [
+                    children: const [
                       Expanded(
                         child: Image(
                           image: AssetImage('icons/login.png'),
@@ -314,256 +328,6 @@ class LoginScreen extends StatelessWidget {
         ),
       );
 
-  Widget SmallScreen(context, state) => SingleChildScrollView(
-          child: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 25.h),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [BoxShadow(blurRadius: 60.0)],
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(40.0)),
-                  ),
-                  height: 75.h,
-                  width: double.infinity,
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Form(
-                                  key: formKey,
-                                  child: Center(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            'Welcome',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17.sp),
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  'Login to view and manage your sessions.',
-                                                  style: TextStyle(
-                                                      fontSize: 12.sp),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        defaultFormField(context,
-                                            hintsize: 10.0,
-                                            verticalpadding: 10.0,
-                                            hint: 'Email',
-                                            controller: emailController,
-                                            type: TextInputType.emailAddress,
-                                            validate: (String? value) {
-                                          final bool isValid =
-                                              EmailValidator.validate(value!);
-
-                                          if (isValid == false ||
-                                              value.isEmpty) {
-                                            return "Please Enter valid Email";
-                                          }
-                                        }, prefix: Icons.email),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        defaultFormField(context,
-                                            hintsize: 10.0,
-                                            hint: 'Password',
-                                            verticalpadding: 10.0,
-                                            isPassword: LoginCubit.get(context)
-                                                .isVisible,
-                                            controller: passwordController,
-                                            type: TextInputType.visiblePassword,
-                                            onSubmit: (value) {
-                                              if (formKey.currentState!
-                                                  .validate()) {}
-                                            },
-                                            validate: (String? value) {
-                                              if (value!.isEmpty) {
-                                                return "Please Enter Your Password";
-                                              }
-                                            },
-                                            prefix: Icons.lock_outline,
-                                            suffix:
-                                                LoginCubit.get(context).suffix,
-                                            suffixPressed: () {
-                                              LoginCubit.get(context)
-                                                  .passwordvisible();
-                                            }),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                                child: buildRadioSmall(
-                                                    'User', context)),
-                                            Expanded(
-                                                child: buildRadioSmall(
-                                                    'Doctor', context)),
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  navigateTo(context,
-                                                      forgetPassword());
-                                                },
-                                                child: Text(
-                                                  'Forget your Password !',
-                                                  style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: defaultColor),
-                                                )),
-                                          ],
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 2.h),
-                                            child: ConditionalBuilder(
-                                              condition: state
-                                                  is! AppLoginLoadingState,
-                                              builder: (context) =>
-                                                  defaultButton(
-                                                      verticalpadding: 10.0,
-                                                      textsize: 10.0,
-                                                      function: () {
-                                                        if (formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                          if (LoginCubit.get(
-                                                                      context)
-                                                                  .radiovalue ==
-                                                              'Doctor') {
-                                                            print('hi Doctor');
-                                                          } else if (LoginCubit
-                                                                      .get(
-                                                                          context)
-                                                                  .radiovalue ==
-                                                              'User') {
-                                                            LoginCubit.get(
-                                                                    context)
-                                                                .userLogin(
-                                                                    email:
-                                                                        emailController
-                                                                            .text,
-                                                                    password:
-                                                                        passwordController
-                                                                            .text);
-                                                            showToast(
-                                                                text: 'success',
-                                                                state: ToastStates
-                                                                    .SUCCESS);
-                                                            print('Hi User');
-                                                          } else if (LoginCubit
-                                                                      .get(
-                                                                          context)
-                                                                  .radiovalue ==
-                                                              '') {
-                                                            showToast(
-                                                                text:
-                                                                    'Choose Type To Login',
-                                                                state: ToastStates
-                                                                    .WARNING);
-                                                          }
-                                                        }
-                                                      },
-                                                      text: 'login',
-                                                      isUpperCase: true),
-                                              fallback: (context) => Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                            )),
-                                        SizedBox(
-                                          height: 2.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Don\'t have an account? ',
-                                              style: TextStyle(
-                                                  fontSize: 10.sp,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            TextButton(
-                                                onPressed: () {
-                                                  navigateTo(context,
-                                                      const RegisterScreen());
-                                                },
-                                                child: Text(
-                                                  'Register',
-                                                  style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      color: defaultColor,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.only(top: 10.h),
-              child: SizedBox(
-                height: 15.h,
-                child: Center(
-                  child: Row(
-                    children: const [
-                      Expanded(
-                        child: Image(
-                          image: AssetImage('icons/login.png'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ));
-
   Widget buildRadioBig(String value, context) {
     return Row(
       children: [
@@ -576,23 +340,6 @@ class LoginScreen extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(fontSize: 18),
-        )
-      ],
-    );
-  }
-
-  Widget buildRadioSmall(String value, context) {
-    return Row(
-      children: [
-        Radio(
-            value: value,
-            groupValue: LoginCubit.get(context).radiovalue,
-            onChanged: (value) {
-              LoginCubit.get(context).changeRadio(value);
-            }),
-        Text(
-          '$value',
-          style: TextStyle(fontSize: 10.sp),
         )
       ],
     );

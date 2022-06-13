@@ -369,7 +369,7 @@ class _AppointScreenState extends State<AppointScreen> {
               children: [
                 defaultButton(
                     function: () {
-                      navigateTo(context, paymentAppointScreen());
+                      navigateTo(context, const paymentAppointScreen());
                     },
                     text: 'Confirm',
                     width: 250),
@@ -393,8 +393,8 @@ class _AppointScreenState extends State<AppointScreen> {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            '$value',
-            style: TextStyle(fontSize: 16),
+            value,
+            style: const TextStyle(fontSize: 16),
           ),
         )
       ],

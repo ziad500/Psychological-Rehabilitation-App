@@ -1,9 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/layout/Doctor_cubit/cubit/abb_states.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register2.dart';
-import 'package:phsyo/modules/register/register_screen.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,30 +10,16 @@ import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 
-import '../../../layout/Doctor_cubit/cubit/app_cubit.dart';
-
 class doctorRegister1 extends StatelessWidget {
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
-  var BusinessMobileNumberController = TextEditingController();
-  var EmailController = TextEditingController();
+  var businessMobileNumberController = TextEditingController();
+  var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
   var radioValue = 0;
-
-  void passData(context) {
-    CasheHelper.saveData(
-        key: 'firstNameDoctor', value: firstNameController.text);
-    CasheHelper.saveData(key: 'lastNameDoctor', value: lastNameController.text);
-    CasheHelper.saveData(
-        key: 'PhoneDoctor', value: BusinessMobileNumberController.text);
-    CasheHelper.saveData(key: 'EmailDoctor', value: EmailController.text);
-    CasheHelper.saveData(key: 'PasswordDoctor', value: passwordController.text);
-    CasheHelper.saveData(
-        key: 'GenderDoctor', value: RegisterCubit.get(context).radiovalue);
-  }
 
   doctorRegister1({Key? key}) : super(key: key);
 
@@ -126,7 +110,7 @@ class doctorRegister1 extends StatelessWidget {
                           defaultFormField(
                             context,
                             hint: 'Business Mobile Number',
-                            controller: BusinessMobileNumberController,
+                            controller: businessMobileNumberController,
                             type: TextInputType.number,
                             validate: (value) {
                               if (value!.length != 11) {
@@ -140,10 +124,10 @@ class doctorRegister1 extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             height: 85,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xffE8E8EE),
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20.0)),
+                                  BorderRadius.all(Radius.circular(20.0)),
                             ),
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 0.0),
@@ -182,7 +166,7 @@ class doctorRegister1 extends StatelessWidget {
                           defaultFormField(
                             context,
                             hint: 'Email Address',
-                            controller: EmailController,
+                            controller: emailController,
                             type: TextInputType.emailAddress,
                             validate: (String? value) {
                               final bool isValid =
@@ -250,15 +234,14 @@ class doctorRegister1 extends StatelessWidget {
                             child: defaultButton(
                                 function: () {
                                   if (formKey.currentState!.validate()) {
-                                    passData(context);
                                     navigateTo(
                                         context,
                                         doctorRegister2(
-                                          Gender: RegisterCubit.get(context)
+                                          gender: RegisterCubit.get(context)
                                               .radiovalue
                                               .toString(),
                                           email:
-                                              EmailController.text.toString(),
+                                              emailController.text.toString(),
                                           firstName: firstNameController.text
                                               .toString(),
                                           lastName: lastNameController.text
@@ -266,7 +249,7 @@ class doctorRegister1 extends StatelessWidget {
                                           password: passwordController.text
                                               .toString(),
                                           mobileNumber:
-                                              BusinessMobileNumberController
+                                              businessMobileNumberController
                                                   .text,
                                         ));
                                   }
@@ -280,10 +263,10 @@ class doctorRegister1 extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Learn about'),
+                              const Text('Learn about'),
                               TextButton(
                                   onPressed: () {},
-                                  child: Text(
+                                  child: const Text(
                                     'Privacy',
                                     style: TextStyle(color: defaultColor),
                                   ))
@@ -311,7 +294,7 @@ class doctorRegister1 extends StatelessWidget {
               RegisterCubit.get(context).changeRadio(value);
             }),
         Text(
-          '$value',
+          value,
           style: TextStyle(fontSize: 2.h),
         )
       ],

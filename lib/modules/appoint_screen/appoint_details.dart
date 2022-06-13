@@ -6,7 +6,9 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:uuid/uuid.dart';
 
 class AppointDetails extends StatelessWidget {
-  var id = Uuid().v4();
+  var id = const Uuid().v4();
+
+  AppointDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

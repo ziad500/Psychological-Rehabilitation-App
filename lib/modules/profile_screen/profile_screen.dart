@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         title: const Text(
@@ -184,7 +184,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   defaultButton(
@@ -200,7 +200,7 @@ class ProfileScreen extends StatelessWidget {
                     height: 15.0,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.rate_review,
                         color: defaultColor,
@@ -220,9 +220,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ListView.separated(
                       shrinkWrap: true,
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) => ReviewItem(),
+                      itemBuilder: (context, index) => reviewItem(),
                       separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
@@ -236,10 +236,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget ReviewItem() => Column(
+  Widget reviewItem() => Column(
         children: [
           Row(
-            children: [
+            children: const [
               Text(
                 'Gamal ALi',
                 style: TextStyle(
@@ -251,7 +251,7 @@ class ProfileScreen extends StatelessWidget {
               Icon(Icons.star)
             ],
           ),
-          Text(
+          const Text(
             'Lorem ipsum Et consequatur rem nam doloribus. Ducimus quia voluptas blanditiis error',
             style: TextStyle(color: Color(0xff414141)),
           )

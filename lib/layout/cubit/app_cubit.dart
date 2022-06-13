@@ -2,13 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
-import 'package:phsyo/layout/Doctor/doctor_menu_screen.dart';
 import 'package:phsyo/models/articlesModel/articles_model.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
@@ -18,14 +15,13 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
-import 'package:phsyo/styles/colors.dart';
-import '../../layout/Doctor/doctor_appointments_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
   static AppCubit get(context) => BlocProvider.of(context);
 
-  int CurrentIndex = 0;
+  int currentIndex = 0;
+  bool? doctor;
 
   List<String> Joblist = [
     'Therapist',
@@ -34,17 +30,23 @@ class AppCubit extends Cubit<AppStates> {
     'Nutrionist '
   ];
 
-  List<String> TitleScreens = ['Home', 'Appointments', 'Blogs', 'Menu'];
+//  List<String> TitleScreens = ['Home', 'Appointments', 'Blogs', 'Menu'];
   List<Widget> titleScreen = [
     searchForm(),
     titleText('Appointments'),
     titleText('Blogs'),
     titleText('Menu'),
   ];
+  List<Widget> titleDoctorScreens = [
+    titleText('Appointments'),
+    titleText('Menu')
+  ];
 
   List<Widget> bottomDoctorScreens = [
-    AppointmentsDoctorScreen(),
-    const MenuDoctorScreen(),
+    AppointmentsScreen(),
+    const MenuScreen()
+/*     const MenuDoctorScreen(),
+ */
   ];
 
   List<Widget> bottomScreens = [
@@ -55,7 +57,7 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   void changeBottom(int index) {
-    CurrentIndex = index;
+    currentIndex = index;
     emit(AppChangeBottomNav());
   }
 
