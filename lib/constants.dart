@@ -1,17 +1,28 @@
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
+import 'package:phsyo/shared/network/cashe_helper.dart';
 
 void signout(context) {
   AppCubit.get(context).currentIndex = 0;
-  navigateAndFinish(context, LoginScreen());
-  /*  CasheHelper.removeData(key: 'token').then((value) {
+  // navigateAndFinish(context, LoginScreen());
+  CasheHelper.removeData(key: 'token').then((value) {
     if (value) {
-      AppCubit.get(context).CurrentIndex = 0;
+      doctor = false;
+      //   AppCubit.get(context).CurrentIndex = 0;
       navigateAndFinish(context, LoginScreen());
     }
-  }); */
+  });
+}
+
+bool Doctor(context) {
+  if (role != 'User') {
+    doctor = true;
+  }
+  return false;
 }
 
 dynamic token = '';
-bool? doctor = true;
+bool? doctor = false;
+dynamic role = '';
+dynamic Userid = '';

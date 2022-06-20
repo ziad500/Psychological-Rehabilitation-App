@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:phsyo/shared/components/responsive.dart';
 import 'package:sizer/sizer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:phsyo/styles/colors.dart';
@@ -104,10 +102,10 @@ Widget defaultFormField(
             borderRadius: BorderRadius.circular(20.0),
           ),
           filled: true,
-          fillColor: Color(0xffE8E8EE),
+          fillColor: const Color(0xffE8E8EE),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Color(0xffE8E8EE),
             ),
           ),
@@ -175,10 +173,10 @@ Widget CodeFormField(
           borderRadius: BorderRadius.circular(20.0),
         ),
         filled: true,
-        fillColor: Color(0xffE8E8EE),
+        fillColor: const Color(0xffE8E8EE),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Color(0xffE8E8EE),
           ),
         ),
@@ -189,7 +187,7 @@ Widget CodeFormField(
         contentPadding: EdgeInsets.symmetric(
             vertical: verticalpadding, horizontal: horizontalpadding),
       ),
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.red,
         fontWeight: FontWeight.bold,
       ),
@@ -225,7 +223,7 @@ Widget defaultButton(
                     color: Colors.white,
                     size: 29,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5.0,
                   ),
                   FittedBox(
@@ -299,21 +297,21 @@ Color chooseToastColor(ToastStates state) {
 Widget myDivider() => Container(
       height: 2.0,
       width: double.infinity,
-      color: Color(0xff707070),
+      color: const Color(0xff707070),
     );
 
 Widget bottomSheet({Function()? camera, Function()? gallery}) {
   return Container(
     height: 100.0,
     width: double.infinity,
-    margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+    margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
     child: Column(
       children: [
-        Text(
+        const Text(
           'choose Profile Photo',
           style: TextStyle(fontSize: 20.0),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20.0,
         ),
         Row(

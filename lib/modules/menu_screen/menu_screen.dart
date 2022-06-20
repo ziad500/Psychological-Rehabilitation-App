@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
-import 'package:phsyo/modules/faqs_screen/faqs_Screen.dart';
+import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
 import 'package:phsyo/modules/payment_screen/ppayment_screen.dart';
 import 'package:phsyo/shared/components/components.dart';

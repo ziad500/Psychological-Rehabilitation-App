@@ -76,7 +76,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         emit(ImagePickerProfileSuccess());
 
   } */
-  UserModel? loginmodel;
+  LoginModel? loginmodel;
 
   void signUp(
       {required String firstName,
@@ -118,11 +118,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
     await DioHelper.postData(url: REGISTER, data: data).then((value) {
       print(value);
-      loginmodel = UserModel.fromJson(value.data);
+      loginmodel = LoginModel.fromJson(value.data);
       emit(AppRegisterSuccessState());
     }).catchError((error) {
       if (error is DioError) {
-        loginmodel = UserModel.fromJson(error.response!.data);
+        loginmodel = LoginModel.fromJson(error.response!.data);
         showToast(text: loginmodel!.message, state: ToastStates.ERROR);
         print(loginmodel!.message);
       }

@@ -5,7 +5,15 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../styles/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen(
+      {Key? key,
+      required this.name,
+      required this.image,
+      required this.yearOfExperience})
+      : super(key: key);
+  final String name;
+  final String image;
+  final String yearOfExperience;
 
   @override
   Widget build(BuildContext context) {

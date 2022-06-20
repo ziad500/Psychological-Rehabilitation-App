@@ -54,7 +54,7 @@ class AppointDetails extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'Booking ID : ${id}',
+                              'Booking ID : $id',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 2.h),
                             ),

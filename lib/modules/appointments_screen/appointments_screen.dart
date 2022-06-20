@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
-import 'package:phsyo/modules/profile_screen/profile_screen.dart';
-import 'package:sizer/sizer.dart';
 import 'package:transparent_image/transparent_image.dart';
-
 import '../../shared/components/components.dart';
 import '../../styles/colors.dart';
 
@@ -14,6 +11,8 @@ class CategoryModel {
 }
 
 class AppointmentsScreen extends StatelessWidget {
+  const AppointmentsScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

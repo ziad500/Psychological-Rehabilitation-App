@@ -50,6 +50,7 @@ class _AppointScreenState extends State<AppointScreen> {
     super.initState();
   }
 
+  @override
   void dispose() {
     eventController.dispose();
     super.dispose();
@@ -144,7 +145,7 @@ class _AppointScreenState extends State<AppointScreen> {
                     setState(() {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
-                      print(selectedDay);
+                      //  print(selectedDay);
                     });
                   }
                 },
@@ -369,7 +370,7 @@ class _AppointScreenState extends State<AppointScreen> {
               children: [
                 defaultButton(
                     function: () {
-                      navigateTo(context, const paymentAppointScreen());
+                      navigateTo(context, const PaymentAppointScreen());
                     },
                     text: 'Confirm',
                     width: 250),

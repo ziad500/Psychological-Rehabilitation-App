@@ -5,10 +5,15 @@ import 'package:phsyo/layout/Doctor_cubit/cubit/app_cubit.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
+import 'package:phsyo/modules/login_screen/login_states.dart';
+import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 
 import 'package:phsyo/modules/onboarding_screen/onboarding_screen.dart';
+import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register3.dart';
 
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 
@@ -31,11 +36,14 @@ Future<void> main() async {
 
   bool? onBoarding = CasheHelper.getData(key: 'onBoarding');
   token = CasheHelper.getData(key: 'token');
-  print(token);
+  Userid = CasheHelper.getData(key: 'Userid');
+  //doctor = CasheHelper.getData(key: 'doctor');
+
+  // print(token);
 
   if (onBoarding != null) {
     if (token != null) {
-      widget = Applayout();
+      widget = const Applayout();
     } else {
       widget = LoginScreen();
     }
@@ -62,7 +70,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => AppCubit(),
+            create: (context) => AppCubit()..getDoctorsData(),
           ),
           BlocProvider(
             create: (context) => LoginCubit(),
@@ -106,14 +114,16 @@ class MyApp extends StatelessWidget {
                   ),
                   debugShowCheckedModeBanner: false,
                   home: LoginScreen()
-                  /* doctorRegister4(
-                    Gender: '',
+                  /*     doctorRegister3(
+                    /*  Gender: '',
                     LicExpiryDate: '',
                     LicIssuedDate: '',
-                    Profession: '',
+                    Profession: '', */
                     date: '',
                     email: '',
                     firstName: '',
+                    gender: '',
+                    profession: '',
                     languages: [],
                     lastName: '',
                     mobileNumber: '',

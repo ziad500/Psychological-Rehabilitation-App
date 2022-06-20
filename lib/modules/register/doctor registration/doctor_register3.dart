@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register4.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
@@ -118,6 +119,17 @@ class _doctorRegister3State extends State<doctorRegister3> {
                         Expanded(
                           child: defaultFormField(
                             context,
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.parse("2023-12-30"))
+                                  .then((value) {
+                                licIssuedDateController.text =
+                                    DateFormat.yMMMd().format(value!);
+                              });
+                            },
                             hint: 'Lic. Issued Date',
                             controller: licIssuedDateController,
                             type: TextInputType.text,
@@ -134,6 +146,22 @@ class _doctorRegister3State extends State<doctorRegister3> {
                         Expanded(
                           child: defaultFormField(
                             context,
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.parse("2023-12-30"))
+                                  .then((value) {
+                                licExpiryDateController.text =
+                                    DateFormat.yMd().format(value!);
+                              });
+                              /*  var time = DateTime(DateTime.now().day,
+                                      DateTime.now().month, DateTime.now().year)
+                                  .difference(DateTime.parse(
+                                      licExpiryDateController.text.toString()));
+                              print('time is : $time'); */
+                            },
                             hint: 'Lic. Expiry Date',
                             controller: licExpiryDateController,
                             type: TextInputType.text,
@@ -185,6 +213,9 @@ class _doctorRegister3State extends State<doctorRegister3> {
                       ),
                     ),
                        */
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     defaultButton(
                         verticalpadding: 10.0,
                         textsize: 10.0,

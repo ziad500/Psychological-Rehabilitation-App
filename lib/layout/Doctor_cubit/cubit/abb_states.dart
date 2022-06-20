@@ -1,5 +1,3 @@
-import 'package:bloc/bloc.dart';
-
 abstract class AppDoctorStates {}
 
 class AppDoctorInitialState extends AppDoctorStates {}

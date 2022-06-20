@@ -6,6 +6,7 @@ import 'package:phsyo/models/login_model/user_login_model.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 import 'package:phsyo/shared/network/http_helper.dart';
+import '../../models/profileModel/profile_model.dart';
 import '../../shared/network/dio_helper.dart';
 import 'login_states.dart';
 
@@ -30,45 +31,60 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(changeRadioState());
   }
 
-  UserModel? loginmodel;
+  LoginModel? loginmodel;
   void userLogin({required String email, required String password}) {
     emit(AppLoginLoadingState());
-
     DioHelper.postData(url: LOGIN, data: {'email': email, 'password': password})
         .then((value) {
-      loginmodel = UserModel.fromJson(value.data);
+      loginmodel = LoginModel.fromJson(value.data);
       print(value.data);
       emit(AppLoginSuccessState(loginmodel!));
     }).catchError((error) {
       if (error is DioError) {
-        loginmodel = UserModel.fromJson(error.response!.data);
+        loginmodel = LoginModel.fromJson(error.response!.data);
         showToast(text: loginmodel!.message, state: ToastStates.ERROR);
-        print(loginmodel!.message);
+        print("error is ${loginmodel!.message}");
       }
       print('error is : $error');
       emit(AppLoginErrorState(error.toString()));
     });
   }
 
-  void doctorLogin({required String email, required String password}) {
+  ProfileModel? profileModel;
+  void getProfileData(String id) {
+    emit(AppLoadingProfileDataState());
+    DioHelper.getData(url: 'profile/$id').then((value) {
+      profileModel = ProfileModel.fromJson(value.data);
+      //print(profileModel?.user.contactRelation);
+      emit(AppSuccessProfileDataState(profileModel!));
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      //  print('error is : $error');
+      emit(AppErrorProfileDataState());
+    });
+  }
+
+  /*  void doctorLogin({required String email, required String password}) {
     emit(AppLoginDoctorLoadingState());
 
     DioHelper.postData(
         url: LOGINDOCTOR,
         data: {'email': email, 'password': password}).then((value) {
-      loginmodel = UserModel.fromJson(value.data);
+      loginmodel = LoginModel.fromJson(value.data);
       print(value.data);
       emit(AppLoginDoctorSuccessState());
     }).catchError((error) {
       if (error is DioError) {
-        loginmodel = UserModel.fromJson(error.response!.data);
+        loginmodel = LoginModel.fromJson(error.response!.data);
         showToast(text: loginmodel!.message, state: ToastStates.ERROR);
         print(loginmodel!.message);
       }
       emit(AppLoginDoctorErrorState());
     });
   }
-
+ */
   /* void userr({required String email, required String password}) {
     emit(AppLoginLoadingState());
 

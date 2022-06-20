@@ -1,20 +1,22 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/models/articlesModel/articles_model.dart';
+import 'package:phsyo/models/doctors_list/doctors_model.dart';
+import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
 import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
-import 'package:phsyo/shared/network/dio_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
+
+import '../../shared/network/dio_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
@@ -22,8 +24,7 @@ class AppCubit extends Cubit<AppStates> {
 
   int currentIndex = 0;
   bool? doctor;
-
-  List<String> Joblist = [
+  List<String> joblist = [
     'Therapist',
     'Life coach',
     'Yoga instructor',
@@ -75,13 +76,13 @@ class AppCubit extends Cubit<AppStates> {
     emit(ImagePickerProfileSuccess());
   }
 
-  void getNameImage(String key) {
+  /*  void getNameImage(String key) {
     if (profileImage == null) return;
     String base64 = base64Encode(profileImage!.readAsBytesSync());
     String imageName = profileImage!.path.split('/').last;
     CasheHelper.saveData(key: key, value: imageName);
   }
-
+ */
   File? licenseImage;
 
   Future getlicenseImage(
@@ -95,7 +96,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(ImagePickerLicenseSuccess());
   }
 
-  uploadimage(
+  /* uploadimage(
       {required String firstName,
       required String lastName,
       required String email,
@@ -122,23 +123,23 @@ class AppCubit extends Cubit<AppStates> {
       'sessions': sessions
     });
     var response = await DioHelper.postData(url: LOGIN, data: formData);
-  }
+  } */
 
-  uploadimagee() async {
+  /* uploadimagee() async {
     var formData = FormData.fromMap(
         {'image': await MultipartFile.fromFile(licenseImage!.path)});
     var response = await DioHelper.dio.post('', data: formData);
   }
-
-  void getNamelicenseImage(String key) {
+ */
+  /*  void getNamelicenseImage(String key) {
     if (licenseImage == null) return;
-    String base64 = base64Encode(licenseImage!.readAsBytesSync());
+    //String base64 = base64Encode(licenseImage!.readAsBytesSync());
     String imageName = licenseImage!.path.split('/').last;
     CasheHelper.saveData(key: key, value: imageName);
   }
-
-  List<articlesModel> articles = [
-    articlesModel(
+ */
+  List<ArticlesModel> articles = [
+    ArticlesModel(
         name: 'Ziad Elblidy',
         category: '',
         title: 'testt new article',
@@ -146,19 +147,34 @@ class AppCubit extends Cubit<AppStates> {
             'testt new article testt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new article',
         date: DateTime.now().toString())
   ];
-  articlesModel? articlesmodel;
+  ArticlesModel? articlesmodel;
   void addToArticles({
     required String name,
     required String category,
     required String title,
     required String article,
   }) {
-    articles.add(articlesModel(
+    articles.add(ArticlesModel(
         name: name,
         category: category,
         title: title,
         article: article,
         date: DateTime.now().toString()));
-    emit(addToArticlesSuccess());
+    emit(AddToArticlesSuccess());
+  }
+
+  //List<DoctorsModel> doctors = [];
+  DoctorsModel? doctorsModel;
+  void getDoctorsData() {
+    emit(AppLoadingDoctorsDataState());
+    DioHelper.getData(url: GETDOCTORS).then((value) {
+      doctorsModel = DoctorsModel.fromjson(value.data);
+      emit(AppSuccessDoctorsDataState());
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorDoctorsDataState());
+    });
   }
 }

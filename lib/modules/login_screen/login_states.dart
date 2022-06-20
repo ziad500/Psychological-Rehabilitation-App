@@ -1,4 +1,5 @@
 import 'package:phsyo/models/login_model/user_login_model.dart';
+import 'package:phsyo/models/profileModel/profile_model.dart';
 
 abstract class LoginStates {}
 
@@ -9,7 +10,7 @@ class changePasswordVisiblilityState extends LoginStates {}
 class AppLoginLoadingState extends LoginStates {}
 
 class AppLoginSuccessState extends LoginStates {
-  final UserModel loginModel;
+  final LoginModel loginModel;
 
   AppLoginSuccessState(this.loginModel);
 }
@@ -35,3 +36,13 @@ class AppLoginDoctorErrorState extends LoginStates {
 
   AppLoginErrorState(this.error); */
 }
+
+class AppLoadingProfileDataState extends LoginStates {}
+
+class AppSuccessProfileDataState extends LoginStates {
+  final ProfileModel profileModel;
+
+  AppSuccessProfileDataState(this.profileModel);
+}
+
+class AppErrorProfileDataState extends LoginStates {}

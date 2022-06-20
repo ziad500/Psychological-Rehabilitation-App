@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/layout/cubit/abb_states.dart';
-import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/forget_password/forget_password.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
@@ -36,14 +34,20 @@ class LoginScreen extends StatelessWidget {
     ]);
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
+        if (state is AppSuccessProfileDataState) {
+          role = state.profileModel.user.role;
+          CasheHelper.saveData(key: 'doctor', value: Doctor(context))
+              .then((value) {
+            navigateAndFinish(context, const Applayout());
+          });
+        }
         if (state is AppLoginSuccessState) {
           CasheHelper.saveData(key: 'token', value: state.loginModel.token)
               .then((value) {
             token = state.loginModel.token;
-            doctor = false;
-
-            print('token is $token');
-            navigateAndFinish(context, const Applayout());
+            Userid = state.loginModel.userId;
+            LoginCubit.get(context).getProfileData(Userid.toString());
+            //   print('token is $token');
             showToast(
                 text: state.loginModel.message.toString(),
                 state: ToastStates.SUCCESS);
@@ -186,7 +190,9 @@ class LoginScreen extends StatelessWidget {
                                       ],
                                     ),
                                     ConditionalBuilder(
-                                      condition: state is! AppLoginLoadingState,
+                                      condition: state
+                                              is! AppLoginLoadingState &&
+                                          state is! AppLoadingProfileDataState,
                                       builder: (context) => Column(
                                         children: [
                                           Padding(

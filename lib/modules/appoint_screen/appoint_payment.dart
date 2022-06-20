@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_details.dart';
 import 'package:phsyo/shared/components/components.dart';
 
-class paymentAppointScreen extends StatelessWidget {
-  const paymentAppointScreen({Key? key}) : super(key: key);
+class PaymentAppointScreen extends StatelessWidget {
+  const PaymentAppointScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/models/category_item_model/category_item_model.dart';
 import 'package:phsyo/models/category_item_model/category_item_model.dart';
 import 'package:phsyo/models/category_item_model/category_item_model.dart';
+import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/modules/profile_screen/profile_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
@@ -29,12 +30,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Scaffold(
-              backgroundColor: defaultColor,
-              /* appBar: AppBar(
+    return BlocConsumer<AppCubit, AppStates>(listener: (context, state) {
+      if (state is AppLoadingDoctorsDataState) {
+        CircularProgressIndicator();
+      }
+    }, builder: (context, state) {
+      return Scaffold(
+          backgroundColor: defaultColor,
+          /* appBar: AppBar(
           backgroundColor: defaultColor,
           elevation: 0.0,
           toolbarHeight: 140,
@@ -85,82 +88,95 @@ class HomeScreen extends StatelessWidget {
           ), */
         ),
        */
-              body: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
+          body: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'Choose a category',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              Container(
+                height: 120,
+                color: defaultColor,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, bottom: 15),
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return categoryItem(categoryItems[index]);
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                              width: 10.0,
+                            ),
+                        itemCount: categoryItems.length),
                   ),
-                  const Text(
-                    'Choose a category',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0)),
+                    color: Colors.white,
                   ),
-                  Container(
-                    height: 120,
-                    color: defaultColor,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, bottom: 15),
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: const ScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return categoryItem(categoryItems[index]);
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                                  width: 10.0,
-                                ),
-                            itemCount: categoryItems.length),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0)),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 3),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 3),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                left: 18.0,
+                                right: 18.0,
+                                bottom: 15,
                               ),
-                              Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 18.0,
-                                    right: 18.0,
-                                    bottom: 15,
-                                  ),
-                                  child: ListView.separated(
+                              child: AppCubit.get(context).doctorsModel != null
+                                  ? ListView.separated(
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
                                       physics: const ScrollPhysics(),
-                                      itemBuilder: (context, index) =>
-                                          doctorCard(context),
+                                      itemBuilder: (context, index) {
+                                        return doctorCard(
+                                            context,
+                                            AppCubit.get(context).doctorsModel,
+                                            index);
+                                      },
                                       separatorBuilder: (context, index) =>
                                           const SizedBox(
                                             height: 15.0,
                                           ),
-                                      itemCount: 10)),
-                            ],
-                          ),
-                        ),
+                                      itemCount: AppCubit.get(context)
+                                          .doctorsModel!
+                                          .doctors
+                                          .length)
+                                  : Center(
+                                      child: Container(
+                                          child: CircularProgressIndicator(
+                                        color: defaultColor,
+                                      )),
+                                    ))
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ));
-        });
+                ),
+              ),
+            ],
+          ));
+    });
   }
 
   Widget categoryItem(CategoryModel model) => Row(
@@ -220,7 +236,7 @@ class HomeScreen extends StatelessWidget {
         ],
       );
 
-  Widget doctorCard(context) => Container(
+  Widget doctorCard(context, DoctorsModel? model, var index) => Container(
         height: 133.84,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -259,8 +275,7 @@ class HomeScreen extends StatelessWidget {
                             FadeInImage.memoryNetwork(
                               fadeInDuration: const Duration(milliseconds: 300),
                               placeholder: kTransparentImage,
-                              image:
-                                  'https://scontent.fcai22-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=tqF-NeJqlL4AX-g4naq&tn=Z5IcDg5zDufeQZq7&_nc_ht=scontent.fcai22-1.fna&oh=00_AT_s-HYkc3whc6kyCLsImEOT7Qbtikh_3ZYgySKqT5S13g&oe=62CC9ACD',
+                              image: model!.doctors[index].image.toString(),
                               width: 89,
                               height: 134,
                               fit: BoxFit.cover,
@@ -298,11 +313,11 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     Container(
                                       width: 140,
-                                      child: const Text(
-                                        'Dr. Ziad Elblidy',
+                                      child: Text(
+                                        model.doctors[index].name.toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 14.0,
                                           color: Colors.red,
                                           fontWeight: FontWeight.bold,
@@ -321,11 +336,12 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     Container(
                                       width: 140.0,
-                                      child: const Text(
-                                        'Psychiatrist',
+                                      child: Text(
+                                        model.doctors[index].profession
+                                            .toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 14.0,
                                             color: Color(0XFF616161),
                                             fontWeight: FontWeight.bold),
@@ -343,11 +359,12 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     Container(
                                       width: 140.0,
-                                      child: const Text(
-                                        '.......',
+                                      child: Text(
+                                        model.doctors[index].birthDate
+                                            .toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 14.0,
                                             color: Color(0XFF616161),
                                             fontWeight: FontWeight.bold),
@@ -366,7 +383,7 @@ class HomeScreen extends StatelessWidget {
                                     Container(
                                       width: 180,
                                       child: const Text(
-                                        '6 Years Of Experience',
+                                        '',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -421,7 +438,20 @@ class HomeScreen extends StatelessWidget {
                           height: 23,
                           child: defaultButton(
                             function: () {
-                              navigateTo(context, ProfileScreen());
+                              navigateTo(
+                                  context,
+                                  ProfileScreen(
+                                    image:
+                                        model.doctors[index].image.toString(),
+                                    name: model.doctors[index].name.toString(),
+                                    yearOfExperience:
+                                        '' /* DateTime.now()
+                                        .difference(DateTime.parse(model
+                                            .doctors[index].licIssuedDate
+                                            .toString()))
+                                        .toString() */
+                                    ,
+                                  ));
                             },
                             isUpperCase: false,
                             text: 'Profile',

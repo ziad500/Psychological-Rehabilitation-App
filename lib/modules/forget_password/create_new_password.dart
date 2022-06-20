@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:phsyo/modules/forget_password/verify_code.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-class createNewPasswordScreen extends StatelessWidget {
+class CreateNewPasswordScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();

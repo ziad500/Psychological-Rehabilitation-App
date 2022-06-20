@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/layout/cubit/abb_states.dart';
+import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_states.dart';
 import 'package:phsyo/shared/components/components.dart';
@@ -20,16 +22,16 @@ class EditeProfileScreen extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var model = LoginCubit.get(context).loginmodel;
-        nameController.text = 'Name : ${model?.name}';
+        var model = LoginCubit.get(context).profileModel!.user;
+        nameController.text = 'Name : ${model.name}';
         trustContactController.text =
-            'Trust Contact Phone : ${model?.trustContact}';
+            'Trust Contact Phone : ${model.trustContact}';
         trustContactRelationController.text =
-            'Relation : ${model?.contactRelation}';
-        emailController.text = 'Email : ${model?.message}';
-        phoneController.text = 'Phone : ${model?.mobilePhone}';
+            'Relation : ${model.contactRelation}';
+        emailController.text = 'Email : ${model.contactRelation}';
+        phoneController.text = 'Phone : ${model.mobilePhone}';
         mediacalHistoryController.text =
-            'Medical History : ${model?.medicalHistory}';
+            'Medical History : ${model.medicalHistory}';
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -52,7 +54,7 @@ class EditeProfileScreen extends StatelessWidget {
                         radius: 40.0,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.asset('icons/pngegg.png')),
+                            child: Image.network('${model.image}')),
                       ),
                     ),
                     const SizedBox(

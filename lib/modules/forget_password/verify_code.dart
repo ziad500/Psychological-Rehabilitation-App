@@ -165,7 +165,7 @@ class VerifyCodeScreen extends StatelessWidget {
                                             if (formKey.currentState!
                                                 .validate()) {
                                               navigateTo(context,
-                                                  createNewPasswordScreen());
+                                                  CreateNewPasswordScreen());
                                               print('Send Success');
                                             }
                                           },
