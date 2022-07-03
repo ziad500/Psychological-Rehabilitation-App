@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
@@ -16,22 +17,27 @@ class EditeProfileScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
   var mediacalHistoryController = TextEditingController();
+  var professionController = TextEditingController();
+  var professionlanguagesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var model = LoginCubit.get(context).profileModel!.user;
-        nameController.text = 'Name : ${model.name}';
+        var model = LoginCubit.get(context).profileModel?.user;
+        nameController.text = 'Name : ${model?.name}';
         trustContactController.text =
-            'Trust Contact Phone : ${model.trustContact}';
+            'Trust Contact Phone : ${model?.trustContact}';
         trustContactRelationController.text =
-            'Relation : ${model.contactRelation}';
-        emailController.text = 'Email : ${model.contactRelation}';
-        phoneController.text = 'Phone : ${model.mobilePhone}';
+            'Relation : ${model?.contactRelation}';
+        emailController.text = 'Email : ${model?.contactRelation}';
+        phoneController.text = 'Phone : ${model?.mobilePhone}';
         mediacalHistoryController.text =
-            'Medical History : ${model.medicalHistory}';
+            'Medical History : ${model?.medicalHistory}';
+        professionController.text = 'Profession : ${model?.profession}';
+        professionlanguagesController.text =
+            'Proficient Languages : ${model?.languages}';
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -54,7 +60,9 @@ class EditeProfileScreen extends StatelessWidget {
                         radius: 40.0,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
-                            child: Image.network('${model.image}')),
+                            child: model?.image == null
+                                ? Image.asset('icons/icons8-man-232.png')
+                                : Image.network('${model?.image}')),
                       ),
                     ),
                     const SizedBox(
@@ -98,54 +106,72 @@ class EditeProfileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: defaultFormField(context,
-                              controller: trustContactController,
-                              hint: 'Trust Contact',
-                              type: TextInputType.text,
-                              height: 8, validate: (String? value) {
+                    doctor == true
+                        ? defaultFormField(context,
+                            controller: professionController,
+                            type: TextInputType.text,
+                            validate: (String? value) {
                             if (value!.isEmpty) {
-                              return "Please Enter Your Trust Contact";
+                              return "Please Enter Your Profession";
                             }
-                          }),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: defaultFormField(context,
-                              controller: trustContactRelationController,
-                              hint: 'Relation',
-                              height: 8,
-                              type: TextInputType.text,
-                              validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter Your Trust Contact Relation";
-                            }
-                          }),
-                        ),
-                      ],
-                    ),
+                          })
+                        : Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: defaultFormField(context,
+                                    controller: trustContactController,
+                                    hint: 'Trust Contact',
+                                    type: TextInputType.text,
+                                    height: 8, validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return "Please Enter Your Trust Contact";
+                                  }
+                                }),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: defaultFormField(context,
+                                    controller: trustContactRelationController,
+                                    hint: 'Relation',
+                                    height: 8,
+                                    type: TextInputType.text,
+                                    validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return "Please Enter Your Trust Contact Relation";
+                                  }
+                                }),
+                              ),
+                            ],
+                          ),
                     const SizedBox(
                       height: 15,
                     ),
-                    defaultFormField(
-                      context,
-                      hint: 'Medical History',
-                      maxlines: 4,
-                      height: 13,
-                      controller: mediacalHistoryController,
-                      type: TextInputType.text,
-                      validate: (value) {
-                        if (value!.isEmpty) {
-                          return "Medical History must not be empty";
-                        }
-                      },
-                    ),
+                    doctor == true
+                        ? defaultFormField(context,
+                            controller: professionlanguagesController,
+                            type: TextInputType.text,
+                            validate: (String? value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter Your Profession Languages";
+                            }
+                          })
+                        : defaultFormField(
+                            context,
+                            hint: 'Medical History',
+                            maxlines: 4,
+                            height: 13,
+                            controller: mediacalHistoryController,
+                            type: TextInputType.text,
+                            validate: (value) {
+                              if (value!.isEmpty) {
+                                return "Medical History must not be empty";
+                              }
+                            },
+                          ),
                     SizedBox(
                       height: 3.h,
                     ),

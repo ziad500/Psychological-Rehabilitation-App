@@ -24,7 +24,9 @@ class Meeting extends StatefulWidget {
 
 class _MeetingState extends State<Meeting> {
   final serverText = TextEditingController();
-  final roomText = const Uuid().v4();
+  final roomText = TextEditingController(text: "zzzzzzz");
+
+  //final roomText = const Uuid().v4();
   final subjectText = TextEditingController(text: "My Plugin Test Meeting");
   final nameText = TextEditingController(text: "Plugin Test User");
   final emailText = TextEditingController(text: "fake@email.com");
@@ -42,6 +44,7 @@ class _MeetingState extends State<Meeting> {
         onConferenceJoined: _onConferenceJoined,
         onConferenceTerminated: _onConferenceTerminated,
         onError: _onError));
+    _joinMeeting();
   }
 
   @override
@@ -113,13 +116,13 @@ class _MeetingState extends State<Meeting> {
           const SizedBox(
             height: 14.0,
           ),
-          /*  TextField(
+          TextField(
             controller: roomText,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Room",
             ),
-          ), */
+          ),
           const SizedBox(
             height: 14.0,
           ),
@@ -250,7 +253,7 @@ class _MeetingState extends State<Meeting> {
       }
     }
     // Define meetings options here
-    var options = JitsiMeetingOptions(room: roomText)
+    var options = JitsiMeetingOptions(room: roomText.text)
       ..serverURL = serverUrl
       ..subject = subjectText.text
       ..userDisplayName = nameText.text

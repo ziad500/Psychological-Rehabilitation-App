@@ -8,11 +8,6 @@ import 'package:phsyo/styles/colors.dart';
 void navigateTo(context, Widget) => Navigator.push(
     context, PageTransition(child: Widget, type: PageTransitionType.fade));
 
-/* void navigateTo(context, Widget) => Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Widget),
-    ); */
-
 void navigateAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => Widget),
@@ -221,7 +216,7 @@ Widget defaultButton(
                   Icon(
                     icon,
                     color: Colors.white,
-                    size: 29,
+                    size: 20,
                   ),
                   const SizedBox(
                     width: 5.0,

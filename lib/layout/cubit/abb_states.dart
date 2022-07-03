@@ -21,3 +21,9 @@ class AppLoadingProfileDataState extends AppStates {}
 class AppSuccessProfileDataState extends AppStates {}
 
 class AppErrorProfileDataState extends AppStates {}
+
+class AppLoadingGetReviewState extends AppStates {}
+
+class AppSuccessGetReviewState extends AppStates {}
+
+class AppErrorGetReviewState extends AppStates {}

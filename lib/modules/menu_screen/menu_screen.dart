@@ -44,11 +44,11 @@ class MenuScreen extends StatelessWidget {
                         Icons.person,
                         color: Color(0xFF4A4B4D),
                       ),
-                      onTap: () => navigateTo(
-                          context,
-                          doctor == true
+                      onTap: () => navigateTo(context, EditeProfileScreen()
+                          /*    doctor == true
                               ? EditeProfileDoctorScreen()
-                              : EditeProfileScreen())),
+                              : EditeProfileScreen() */
+                          )),
                   if (doctor == true)
                     menuItem(
                       context,

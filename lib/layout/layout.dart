@@ -22,14 +22,6 @@ class Applayout extends StatelessWidget {
               backgroundColor: Colors.white,
               elevation: 6.0,
               centerTitle: true,
-              actions: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.message,
-                      color: defaultColor,
-                    ))
-              ],
               leading: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: CircleAvatar(

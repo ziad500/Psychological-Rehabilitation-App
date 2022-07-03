@@ -9,6 +9,7 @@ import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/models/articlesModel/articles_model.dart';
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/models/profileModel/profile_model.dart';
+import 'package:phsyo/models/reviewModel/review_model.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
@@ -175,6 +176,21 @@ class AppCubit extends Cubit<AppStates> {
         print('error is ${error.response?.data}');
       }
       emit(AppErrorDoctorsDataState());
+    });
+  }
+
+  ReviewModel? reviewModel;
+  void getReviews(String doctorId) {
+    emit(AppLoadingGetReviewState());
+    DioHelper.getData(url: 'doctors/$doctorId/reviews').then((value) {
+      reviewModel = ReviewModel.fromJson(value.data);
+      // print('comment is ${reviewModel?.reviews[0].comment}');
+      emit(AppSuccessGetReviewState());
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorGetReviewState());
     });
   }
 }

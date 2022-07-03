@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
+import 'package:phsyo/jisti.dart';
 import 'package:phsyo/layout/Doctor_cubit/cubit/app_cubit.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
@@ -70,7 +72,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => AppCubit()..getDoctorsData(),
+            create: (context) => AppCubit()
+              ..getDoctorsData()
+              ..getReviews('62aa4c0cb50fe2e26c3108dd'),
           ),
           BlocProvider(
             create: (context) => LoginCubit(),
@@ -78,9 +82,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => RegisterCubit(),
           ),
-          BlocProvider(
-            create: (context) => AppDoctorCubit(),
-          )
         ],
         child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {
@@ -113,7 +114,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: LoginScreen()
+                  home: AppointScreen()
                   /*     doctorRegister3(
                     /*  Gender: '',
                     LicExpiryDate: '',

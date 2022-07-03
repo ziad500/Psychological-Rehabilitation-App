@@ -230,7 +230,7 @@ class clientRegister4 extends StatelessWidget {
                                                         if (formKey
                                                             .currentState!
                                                             .validate()) {
-                                                          RegisterCubit.get(context).signUp(
+                                                          RegisterCubit.get(context).clientSignUp(
                                                               firstName:
                                                                   firstName,
                                                               lastName:

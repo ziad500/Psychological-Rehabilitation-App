@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
+import 'package:phsyo/jisti.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '../../shared/components/components.dart';
 import '../../styles/colors.dart';
@@ -83,7 +84,7 @@ class AppointmentsScreen extends StatelessWidget {
   Widget doctorCard(context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Container(
-          height: 120.84,
+          height: 139,
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
@@ -116,7 +117,7 @@ class AppointmentsScreen extends StatelessWidget {
                             image:
                                 'https://scontent.fcai22-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=tqF-NeJqlL4AX-g4naq&tn=Z5IcDg5zDufeQZq7&_nc_ht=scontent.fcai22-1.fna&oh=00_AT_s-HYkc3whc6kyCLsImEOT7Qbtikh_3ZYgySKqT5S13g&oe=62CC9ACD',
                             width: 89,
-                            height: 134,
+                            height: 139,
                             fit: BoxFit.cover,
                           ),
                         ],
@@ -245,19 +246,32 @@ class AppointmentsScreen extends StatelessWidget {
                       const SizedBox(
                         width: 5.0,
                       ),
-                      Container(
-                        /*                           height: 27,
-           */
-                        child: defaultButton(
-                          height: 30,
-                          function: () {},
-                          isUpperCase: false,
-                          text: 'View Profile',
-                          textsize: 12.0,
-                          verticalpadding: 0.0,
-                          width: 103,
-                        ),
-                      )
+                      defaultButton(
+                        height: 30,
+                        function: () {
+                          navigateTo(context, Meeting());
+                        },
+                        isUpperCase: false,
+                        icon: Icons.call,
+                        text: 'Start Session',
+                        textsize: 12.0,
+                        verticalpadding: 0.0,
+                        width: 120,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      defaultButton(
+                        function: () {},
+                        height: 30,
+                        isUpperCase: false,
+                        text: 'Profile',
+                        color: Colors.white,
+                        textColor: defaultColor,
+                        textsize: 12.0,
+                        verticalpadding: 0.0,
+                        width: 103,
+                      ),
                     ],
                   ),
                 ),

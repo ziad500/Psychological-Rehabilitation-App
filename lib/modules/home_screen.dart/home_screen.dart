@@ -438,19 +438,18 @@ class HomeScreen extends StatelessWidget {
                           height: 23,
                           child: defaultButton(
                             function: () {
+                              AppCubit.get(context).getReviews(
+                                  model.doctors[index].id.toString());
                               navigateTo(
                                   context,
                                   ProfileScreen(
                                     image:
                                         model.doctors[index].image.toString(),
                                     name: model.doctors[index].name.toString(),
-                                    yearOfExperience:
-                                        '' /* DateTime.now()
-                                        .difference(DateTime.parse(model
-                                            .doctors[index].licIssuedDate
-                                            .toString()))
-                                        .toString() */
-                                    ,
+                                    yearOfExperience: '',
+                                    languages: model.doctors[index].languages,
+                                    profission: model.doctors[index].profession
+                                        .toString(),
                                   ));
                             },
                             isUpperCase: false,

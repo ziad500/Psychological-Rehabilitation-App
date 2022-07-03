@@ -78,7 +78,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   } */
   LoginModel? loginmodel;
 
-  void signUp(
+  void clientSignUp(
       {required String firstName,
       required String lastName,
       required String email,
@@ -138,7 +138,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         .catchError((error) => print(error)); */
   }
 
-  Future<String> uploadimage(
+/*   Future<String> uploadimage(
       {File? profileImage,
       required String firstName,
       required String lastName,
@@ -186,7 +186,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     });
     return response.toString();
   }
-
+ */
   File? profileDoctorImage;
 
   Future getProfileDoctorImage(
@@ -204,7 +204,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   DoctorRegisterModel? doctorRegisterModel;
-
   void signUpDoctor(
       {required String firstName,
       required String lastName,

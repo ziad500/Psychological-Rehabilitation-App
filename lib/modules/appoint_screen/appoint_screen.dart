@@ -145,7 +145,10 @@ class _AppointScreenState extends State<AppointScreen> {
                     setState(() {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
-                      //  print(selectedDay);
+                      print(DateTime(_selectedDay!.year, _selectedDay!.month,
+                              _selectedDay!.day) ==
+                          DateTime(DateTime.now().year, DateTime.now().month,
+                              DateTime.now().day));
                     });
                   }
                 },

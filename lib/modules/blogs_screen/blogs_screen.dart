@@ -4,6 +4,7 @@ import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/models/articlesModel/articles_model.dart';
 import 'package:phsyo/styles/colors.dart';
+import 'package:sizer/sizer.dart';
 
 class BlogsScreen extends StatelessWidget {
   const BlogsScreen({Key? key}) : super(key: key);
@@ -89,7 +90,7 @@ class BlogsScreen extends StatelessWidget {
     );
   }
 
-  Widget articleItem(ArticlesModel model) => Padding(
+  /*  Widget articleItem(ArticlesModel model) => Padding(
       padding: const EdgeInsets.only(right: 18.0),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -119,8 +120,8 @@ class BlogsScreen extends StatelessWidget {
           ),
         ),
       ));
-
-  /*  Widget articleItem(articlesModel model) => Padding(
+ */
+  Widget articleItem(ArticlesModel model) => Padding(
         padding: const EdgeInsets.only(right: 18.0),
         child: Container(
           height: 25.2.h,
@@ -171,7 +172,7 @@ class BlogsScreen extends StatelessWidget {
           ),
         ),
       );
- */
+
   Widget discoveryItem() => Column(
         children: [
           Container(
