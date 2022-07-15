@@ -8,6 +8,8 @@ class ImagePickerProfileSuccess extends AppStates {}
 
 class ImagePickerLicenseSuccess extends AppStates {}
 
+class ImagePickerCoverArticleSuccess extends AppStates {}
+
 class AddToArticlesSuccess extends AppStates {}
 
 class AppLoadingDoctorsDataState extends AppStates {}
@@ -27,3 +29,11 @@ class AppLoadingGetReviewState extends AppStates {}
 class AppSuccessGetReviewState extends AppStates {}
 
 class AppErrorGetReviewState extends AppStates {}
+
+class AppLoadingGetArticlesState extends AppStates {}
+
+class AppSuccessGetArticlesState extends AppStates {}
+
+class AppErrorGetArticlesState extends AppStates {}
+
+class categoryArticlevalueSuccessState extends AppStates {}

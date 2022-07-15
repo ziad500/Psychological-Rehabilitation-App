@@ -225,6 +225,7 @@ class _clientRegister2State extends State<clientRegister2> {
                           context,
                           hint: 'Medical History',
                           maxlines: 4,
+                          height: 15,
                           controller: mediacalHistoryController,
                           type: TextInputType.text,
                           validate: (value) {

@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/models/articlesModel/articles_model.dart';
+import 'package:phsyo/modules/blogs_screen/blogs_details_screen.dart';
+import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../models/get_article_model/get_article_model.dart';
 
 class BlogsScreen extends StatelessWidget {
   const BlogsScreen({Key? key}) : super(key: key);
@@ -55,14 +59,7 @@ class BlogsScreen extends StatelessWidget {
                           child: const Text('ADD ARTICLE'),
                           style:
                               ElevatedButton.styleFrom(primary: defaultColor),
-                          onPressed: () {
-                            AppCubit.get(context).addToArticles(
-                                name: 'Ziad gamal',
-                                category: '',
-                                title: 'testt new artisscle',
-                                article:
-                                    'testt new article testt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new article');
-                          },
+                          onPressed: () {},
                         ),
                       ),
                     ],
@@ -75,12 +72,13 @@ class BlogsScreen extends StatelessWidget {
                       shrinkWrap: true,
                       reverse: true,
                       physics: const ScrollPhysics(),
-                      itemBuilder: (context, index) =>
-                          articleItem(AppCubit.get(context).articles[index]),
+                      itemBuilder: (context, index) => articleItem(
+                          AppCubit.get(context).articlesModel, index, context),
                       separatorBuilder: (context, index) => const SizedBox(
                             height: 15.0,
                           ),
-                      itemCount: AppCubit.get(context).articles.length),
+                      itemCount:
+                          AppCubit.get(context).articlesModel!.articles.length),
                 ],
               ),
             ),
@@ -121,54 +119,65 @@ class BlogsScreen extends StatelessWidget {
         ),
       ));
  */
-  Widget articleItem(ArticlesModel model) => Padding(
+  Widget articleItem(ArticlesModel? model, var index, context) => Padding(
         padding: const EdgeInsets.only(right: 18.0),
-        child: Container(
-          height: 25.2.h,
-          /* 195 */
-          width: double.infinity,
-          child: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                            'https://upload.wikimedia.org/wikipedia/commons/6/67/Yellow-maple.jpg')),
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-              Container(
-                height: 70,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10.0,
-                      color: Colors.black.withOpacity(0.4),
-                      // soften the shadow
-                      spreadRadius: 0.0, //extend the shadow
-                      offset: const Offset(
-                        0, // Move to right 10  horizontally
-                        0, // Move to bottom 5 Vertically
-                      ),
-                    )
-                  ],
+        child: InkWell(
+          onTap: () {
+            navigateTo(
+                context,
+                BlogsDetailsScreen(
+                  content: model!.articles[index].content.toString(),
+                  cover: model.articles[index].cover.toString(),
+                  title: model.articles[index].title.toString(),
+                ));
+          },
+          child: Container(
+            height: 25.2.h,
+            /* 195 */
+            width: double.infinity,
+            child: Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(
+                              model!.articles[index].cover.toString())),
+                      borderRadius: BorderRadius.circular(10.0)),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Text(
-                    model.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
+                Container(
+                  height: 70,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 10.0,
+                        color: Colors.black.withOpacity(0.4),
+                        // soften the shadow
+                        spreadRadius: 0.0, //extend the shadow
+                        offset: const Offset(
+                          0, // Move to right 10  horizontally
+                          0, // Move to bottom 5 Vertically
+                        ),
+                      )
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Text(
+                      model.articles[index].title.toString(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       );

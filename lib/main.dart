@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
-import 'package:phsyo/jisti.dart';
 import 'package:phsyo/layout/Doctor_cubit/cubit/app_cubit.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
+import 'package:phsyo/modules/blogs_screen/add_blogs_screen.dart';
+import 'package:phsyo/modules/blogs_screen/blogs_details_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AppCubit()
               ..getDoctorsData()
-              ..getReviews('62aa4c0cb50fe2e26c3108dd'),
+              ..getArticles(),
           ),
           BlocProvider(
             create: (context) => LoginCubit(),
@@ -114,7 +115,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: AppointScreen()
+                  home: AddBlogsScreen()
                   /*     doctorRegister3(
                     /*  Gender: '',
                     LicExpiryDate: '',

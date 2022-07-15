@@ -1,11 +1,11 @@
-class ArticlesModel {
+class ArticlesssModel {
   final String name;
   final String title;
   final String category;
   final String article;
   final String date;
 
-  ArticlesModel(
+  ArticlesssModel(
       {required this.name,
       required this.category,
       required this.title,

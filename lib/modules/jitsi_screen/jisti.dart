@@ -44,7 +44,7 @@ class _MeetingState extends State<Meeting> {
         onConferenceJoined: _onConferenceJoined,
         onConferenceTerminated: _onConferenceTerminated,
         onError: _onError));
-    _joinMeeting();
+    // _joinMeeting();
   }
 
   @override

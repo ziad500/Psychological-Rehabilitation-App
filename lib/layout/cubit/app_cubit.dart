@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
-import 'package:phsyo/models/articlesModel/articles_model.dart';
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
+import 'package:phsyo/models/get_article_model/get_article_model.dart';
 import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/models/reviewModel/review_model.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
@@ -17,6 +17,7 @@ import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 
+import '../../models/articlesModel/articles_model.dart';
 import '../../shared/network/dio_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -66,7 +67,7 @@ class AppCubit extends Cubit<AppStates> {
   File? profileImage;
   final ImagePicker picker = ImagePicker();
 
-  Future getImage(
+  Future getProfileImage(
     ImageSource source,
   ) async {
     final XFile? image = await picker.pickImage(source: source);
@@ -85,7 +86,6 @@ class AppCubit extends Cubit<AppStates> {
   }
  */
   File? licenseImage;
-
   Future getlicenseImage(
     ImageSource source,
   ) async {
@@ -97,50 +97,8 @@ class AppCubit extends Cubit<AppStates> {
     emit(ImagePickerLicenseSuccess());
   }
 
-  /* uploadimage(
-      {required String firstName,
-      required String lastName,
-      required String email,
-      required String password,
-      required String mobilePhone,
-      required String gender,
-      required String birthDate,
-      required String trustContact,
-      required String contactRelation,
-      required String medicalHistory,
-      required List<String> sessions}) async {
-    var formData = FormData.fromMap({
-      'profileImage': await MultipartFile.fromFile(licenseImage!.path),
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'password': password,
-      'mobilePhone': mobilePhone,
-      'gender': gender,
-      'birthDate': birthDate,
-      'trustContact': trustContact,
-      'contactRelation': contactRelation,
-      'medicalHistory': medicalHistory,
-      'sessions': sessions
-    });
-    var response = await DioHelper.postData(url: LOGIN, data: formData);
-  } */
-
-  /* uploadimagee() async {
-    var formData = FormData.fromMap(
-        {'image': await MultipartFile.fromFile(licenseImage!.path)});
-    var response = await DioHelper.dio.post('', data: formData);
-  }
- */
-  /*  void getNamelicenseImage(String key) {
-    if (licenseImage == null) return;
-    //String base64 = base64Encode(licenseImage!.readAsBytesSync());
-    String imageName = licenseImage!.path.split('/').last;
-    CasheHelper.saveData(key: key, value: imageName);
-  }
- */
-  List<ArticlesModel> articles = [
-    ArticlesModel(
+  List<ArticlesssModel> articles = [
+    ArticlesssModel(
         name: 'Ziad Elblidy',
         category: '',
         title: 'testt new article',
@@ -148,7 +106,7 @@ class AppCubit extends Cubit<AppStates> {
             'testt new article testt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new articletestt new article',
         date: DateTime.now().toString())
   ];
-  ArticlesModel? articlesmodel;
+  /* ArticlesModel? articlesmodel;
   void addToArticles({
     required String name,
     required String category,
@@ -162,7 +120,7 @@ class AppCubit extends Cubit<AppStates> {
         article: article,
         date: DateTime.now().toString()));
     emit(AddToArticlesSuccess());
-  }
+  } */
 
   //List<DoctorsModel> doctors = [];
   DoctorsModel? doctorsModel;
@@ -192,5 +150,39 @@ class AppCubit extends Cubit<AppStates> {
       }
       emit(AppErrorGetReviewState());
     });
+  }
+
+  ArticlesModel? articlesModel;
+  void getArticles() {
+    emit(AppLoadingGetArticlesState());
+    DioHelper.getData(url: ARTICLES).then((value) {
+      articlesModel = ArticlesModel.fromjson(value.data);
+      print(articlesModel?.articles[0].doctor?.name);
+      // print('comment is ${reviewModel?.reviews[0].comment}');
+      emit(AppSuccessGetArticlesState());
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorGetArticlesState());
+    });
+  }
+
+  File? coverArticleImage;
+  Future getCoverArticleImage(
+    ImageSource source,
+  ) async {
+    final XFile? image = await picker.pickImage(source: source);
+    if (image == null) {
+      return;
+    }
+    coverArticleImage = File(image.path);
+    emit(ImagePickerCoverArticleSuccess());
+  }
+
+  String categoryArticlevalue = '';
+  void changeCategoryArticleValue(value) {
+    categoryArticlevalue = value;
+    emit(categoryArticlevalueSuccessState());
   }
 }

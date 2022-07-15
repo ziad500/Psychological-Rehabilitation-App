@@ -145,6 +145,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               child: AppCubit.get(context).doctorsModel != null
                                   ? ListView.separated(
+                                      reverse: true,
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
                                       physics: const ScrollPhysics(),
