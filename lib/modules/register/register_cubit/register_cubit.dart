@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:phsyo/models/Doctor_register_model.dart';
+import 'package:phsyo/models/Doctor_registerModel/Doctor_register_model.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
@@ -266,5 +266,16 @@ class RegisterCubit extends Cubit<RegisterStates> {
             data: data)
         .then((response) => print(response))
         .catchError((error) => print(error)); */
+  }
+
+  void verifyEmail(String email, String code) async {
+    emit(AppLoadingVerifyState());
+    await DioHelper.postData(url: VERIFY, data: {'email': email, 'code': code})
+        .then((value) {
+      //print(value.data);
+      emit(AppSuccessVerifyState());
+    }).catchError((error) {
+      emit(AppErrorVerifyState());
+    });
   }
 }

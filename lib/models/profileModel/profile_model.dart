@@ -61,7 +61,7 @@ class User {
     trustContact = json['trustContact'];
     contactRelation = json['contactRelation'];
     medicalHistory = json['medicalHistory'];
-    role = json['permission'];
+    role = json['role'];
     V = json['__v'];
     json['sessions'].forEach((element) {
       sessions.add(element);

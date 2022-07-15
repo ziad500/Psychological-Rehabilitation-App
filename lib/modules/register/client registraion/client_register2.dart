@@ -45,7 +45,7 @@ class _clientRegister2State extends State<clientRegister2> {
 
   var formKey = GlobalKey<FormState>();
 
-  var mopileEmergencyController = TextEditingController();
+  var mobileEmergencyController = TextEditingController();
 
   var contactRelationController = TextEditingController();
 
@@ -202,12 +202,12 @@ class _clientRegister2State extends State<clientRegister2> {
                           height: 2.h,
                         ),
                         defaultFormField(context,
-                            controller: mopileEmergencyController,
+                            controller: mobileEmergencyController,
                             type: TextInputType.number, validate: (value) {
                           if (value!.isEmpty) {
-                            return "Mopile Emergency must not be Empty";
+                            return "Mobile Emergency must not be Empty";
                           }
-                        }, hint: 'Mopile Emergency'),
+                        }, hint: 'Mobile Emergency'),
                         SizedBox(
                           height: 2.h,
                         ),
@@ -251,8 +251,8 @@ class _clientRegister2State extends State<clientRegister2> {
                                       firstName: widget.firstName,
                                       mobileNumber: widget.mobileNumber,
                                       password: widget.password,
-                                      mopileEmergency:
-                                          mopileEmergencyController.text,
+                                      mobileEmergency:
+                                          mobileEmergencyController.text,
                                       contactRelation: contactRelationController
                                           .text
                                           .toString(),

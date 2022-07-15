@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
+import 'package:http_parser/http_parser.dart';
+
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/models/get_article_model/get_article_model.dart';
 import 'package:phsyo/models/profileModel/profile_model.dart';
@@ -17,6 +19,7 @@ import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 
+import '../../models/addArticles/add_articles_model.dart';
 import '../../models/articlesModel/articles_model.dart';
 import '../../shared/network/dio_helper.dart';
 
@@ -42,11 +45,13 @@ class AppCubit extends Cubit<AppStates> {
   ];
   List<Widget> titleDoctorScreens = [
     titleText('Appointments'),
+    titleText('Blogs'),
     titleText('Menu')
   ];
 
   List<Widget> bottomDoctorScreens = [
     AppointmentsScreen(),
+    BlogsScreen(),
     const MenuScreen()
 /*     const MenuDoctorScreen(),
  */
@@ -55,7 +60,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> bottomScreens = [
     HomeScreen(),
     AppointmentsScreen(),
-    const BlogsScreen(),
+    BlogsScreen(),
     const MenuScreen(),
   ];
 
@@ -157,7 +162,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetArticlesState());
     DioHelper.getData(url: ARTICLES).then((value) {
       articlesModel = ArticlesModel.fromjson(value.data);
-      print(articlesModel?.articles[0].doctor?.name);
       // print('comment is ${reviewModel?.reviews[0].comment}');
       emit(AppSuccessGetArticlesState());
     }).catchError((error) {
@@ -180,9 +184,49 @@ class AppCubit extends Cubit<AppStates> {
     emit(ImagePickerCoverArticleSuccess());
   }
 
-  String categoryArticlevalue = '';
+  var titleController = TextEditingController();
+  var contentController = TextEditingController();
+
+  String categoryArticlevalue = 'Category';
   void changeCategoryArticleValue(value) {
     categoryArticlevalue = value;
-    emit(categoryArticlevalueSuccessState());
+    emit(CategoryArticlevalueSuccessState());
+  }
+
+  AddArticlesModel? addArticlesModel;
+  void addArticle({
+    required String title,
+    required String content,
+    required String category,
+  }) async {
+    emit(AppLoadingAddArticleState());
+    var data = FormData.fromMap({
+      'cover': await MultipartFile.fromFile(
+        coverArticleImage!.path,
+        contentType: new MediaType('image', 'jpg'),
+      ),
+      'title': title,
+      'content': content,
+      'category': category,
+    });
+    await DioHelper.postData(url: ARTICLES, data: data, token: token)
+        .then((value) {
+      addArticlesModel = AddArticlesModel.fromJson(value.data);
+      getArticles();
+      titleController.clear();
+      contentController.clear();
+      categoryArticlevalue = 'Category';
+      coverArticleImage = null;
+
+      print(addArticlesModel?.message);
+      print(value);
+      emit(AppSuccessAddArticleState(addArticlesModel!));
+    }).catchError((error) {
+      print(error);
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorAddArticleState());
+    });
   }
 }

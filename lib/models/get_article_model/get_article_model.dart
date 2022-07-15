@@ -34,7 +34,7 @@ class ArticlesDataModel {
     category = json['category'];
     cover = json['cover'];
     createdAt = json['createdAt'];
-    doctor = Doctor.fromJson(json['doctor']);
+    doctor = json['doctor'] != null ? Doctor.fromJson(json['doctor']) : null;
     V = json['__v'];
   }
 

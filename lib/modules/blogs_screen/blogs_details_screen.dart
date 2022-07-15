@@ -36,7 +36,12 @@ class BlogsDetailsScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            Image.network(cover),
+            Image.network(
+              cover,
+              height: 218,
+              width: double.infinity,
+              fit: BoxFit.fill,
+            ),
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Text(

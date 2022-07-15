@@ -8,8 +8,6 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../layout/Doctor/doctor_edite_profile_screen.dart';
-
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
 

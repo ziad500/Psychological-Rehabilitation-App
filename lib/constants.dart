@@ -16,13 +16,15 @@ void signout(context) {
 }
 
 bool Doctor(context) {
-  if (role != 'User') {
+  if (role == 'user') {
+    doctor = false;
+  } else if (role == 'doctor') {
     doctor = true;
   }
-  return false;
+  return doctor!;
 }
 
 dynamic token = '';
-bool? doctor = false;
+bool? doctor;
 dynamic role = '';
 dynamic Userid = '';

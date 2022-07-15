@@ -41,3 +41,9 @@ class AppRegisterDoctorErrorState extends RegisterStates {
 
   AppRegisterErrorState(this.error); */
 }
+
+class AppLoadingVerifyState extends RegisterStates {}
+
+class AppSuccessVerifyState extends RegisterStates {}
+
+class AppErrorVerifyState extends RegisterStates {}

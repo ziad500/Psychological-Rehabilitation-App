@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
-import 'package:phsyo/layout/Doctor_cubit/cubit/app_cubit.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
@@ -16,6 +15,7 @@ import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 
 import 'package:phsyo/modules/onboarding_screen/onboarding_screen.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
+import 'package:phsyo/modules/register/client%20registraion/client_register4.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register3.dart';
 
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
@@ -40,9 +40,11 @@ Future<void> main() async {
   bool? onBoarding = CasheHelper.getData(key: 'onBoarding');
   token = CasheHelper.getData(key: 'token');
   Userid = CasheHelper.getData(key: 'Userid');
-  //doctor = CasheHelper.getData(key: 'doctor');
+  doctor = CasheHelper.getData(key: 'doctor');
+  print(doctor);
+  print(role);
 
-  // print(token);
+  print(token);
 
   if (onBoarding != null) {
     if (token != null) {
@@ -73,12 +75,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => AppCubit()
-              ..getDoctorsData()
-              ..getArticles(),
-          ),
+              create: (context) => AppCubit()
+                ..getDoctorsData()
+                ..getArticles()),
           BlocProvider(
-            create: (context) => LoginCubit(),
+            create: (context) =>
+                LoginCubit()..getProfileData(Userid.toString()),
           ),
           BlocProvider(
             create: (context) => RegisterCubit(),
@@ -115,8 +117,20 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: AddBlogsScreen()
-                  /*     doctorRegister3(
+                  home: startWidget
+                  /* clientRegister4(
+                      firstName: 'firstName',
+                      lastName: 'lastName',
+                      mobileNumber: 'mobileNumber',
+                      Gender: 'Gender',
+                      email: 'email',
+                      password: 'password',
+                      date: 'date',
+                      MopileEmergency: 'MopileEmergency',
+                      contactRelation: 'contactRelation',
+                      mediacalHistory: 'mediacalHistory',
+                      services: 'services')
+                 */ /*     doctorRegister3(
                     /*  Gender: '',
                     LicExpiryDate: '',
                     LicIssuedDate: '',

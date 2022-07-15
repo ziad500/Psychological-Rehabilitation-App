@@ -131,7 +131,7 @@ class AppointDetails extends StatelessWidget {
                                         const Duration(milliseconds: 300),
                                     placeholder: kTransparentImage,
                                     image:
-                                        'https://scontent.faly3-1.fna.fbcdn.net/v/t39.30808-6/280198885_3204029853219698_8376329503209490497_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=WZr1yHelb5QAX-f457q&_nc_ht=scontent.faly3-1.fna&oh=00_AT88YJUEJ0tWGAALdhlflH-y3fuzxlyPORGjdSbPLOYoEg&oe=629F69CF',
+                                        'https://scontent.fcai22-1.fna.fbcdn.net/v/t39.30808-6/280198885_3204029853219698_8376329503209490497_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=RrjXLjRKX_IAX-RCutq&_nc_ht=scontent.fcai22-1.fna&oh=00_AT-2KVoLkPpML4rOFcnVqaTaXV-rF3OmaNbCBYMKY2kqLQ&oe=62D4CE8F',
                                     width: 89,
                                     height: 134,
                                     fit: BoxFit.cover,

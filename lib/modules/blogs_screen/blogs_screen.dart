@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/models/articlesModel/articles_model.dart';
+import 'package:phsyo/modules/blogs_screen/add_blogs_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_details_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../models/get_article_model/get_article_model.dart';
+import '../appointments_screen/appointments_screen.dart';
 
 class BlogsScreen extends StatelessWidget {
-  const BlogsScreen({Key? key}) : super(key: key);
+  BlogsScreen({Key? key}) : super(key: key);
+  List<CategoryModel> categoryItems = [
+    CategoryModel(image: 'icons/icons8-therapy-100.png', text: 'Therapy'),
+    CategoryModel(image: 'icons/icons8-yoga-64.png', text: 'Yoga'),
+    CategoryModel(image: 'icons/icons8-coach-100.png', text: 'Life Coach'),
+    CategoryModel(image: 'icons/icons8-nutrition-641.png', text: 'Nutrition')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +43,27 @@ class BlogsScreen extends StatelessWidget {
                     height: 10.0,
                   ),
                   SizedBox(
+                    height: 120,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, bottom: 15),
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return categoryItem(categoryItems[index]);
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                            itemCount: categoryItems.length),
+                      ),
+                    ),
+                  ),
+
+                  /*        SizedBox(
                     height: 150.0,
                     child: ListView.separated(
                         shrinkWrap: true,
@@ -45,6 +75,7 @@ class BlogsScreen extends StatelessWidget {
                             ),
                         itemCount: 10),
                   ),
+            */
                   Row(
                     children: [
                       const Text(
@@ -53,32 +84,45 @@ class BlogsScreen extends StatelessWidget {
                             fontSize: 20.0, fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: ElevatedButton(
-                          child: const Text('ADD ARTICLE'),
-                          style:
-                              ElevatedButton.styleFrom(primary: defaultColor),
-                          onPressed: () {},
+                      if (doctor == true)
+                        Padding(
+                          padding: const EdgeInsets.all(18.0),
+                          child: ElevatedButton(
+                            child: const Text('ADD ARTICLE'),
+                            style:
+                                ElevatedButton.styleFrom(primary: defaultColor),
+                            onPressed: () {
+                              navigateTo(context, AddBlogsScreen());
+                            },
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   const SizedBox(
                     height: 10.0,
                   ),
-                  ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      reverse: true,
-                      physics: const ScrollPhysics(),
-                      itemBuilder: (context, index) => articleItem(
-                          AppCubit.get(context).articlesModel, index, context),
-                      separatorBuilder: (context, index) => const SizedBox(
-                            height: 15.0,
+                  AppCubit.get(context).articlesModel == null
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: defaultColor,
                           ),
-                      itemCount:
-                          AppCubit.get(context).articlesModel!.articles.length),
+                        )
+                      : ListView.separated(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          reverse: true,
+                          physics: const ScrollPhysics(),
+                          itemBuilder: (context, index) => articleItem(
+                              AppCubit.get(context).articlesModel,
+                              index,
+                              context),
+                          separatorBuilder: (context, index) => const SizedBox(
+                                height: 15.0,
+                              ),
+                          itemCount: AppCubit.get(context)
+                              .articlesModel!
+                              .articles
+                              .length),
                 ],
               ),
             ),
@@ -119,6 +163,63 @@ class BlogsScreen extends StatelessWidget {
         ),
       ));
  */
+  Widget categoryItem(CategoryModel model) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 80,
+            width: 79,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  )
+                ]),
+            child: Material(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(5.0),
+                splashColor: defaultColor,
+                splashFactory: InkSplash.splashFactory,
+                onTap: () {},
+                child: Container(
+                  height: 80,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0, vertical: 5.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          '${model.image}',
+                          height: 51,
+                          width: 50,
+                        ),
+                        Container(
+                          height: 17,
+                          child: Text(
+                            '${model.text}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0XFF000000),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
   Widget articleItem(ArticlesModel? model, var index, context) => Padding(
         padding: const EdgeInsets.only(right: 18.0),
         child: InkWell(

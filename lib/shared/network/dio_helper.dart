@@ -43,7 +43,7 @@ class DioHelper {
       required /* Map<String, dynamic> */ data}) async {
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': token,
+      'token': token,
     };
     return dio.post(url, queryParameters: query, data: data);
   }
@@ -57,7 +57,7 @@ class DioHelper {
     dio.options.headers = {
       'Content-Type': 'application/json',
       'lang': lang,
-      'Authorization': token,
+      'token': token,
     };
 
     return dio.put(url, queryParameters: query, data: data);

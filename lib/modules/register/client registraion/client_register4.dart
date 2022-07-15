@@ -23,7 +23,7 @@ class clientRegister4 extends StatelessWidget {
   final String email;
   final String password;
   final String date;
-  var MopileEmergency;
+  var MobileEmergency;
   final String contactRelation;
   final String mediacalHistory;
   var services;
@@ -36,7 +36,7 @@ class clientRegister4 extends StatelessWidget {
       required this.email,
       required this.password,
       required this.date,
-      required this.MopileEmergency,
+      required this.MobileEmergency,
       required this.contactRelation,
       required this.mediacalHistory,
       required this.services})
@@ -53,6 +53,23 @@ class clientRegister4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterStates>(
       listener: (context, state) {
+        if (state is AppErrorVerifyState) {
+          showToast(text: 'Code is Wrong', state: ToastStates.ERROR);
+        }
+        if (state is AppSuccessVerifyState) {
+          RegisterCubit.get(context).clientSignUp(
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: password,
+              mobilePhone: mobileNumber,
+              gender: Gender,
+              birthDate: date,
+              trustContact: MobileEmergency,
+              contactRelation: contactRelation,
+              medicalHistory: mediacalHistory,
+              sessions: ['services']);
+        }
         if (state is AppRegisterSuccessState) {
           showModalBottomSheet(
             barrierColor: Colors.transparent,
@@ -224,31 +241,26 @@ class clientRegister4 extends StatelessWidget {
                                                 child:
                                                     CircularProgressIndicator(),
                                               ),
-                                              fallback: (context) =>
-                                                  defaultButton(
+                                              fallback: (context) => state
+                                                      is AppLoadingVerifyState
+                                                  ? const Center(
+                                                      child:
+                                                          CircularProgressIndicator())
+                                                  : defaultButton(
                                                       function: () {
                                                         if (formKey
                                                             .currentState!
                                                             .validate()) {
-                                                          RegisterCubit.get(context).clientSignUp(
-                                                              firstName:
-                                                                  firstName,
-                                                              lastName:
-                                                                  lastName,
-                                                              email: email,
-                                                              password:
-                                                                  password,
-                                                              mobilePhone:
-                                                                  mobileNumber,
-                                                              gender: Gender,
-                                                              birthDate: date,
-                                                              trustContact:
-                                                                  MopileEmergency,
-                                                              contactRelation: contactRelation,
-                                                              medicalHistory: mediacalHistory,
-                                                              sessions: [
-                                                                'services'
-                                                              ]);
+                                                          RegisterCubit.get(context).verifyEmail(
+                                                              email,
+                                                              code1controller
+                                                                      .text +
+                                                                  code2controller
+                                                                      .text +
+                                                                  code3controller
+                                                                      .text +
+                                                                  code4controller
+                                                                      .text);
                                                         }
                                                       },
                                                       text: 'Verify',

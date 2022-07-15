@@ -6,7 +6,6 @@ import 'package:phsyo/modules/register/doctor%20registration/doctor_register1.da
 import 'package:sizer/sizer.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/constraints.dart';
 import 'package:phsyo/styles/colors.dart';
 
 class RegisterScreen extends StatelessWidget {

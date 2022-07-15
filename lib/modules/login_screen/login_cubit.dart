@@ -15,6 +15,15 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
+  var nameController = TextEditingController();
+  var trustContactController = TextEditingController();
+  var trustContactRelationController = TextEditingController();
+  var emailController = TextEditingController();
+  var phoneController = TextEditingController();
+  var mediacalHistoryController = TextEditingController();
+  var professionController = TextEditingController();
+  var professionlanguagesController = TextEditingController();
+
   bool isVisible = true;
   IconData suffix = Icons.visibility_outlined;
 
@@ -37,15 +46,12 @@ class LoginCubit extends Cubit<LoginStates> {
     DioHelper.postData(url: LOGIN, data: {'email': email, 'password': password})
         .then((value) {
       loginmodel = LoginModel.fromJson(value.data);
-      print(value.data);
       emit(AppLoginSuccessState(loginmodel!));
     }).catchError((error) {
       if (error is DioError) {
         loginmodel = LoginModel.fromJson(error.response!.data);
         showToast(text: loginmodel!.message, state: ToastStates.ERROR);
-        print("error is ${loginmodel!.message}");
       }
-      print('error is : $error');
       emit(AppLoginErrorState(error.toString()));
     });
   }
@@ -55,6 +61,8 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(AppLoadingProfileDataState());
     DioHelper.getData(url: 'profile/$id').then((value) {
       profileModel = ProfileModel.fromJson(value.data);
+      print(profileModel?.user.role);
+      print('iddddddddddddddddddddddddd: $id');
       //print(profileModel?.user.contactRelation);
       emit(AppSuccessProfileDataState(profileModel!));
     }).catchError((error) {

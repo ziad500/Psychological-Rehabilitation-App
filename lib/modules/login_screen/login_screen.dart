@@ -14,7 +14,6 @@ import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_states.dart';
 import 'package:phsyo/modules/register/register_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/constraints.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
@@ -44,6 +43,8 @@ class LoginScreen extends StatelessWidget {
         if (state is AppLoginSuccessState) {
           CasheHelper.saveData(key: 'token', value: state.loginModel.token)
               .then((value) {
+            CasheHelper.saveData(key: 'Userid', value: state.loginModel.userId);
+
             token = state.loginModel.token;
             Userid = state.loginModel.userId;
             LoginCubit.get(context).getProfileData(Userid.toString());

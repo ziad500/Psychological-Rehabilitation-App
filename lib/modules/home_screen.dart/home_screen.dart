@@ -13,6 +13,7 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
+import '../appoint_screen/appoint_screen.dart';
 
 class CategoryModel {
   final String? image;
@@ -163,11 +164,10 @@ class HomeScreen extends StatelessWidget {
                                           .doctorsModel!
                                           .doctors
                                           .length)
-                                  : Center(
-                                      child: Container(
-                                          child: CircularProgressIndicator(
+                                  : const Center(
+                                      child: CircularProgressIndicator(
                                         color: defaultColor,
-                                      )),
+                                      ),
                                     ))
                         ],
                       ),
@@ -468,7 +468,9 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           height: 23,
                           child: defaultButton(
-                            function: () {},
+                            function: () {
+                              navigateTo(context, const AppointScreen());
+                            },
                             isUpperCase: false,
                             text: 'Book a Session',
                             textsize: 10.0,

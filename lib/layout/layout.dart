@@ -55,12 +55,11 @@ class Applayout extends StatelessWidget {
                 size: 30,
                 color: Colors.white,
               ),
-              if (doctor == false)
-                const Icon(
-                  Icons.menu_book_outlined,
-                  size: 30,
-                  color: Colors.white,
-                ),
+              const Icon(
+                Icons.menu_book_outlined,
+                size: 30,
+                color: Colors.white,
+              ),
               const Icon(
                 Icons.menu,
                 size: 30,

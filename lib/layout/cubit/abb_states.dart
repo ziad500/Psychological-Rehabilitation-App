@@ -1,3 +1,5 @@
+import '../../models/addArticles/add_articles_model.dart';
+
 abstract class AppStates {}
 
 class AppInitialState extends AppStates {}
@@ -36,4 +38,14 @@ class AppSuccessGetArticlesState extends AppStates {}
 
 class AppErrorGetArticlesState extends AppStates {}
 
-class categoryArticlevalueSuccessState extends AppStates {}
+class CategoryArticlevalueSuccessState extends AppStates {}
+
+class AppLoadingAddArticleState extends AppStates {}
+
+class AppSuccessAddArticleState extends AppStates {
+  final AddArticlesModel addArticlesModel;
+
+  AppSuccessAddArticleState(this.addArticlesModel);
+}
+
+class AppErrorAddArticleState extends AppStates {}

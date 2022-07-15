@@ -6,7 +6,6 @@ import 'package:phsyo/modules/register/client%20registraion/client_register4.dar
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/constraints.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -27,7 +26,7 @@ class clientRegister3 extends StatefulWidget {
   final String email;
   final String password;
   final String date;
-  var mopileEmergency;
+  var mobileEmergency;
   final String contactRelation;
   final String mediacalHistory;
 
@@ -40,7 +39,7 @@ class clientRegister3 extends StatefulWidget {
     required this.email,
     required this.password,
     required this.date,
-    required this.mopileEmergency,
+    required this.mobileEmergency,
     required this.contactRelation,
     required this.mediacalHistory,
   }) : super(key: key);
@@ -119,7 +118,7 @@ class _clientRegister3State extends State<clientRegister3> {
                       context,
                       clientRegister4(
                         Gender: widget.gender,
-                        MopileEmergency: widget.mopileEmergency,
+                        MobileEmergency: widget.mobileEmergency,
                         contactRelation: widget.contactRelation,
                         date: widget.date,
                         email: widget.email,
