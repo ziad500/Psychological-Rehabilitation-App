@@ -5,7 +5,7 @@ abstract class LoginStates {}
 
 class LoginInitialState extends LoginStates {}
 
-class changePasswordVisiblilityState extends LoginStates {}
+class ChangePasswordVisiblilityState extends LoginStates {}
 
 class AppLoginLoadingState extends LoginStates {}
 
@@ -21,21 +21,13 @@ class AppLoginErrorState extends LoginStates {
   AppLoginErrorState(this.error);
 }
 
-class changeRadioState extends LoginStates {}
+class ChangeRadioState extends LoginStates {}
 
 class AppLoginDoctorLoadingState extends LoginStates {}
 
-class AppLoginDoctorSuccessState extends LoginStates {
-/*   final UserModel loginModel;
+class AppLoginDoctorSuccessState extends LoginStates {}
 
-  AppLoginSuccessState(this.loginModel); */
-}
-
-class AppLoginDoctorErrorState extends LoginStates {
-/*   final String error;
-
-  AppLoginErrorState(this.error); */
-}
+class AppLoginDoctorErrorState extends LoginStates {}
 
 class AppLoadingProfileDataState extends LoginStates {}
 

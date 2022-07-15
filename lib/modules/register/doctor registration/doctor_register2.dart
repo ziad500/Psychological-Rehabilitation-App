@@ -197,8 +197,6 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                       return "Date must not be empty";
                                     }
                                   },
-                                  /* onTap: () {
-                            }, */
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                     errorStyle: const TextStyle(fontSize: 0),
@@ -218,9 +216,6 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                       borderSide: const BorderSide(
                                           color: Colors.white, width: 0.0),
                                     ),
-                                    /* contentPadding: EdgeInsets.symmetric(
-                                vertical: 0.0,
-                              ), */
                                   ),
                                 )
                               ],
@@ -314,147 +309,9 @@ class _doctorRegister2State extends State<doctorRegister2> {
                         SizedBox(
                           height: 2.h,
                         ),
-                        /*           InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => bottomSheet(
-                          camera: () => AppCubit.get(context)
-                              .getlicenseImage(ImageSource.camera),
-                          gallery: () => AppCubit.get(context)
-                              .getlicenseImage(ImageSource.gallery),
-                        ),
-                      );
-                    },
-                    child: Container(
-                        width: double.infinity,
-                        height: 8.h,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffE8E8EE),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20.0)),
-                        ),
-                        child: /* AppCubit.get(context).licenseImage == null
-                          ? 
-                          : */
-                            AppCubit.get(context).licenseImage == null
-                                ? FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.image,
-                                          color: defaultColor,
-                                          size: 35,
-                                        ),
-                                        Text(
-                                          'Upload photo of license',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: Image.file(
-                                        AppCubit.get(context).licenseImage!,
-                                        fit: BoxFit.cover,
-                                      ).image)),
-                                    ),
-                                  )),
-                  ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: defaultFormField(
-                          context,
-                          hint: 'Lic. Issued Date',
-                          hintsize: 2,
-                          controller: LicIssuedDateController,
-                          type: TextInputType.text,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter avalid Date";
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: defaultFormField(
-                          context,
-                          hintsize: 2,
-                          hint: 'Lic. Expiry Date',
-                          controller: LicExpiryDateController,
-                          type: TextInputType.text,
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter avalid Date";
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  ListTile(
-                    dense: true,
-                    contentPadding: const EdgeInsets.all(0.0),
-                    minVerticalPadding: 0.0,
-                    title: CheckboxListTile(
-                      contentPadding: const EdgeInsets.all(0),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: TermsOfService,
-                      onChanged: (value) {
-                        setState(() {
-                          TermsOfService = value!;
-                          if (value == true) {
-                            TermsOfService = true;
-                          } else if (value == false) {
-                            TermsOfService = false;
-                          }
-                        });
-                      },
-                      title: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Row(
-                          children: [
-                            Text(
-                              'I\'ve read and agree with ',
-                              style: TextStyle(
-                                  fontSize: 2.h, fontWeight: FontWeight.bold),
-                            ),
-                            TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'Terms of service',
-                                  style: TextStyle(
-                                      color: defaultColor,
-                                      fontSize: 2.h,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-      */
                         defaultButton(
                             function: () {
-                              //  print(Profession);
                               if (formKey.currentState!.validate()) {
-                                // passData();
                                 navigateTo(
                                     context,
                                     doctorRegister3(

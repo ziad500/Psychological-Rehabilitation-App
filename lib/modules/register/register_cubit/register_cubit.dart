@@ -1,16 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:path/path.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/models/Doctor_registerModel/Doctor_register_model.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 import 'package:http_parser/http_parser.dart';
@@ -31,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     suffixpasswordvisible = passwordvisible
         ? Icons.visibility_outlined
         : Icons.visibility_off_outlined;
-    emit(changePasswordVisiblilityState());
+    emit(ChangePasswordVisiblilityState());
   }
 
   bool passwordConfirmVisible = true;
@@ -42,13 +37,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
     suffixpasswordConfirmVisible = passwordConfirmVisible
         ? Icons.visibility_outlined
         : Icons.visibility_off_outlined;
-    emit(changeConfirmPasswordVisiblilityState());
+    emit(ChangeConfirmPasswordVisiblilityState());
   }
 
   String radiovalue = '';
   void changeRadio(value) {
     radiovalue = value;
-    emit(changeRadioState());
+    emit(ChangeRadioState());
   }
 
   final ImagePicker picker = ImagePicker();
@@ -65,17 +60,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
     profileImage = File(image.path);
 
     emit(ImagePickerProfileSuccess());
-    print(profileImage!.path);
   }
 
-/*    void getNameImage(String key) {
-    if (profileImage == null) return;
-    String base64 = base64Encode(profileImage!.readAsBytesSync());
-    String imageName = profileImage!.path.split('/').last;
-    CasheHelper.saveData(key: key, value: imageName);
-        emit(ImagePickerProfileSuccess());
-
-  } */
   LoginModel? loginmodel;
 
   void clientSignUp(
@@ -90,19 +76,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
       required String contactRelation,
       required String medicalHistory,
       required List sessions}) async {
-/*     String fileName = file!.path.split('/').last;
- */
-    var bytes =
-        (await rootBundle.load('icons/pngegg.png')).buffer.asUint8List();
-
     emit(AppRegisterLoadingState());
     var data = FormData.fromMap({
-      'profileImage': profileImage == null
-          ? await MultipartFile.fromBytes(bytes)
-          : await MultipartFile.fromFile(
-              profileImage!.path,
-              contentType: new MediaType('image', 'jpg'),
-            ),
+      'profileImage': await MultipartFile.fromFile(
+        profileImage!.path,
+        contentType: MediaType('image', 'jpg'),
+      ),
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
@@ -117,76 +96,17 @@ class RegisterCubit extends Cubit<RegisterStates> {
     });
 
     await DioHelper.postData(url: REGISTER, data: data).then((value) {
-      print(value);
       loginmodel = LoginModel.fromJson(value.data);
       emit(AppRegisterSuccessState());
     }).catchError((error) {
       if (error is DioError) {
         loginmodel = LoginModel.fromJson(error.response!.data);
-        showToast(text: loginmodel!.message, state: ToastStates.ERROR);
-        print(loginmodel!.message);
+        showToast(text: loginmodel!.message, state: ToastStates.error);
       }
       emit(AppRegisterErrorState());
     });
-
-    /*  Dio dio = new Dio();
-
-    dio
-        .post("https://healthmental-you.herokuapp.com/auth/signup/User",
-            data: data)
-        .then((response) => print(response))
-        .catchError((error) => print(error)); */
   }
 
-/*   Future<String> uploadimage(
-      {File? profileImage,
-      required String firstName,
-      required String lastName,
-      required String email,
-      required String password,
-      required String mobilePhone,
-      required String gender,
-      required String birthDate,
-      required String trustContact,
-      required String contactRelation,
-      required String medicalHistory,
-      required List sessions}) async {
-    emit(AppRegisterLoadingState());
-    String imageName = profileImage!.path.split('/').last;
-    String base64 = base64Encode(profileImage.readAsBytesSync());
-    var bytes =
-        (await rootBundle.load('icons/pngegg.png')).buffer.asUint8List();
-
-    print(imageName);
-    print('path is ${profileImage.path}');
-    var formData = FormData.fromMap({
-      'profileImage': await MultipartFile.fromFile(profileImage.path,
-          filename: imageName,
-          contentType: new MediaType('profileImage', 'jpeg')),
-      'firstName': await MultipartFile.fromBytes(bytes),
-      'lastName': lastName,
-      'email': email,
-      'password': password,
-      'mobilePhone': mobilePhone,
-      'gender': gender,
-      'birthDate': birthDate,
-      'trustContact': trustContact,
-      'contactRelation': contactRelation,
-      'medicalHistory': medicalHistory,
-      'sessions': sessions
-    });
-    var response =
-        await DioHelper.postData(url: REGISTER, data: formData).then((value) {
-      print('success');
-      emit(AppRegisterSuccessState());
-    }).catchError((error) {
-      print('$error');
-      print('zzzzz${profileImage.path}');
-      emit(AppRegisterErrorState());
-    });
-    return response.toString();
-  }
- */
   File? profileDoctorImage;
 
   Future getProfileDoctorImage(
@@ -216,19 +136,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
       required String profession,
       required String licIssuedDate,
       required String licExpiryDate}) async {
-/*     String fileName = file!.path.split('/').last;
- */
-    var bytes =
-        (await rootBundle.load('icons/pngegg.png')).buffer.asUint8List();
-
     emit(AppRegisterDoctorLoadingState());
     var data = FormData.fromMap({
-      'profileImage': profileDoctorImage == null
-          ? await MultipartFile.fromBytes(bytes)
-          : await MultipartFile.fromFile(
-              profileDoctorImage!.path,
-              contentType: new MediaType('image', 'jpg'),
-            ),
+      'profileImage': await MultipartFile.fromFile(
+        profileDoctorImage!.path,
+        contentType: MediaType('image', 'jpg'),
+      ),
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
@@ -243,7 +156,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     });
 
     await DioHelper.postData(url: REGISTER_DOCTOR, data: data).then((value) {
-      print(value);
       doctorRegisterModel = DoctorRegisterModel.fromJson(value.data);
       emit(AppRegisterDoctorSuccessState());
     }).catchError((error) {
@@ -251,28 +163,16 @@ class RegisterCubit extends Cubit<RegisterStates> {
         doctorRegisterModel =
             DoctorRegisterModel.fromJson(error.response!.data);
         showToast(
-            text: doctorRegisterModel?.data?.msg, state: ToastStates.ERROR);
-        print(loginmodel!.message);
-        print(error.response);
-        print(error.response?.statusCode);
+            text: doctorRegisterModel?.data?.msg, state: ToastStates.error);
       }
       emit(AppRegisterDoctorErrorState());
     });
-
-    /*  Dio dio = new Dio();
-
-    dio
-        .post("https://healthmental-you.herokuapp.com/auth/signup/User",
-            data: data)
-        .then((response) => print(response))
-        .catchError((error) => print(error)); */
   }
 
   void verifyEmail(String email, String code) async {
     emit(AppLoadingVerifyState());
     await DioHelper.postData(url: VERIFY, data: {'email': email, 'code': code})
         .then((value) {
-      //print(value.data);
       emit(AppSuccessVerifyState());
     }).catchError((error) {
       emit(AppErrorVerifyState());

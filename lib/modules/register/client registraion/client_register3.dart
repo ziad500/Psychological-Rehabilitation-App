@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register2.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register4.dart';
-import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
-import 'package:phsyo/modules/register/register_cubit/register_states.dart';
+
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
@@ -108,12 +104,10 @@ class _clientRegister3State extends State<clientRegister3> {
             const Spacer(),
             defaultButton(
               function: () {
-                // print(widget.email);
-                if (text.length == 0) {
-                  showToast(text: 'Please Chosse', state: ToastStates.ERROR);
+                if (text.isEmpty) {
+                  showToast(text: 'Please Chosse', state: ToastStates.error);
                 } else {
                   CasheHelper.saveData(key: 'Services', value: text.toList());
-                  //  print(text.toList());
                   navigateTo(
                       context,
                       clientRegister4(

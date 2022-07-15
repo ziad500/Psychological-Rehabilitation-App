@@ -2,13 +2,13 @@ abstract class RegisterStates {}
 
 class LoginInitialState extends RegisterStates {}
 
-class changePasswordVisiblilityState extends RegisterStates {}
+class ChangePasswordVisiblilityState extends RegisterStates {}
 
-class changeConfirmPasswordVisiblilityState extends RegisterStates {}
+class ChangeConfirmPasswordVisiblilityState extends RegisterStates {}
 
-class changeRadioState extends RegisterStates {}
+class ChangeRadioState extends RegisterStates {}
 
-class changeRadioServiceState extends RegisterStates {}
+class ChangeRadioServiceState extends RegisterStates {}
 
 class ImagePickerProfileSuccess extends RegisterStates {}
 
@@ -30,17 +30,9 @@ class ImagePickerProfileDoctorSuccess extends RegisterStates {}
 
 class AppRegisterDoctorLoadingState extends RegisterStates {}
 
-class AppRegisterDoctorSuccessState extends RegisterStates {
-  /*  final UserModel loginModel;
+class AppRegisterDoctorSuccessState extends RegisterStates {}
 
-  AppLoginSuccessState(this.loginModel); */
-}
-
-class AppRegisterDoctorErrorState extends RegisterStates {
-  /* final String error;
-
-  AppRegisterErrorState(this.error); */
-}
+class AppRegisterDoctorErrorState extends RegisterStates {}
 
 class AppLoadingVerifyState extends RegisterStates {}
 

@@ -2,16 +2,13 @@ import 'dart:ui';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/layout.dart';
-import 'package:phsyo/modules/forget_password/create_new_password.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register3.dart';
+
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
@@ -54,7 +51,7 @@ class clientRegister4 extends StatelessWidget {
     return BlocConsumer<RegisterCubit, RegisterStates>(
       listener: (context, state) {
         if (state is AppErrorVerifyState) {
-          showToast(text: 'Code is Wrong', state: ToastStates.ERROR);
+          showToast(text: 'Code is Wrong', state: ToastStates.error);
         }
         if (state is AppSuccessVerifyState) {
           RegisterCubit.get(context).clientSignUp(
@@ -165,7 +162,7 @@ class clientRegister4 extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Expanded(
-                                              child: CodeFormField(
+                                              child: codeFormField(
                                                 context,
                                                 verticalpadding: 20.0,
                                                 controller: code1controller,
@@ -174,6 +171,7 @@ class clientRegister4 extends StatelessWidget {
                                                   if (value!.isEmpty) {
                                                     return "Please Enter Your Email";
                                                   }
+                                                  return null;
                                                 },
                                               ),
                                             ),
@@ -181,7 +179,7 @@ class clientRegister4 extends StatelessWidget {
                                               width: 20,
                                             ),
                                             Expanded(
-                                              child: CodeFormField(
+                                              child: codeFormField(
                                                 context,
                                                 verticalpadding: 20.0,
                                                 controller: code2controller,
@@ -190,6 +188,7 @@ class clientRegister4 extends StatelessWidget {
                                                   if (value!.isEmpty) {
                                                     return "Please Enter Your Email";
                                                   }
+                                                  return null;
                                                 },
                                               ),
                                             ),
@@ -197,7 +196,7 @@ class clientRegister4 extends StatelessWidget {
                                               width: 20,
                                             ),
                                             Expanded(
-                                              child: CodeFormField(
+                                              child: codeFormField(
                                                 context,
                                                 verticalpadding: 20.0,
                                                 controller: code3controller,
@@ -206,6 +205,7 @@ class clientRegister4 extends StatelessWidget {
                                                   if (value!.isEmpty) {
                                                     return "Please Enter Your Email";
                                                   }
+                                                  return null;
                                                 },
                                               ),
                                             ),
@@ -213,7 +213,7 @@ class clientRegister4 extends StatelessWidget {
                                               width: 20,
                                             ),
                                             Expanded(
-                                              child: CodeFormField(
+                                              child: codeFormField(
                                                 context,
                                                 verticalpadding: 20.0,
                                                 controller: code4controller,
@@ -222,6 +222,7 @@ class clientRegister4 extends StatelessWidget {
                                                   if (value!.isEmpty) {
                                                     return "Please Enter Your Email";
                                                   }
+                                                  return null;
                                                 },
                                               ),
                                             ),

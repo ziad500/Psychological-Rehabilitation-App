@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
@@ -25,7 +23,7 @@ class AddBlogsScreen extends StatelessWidget {
         if (state is AppSuccessAddArticleState) {
           Navigator.pop(context);
           showToast(
-              text: state.addArticlesModel.message, state: ToastStates.SUCCESS);
+              text: state.addArticlesModel.message, state: ToastStates.success);
         }
       },
       builder: (context, state) {
@@ -42,7 +40,7 @@ class AddBlogsScreen extends StatelessWidget {
                     Text(
                       'New Article',
                       style: TextStyle(
-                          color: Color(0xff000000),
+                          color: const Color(0xff000000),
                           fontSize: 3.h,
                           fontWeight: FontWeight.bold),
                     ),
@@ -56,6 +54,7 @@ class AddBlogsScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return "title must not be Empty";
                       }
+                      return null;
                     }),
                     const SizedBox(
                       height: 15,
@@ -108,6 +107,7 @@ class AddBlogsScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return "content must not be Empty";
                       }
+                      return null;
                     }),
                     const SizedBox(
                       height: 15,
@@ -183,9 +183,6 @@ class AddBlogsScreen extends StatelessWidget {
                                           'Category' &&
                                       AppCubit.get(context).coverArticleImage !=
                                           null) {
-                                    print(AppCubit.get(context)
-                                        .contentController
-                                        .text);
                                     AppCubit.get(context).addArticle(
                                         title: AppCubit.get(context)
                                             .titleController
@@ -198,7 +195,7 @@ class AddBlogsScreen extends StatelessWidget {
                                   } else {
                                     showToast(
                                         text: 'Please Fill All Fields',
-                                        state: ToastStates.ERROR);
+                                        state: ToastStates.error);
                                   }
                                 },
                                 text: 'submit'),

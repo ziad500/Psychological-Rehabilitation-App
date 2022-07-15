@@ -5,9 +5,10 @@ import 'package:phsyo/shared/network/cashe_helper.dart';
 
 void signout(context) {
   AppCubit.get(context).currentIndex = 0;
-  // navigateAndFinish(context, LoginScreen());
   CasheHelper.removeData(key: 'token').then((value) {
     if (value) {
+      CasheHelper.removeData(key: 'doctor');
+      CasheHelper.removeData(key: 'Userid');
       doctor = false;
       //   AppCubit.get(context).CurrentIndex = 0;
       navigateAndFinish(context, LoginScreen());

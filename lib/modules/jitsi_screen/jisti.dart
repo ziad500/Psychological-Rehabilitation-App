@@ -5,16 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:uuid/uuid.dart';
 
-/* 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Meeting());
-  }
-} */
-
 class Meeting extends StatefulWidget {
   const Meeting({Key? key}) : super(key: key);
 
@@ -118,7 +108,7 @@ class _MeetingState extends State<Meeting> {
           ),
           TextField(
             controller: roomText,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Room",
             ),

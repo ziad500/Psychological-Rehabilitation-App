@@ -149,7 +149,7 @@ class doctorRegister4 extends StatelessWidget {
                                               children: [
                                                 SizedBox(
                                                   width: 60.0,
-                                                  child: CodeFormField(
+                                                  child: codeFormField(
                                                     context,
                                                     verticalpadding: 20.0,
                                                     controller: code1controller,
@@ -166,7 +166,7 @@ class doctorRegister4 extends StatelessWidget {
                                                 ),
                                                 SizedBox(
                                                   width: 60.0,
-                                                  child: CodeFormField(
+                                                  child: codeFormField(
                                                     context,
                                                     verticalpadding: 20.0,
                                                     controller: code2controller,
@@ -183,7 +183,7 @@ class doctorRegister4 extends StatelessWidget {
                                                 ),
                                                 SizedBox(
                                                   width: 60.0,
-                                                  child: CodeFormField(
+                                                  child: codeFormField(
                                                     context,
                                                     verticalpadding: 20.0,
                                                     controller: code3controller,
@@ -200,7 +200,7 @@ class doctorRegister4 extends StatelessWidget {
                                                 ),
                                                 SizedBox(
                                                   width: 60.0,
-                                                  child: CodeFormField(
+                                                  child: codeFormField(
                                                     context,
                                                     verticalpadding: 20.0,
                                                     controller: code4controller,

@@ -30,7 +30,7 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   var boardcontroller = PageController();
 
-  List<BoardingModel> Boarding = [
+  List<BoardingModel> boarding = [
     BoardingModel(
         image: 'icons/Group7957.png',
         text1: 'find the best qualified therapist',
@@ -86,7 +86,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   scrollDirection: Axis.horizontal,
                   allowImplicitScrolling: true,
                   onPageChanged: (int index) {
-                    if (index == Boarding.length - 1) {
+                    if (index == boarding.length - 1) {
                       setState(() {
                         isLast = true;
                       });
@@ -98,8 +98,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   },
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) =>
-                      buildBoardingItem(Boarding[index]),
-                  itemCount: Boarding.length,
+                      buildBoardingItem(boarding[index]),
+                  itemCount: boarding.length,
                 ),
               ),
               const SizedBox(
@@ -109,7 +109,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 children: [
                   SmoothPageIndicator(
                     controller: boardcontroller,
-                    count: Boarding.length,
+                    count: boarding.length,
                     effect: const ExpandingDotsEffect(
                         dotHeight: 10.0,
                         dotColor: Colors.grey,

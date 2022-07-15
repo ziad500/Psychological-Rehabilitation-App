@@ -3,7 +3,6 @@ import 'package:phsyo/constants.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
-import 'package:phsyo/modules/payment_screen/ppayment_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -119,7 +118,7 @@ class MenuScreen extends StatelessWidget {
                   text,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0XFF4A4B4D),
+                      color: const Color(0XFF4A4B4D),
                       fontSize: 2.2.h),
                   textAlign: TextAlign.left,
                 ),

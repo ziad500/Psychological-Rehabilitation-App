@@ -157,18 +157,18 @@ class AppointmentsScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ]),
-                                Row(children: [
-                                  const Icon(
+                                Row(children: const [
+                                  Icon(
                                     Icons.calendar_today,
                                     color: defaultColor,
                                     size: 14.0,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 6.11,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: 140.0,
-                                    child: const Text(
+                                    child: Text(
                                       '7th March | 11:00 AM',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,

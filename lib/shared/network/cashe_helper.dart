@@ -24,7 +24,6 @@ class CasheHelper {
       return await sharedPreferences!.setStringList(key, value);
     } else {
       return await sharedPreferences!.setString(key, value);
-      ;
     }
   }
 

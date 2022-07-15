@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
-import 'package:phsyo/models/articlesModel/articles_model.dart';
 import 'package:phsyo/modules/blogs_screen/add_blogs_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_details_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
@@ -132,37 +131,6 @@ class BlogsScreen extends StatelessWidget {
     );
   }
 
-  /*  Widget articleItem(ArticlesModel model) => Padding(
-      padding: const EdgeInsets.only(right: 18.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        elevation: 10,
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    model.title,
-                    style: const TextStyle(color: defaultColor),
-                  ),
-                  const Spacer(),
-                  Text(model.date)
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text(model.article)
-            ],
-          ),
-        ),
-      ));
- */
   Widget categoryItem(CategoryModel model) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -187,7 +155,7 @@ class BlogsScreen extends StatelessWidget {
                 splashColor: defaultColor,
                 splashFactory: InkSplash.splashFactory,
                 onTap: () {},
-                child: Container(
+                child: SizedBox(
                   height: 80,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -200,7 +168,7 @@ class BlogsScreen extends StatelessWidget {
                           height: 51,
                           width: 50,
                         ),
-                        Container(
+                        SizedBox(
                           height: 17,
                           child: Text(
                             '${model.text}',
@@ -232,9 +200,8 @@ class BlogsScreen extends StatelessWidget {
                   title: model.articles[index].title.toString(),
                 ));
           },
-          child: Container(
+          child: SizedBox(
             height: 25.2.h,
-            /* 195 */
             width: double.infinity,
             child: Stack(
               alignment: AlignmentDirectional.bottomCenter,

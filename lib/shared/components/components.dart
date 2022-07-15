@@ -5,16 +5,16 @@ import 'package:sizer/sizer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:phsyo/styles/colors.dart';
 
-void navigateTo(context, Widget) => Navigator.push(
-    context, PageTransition(child: Widget, type: PageTransitionType.fade));
+void navigateTo(context, widget) => Navigator.push(
+    context, PageTransition(child: widget, type: PageTransitionType.fade));
 
-void navigateAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
+void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => Widget),
+      MaterialPageRoute(builder: (context) => widget),
       (Route<dynamic> route) => false,
     );
 
-Widget searchForm() => Container(
+Widget searchForm() => SizedBox(
       height: 31,
       child: TextField(
         decoration: InputDecoration(
@@ -66,8 +66,8 @@ Widget defaultFormField(
   double labelsize = 2.5,
   double verticalpadding = 18.0,
   double horizontalpadding = 15.0,
-  Color BorderEnableColor = defaultColor,
-  Color BorderColor = Colors.grey,
+  Color borderEnableColor = defaultColor,
+  Color borderColor = Colors.grey,
   int? maxLength,
   FocusNode? focusNode,
   Function()? suffixPressed,
@@ -106,7 +106,7 @@ Widget defaultFormField(
           ),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: defaultColor)),
+              borderSide: const BorderSide(color: defaultColor)),
           labelText: label,
           labelStyle:
               TextStyle(fontSize: labelsize.h, fontWeight: FontWeight.w400),
@@ -119,11 +119,8 @@ Widget defaultFormField(
                 )
               : null,
           isDense: true,
-          contentPadding:
-/*               EdgeInsets.only(bottom: 0, left: 15, right: 15, top: 15),
- */
-              EdgeInsets.symmetric(
-                  vertical: verticalpadding, horizontal: horizontalpadding),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: verticalpadding, horizontal: horizontalpadding),
           suffixIcon: suffix != null
               ? IconButton(
                   onPressed: suffixPressed,
@@ -138,7 +135,7 @@ Widget defaultFormField(
       ),
     );
 
-Widget CodeFormField(
+Widget codeFormField(
   context, {
   required TextEditingController controller,
   required TextInputType type,
@@ -177,7 +174,7 @@ Widget CodeFormField(
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(color: Colors.red)),
+            borderSide: const BorderSide(color: Colors.red)),
         isDense: true,
         contentPadding: EdgeInsets.symmetric(
             vertical: verticalpadding, horizontal: horizontalpadding),
@@ -271,18 +268,19 @@ void showToast(
         backgroundColor: chooseToastColor(state), //chooseToastColor(state)
         textColor: textColor,
         fontSize: 16.0);
-enum ToastStates { SUCCESS, ERROR, WARNING }
+
+enum ToastStates { success, error, warning }
 
 Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
-    case ToastStates.SUCCESS:
+    case ToastStates.success:
       color = Colors.green;
       break;
-    case ToastStates.ERROR:
+    case ToastStates.error:
       color = Colors.red;
       break;
-    case ToastStates.WARNING:
+    case ToastStates.warning:
       color = Colors.yellow;
       break;
   }

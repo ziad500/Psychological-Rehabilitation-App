@@ -2,8 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
-import 'package:phsyo/layout/cubit/abb_states.dart';
-import 'package:phsyo/layout/cubit/app_cubit.dart';
+
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_states.dart';
 import 'package:phsyo/shared/components/components.dart';
@@ -83,6 +82,7 @@ class EditeProfileScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Please Enter Your Name";
                             }
+                            return null;
                           }),
                           const SizedBox(
                             height: 15,
@@ -99,6 +99,7 @@ class EditeProfileScreen extends StatelessWidget {
                             if (isValid == false || value.isEmpty) {
                               return "Please Enter valid Email";
                             }
+                            return null;
                           }),
                           const SizedBox(
                             height: 15,
@@ -112,6 +113,7 @@ class EditeProfileScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Please Enter Your phone Number";
                             }
+                            return null;
                           }),
                           const SizedBox(
                             height: 15,
@@ -124,6 +126,7 @@ class EditeProfileScreen extends StatelessWidget {
                                   if (value!.isEmpty) {
                                     return "Please Enter Your Profession";
                                   }
+                                  return null;
                                 })
                               : Row(
                                   children: [
@@ -138,6 +141,7 @@ class EditeProfileScreen extends StatelessWidget {
                                         if (value!.isEmpty) {
                                           return "Please Enter Your Trust Contact";
                                         }
+                                        return null;
                                       }),
                                     ),
                                     const SizedBox(
@@ -155,6 +159,7 @@ class EditeProfileScreen extends StatelessWidget {
                                         if (value!.isEmpty) {
                                           return "Please Enter Your Trust Contact Relation";
                                         }
+                                        return null;
                                       }),
                                     ),
                                   ],
@@ -171,6 +176,7 @@ class EditeProfileScreen extends StatelessWidget {
                                   if (value!.isEmpty) {
                                     return "Please Enter Your Profession Languages";
                                   }
+                                  return null;
                                 })
                               : defaultFormField(
                                   context,
@@ -183,6 +189,7 @@ class EditeProfileScreen extends StatelessWidget {
                                     if (value!.isEmpty) {
                                       return "Medical History must not be empty";
                                     }
+                                    return null;
                                   },
                                 ),
                           SizedBox(

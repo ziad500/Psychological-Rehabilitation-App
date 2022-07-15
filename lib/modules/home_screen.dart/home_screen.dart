@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
-import 'package:phsyo/models/category_item_model/category_item_model.dart';
-import 'package:phsyo/models/category_item_model/category_item_model.dart';
-import 'package:phsyo/models/category_item_model/category_item_model.dart';
+
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/modules/profile_screen/profile_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:sizer/sizer.dart';
 
-import '../../constants.dart';
 import '../appoint_screen/appoint_screen.dart';
 
 class CategoryModel {
@@ -33,62 +29,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(listener: (context, state) {
       if (state is AppLoadingDoctorsDataState) {
-        CircularProgressIndicator();
+        const CircularProgressIndicator();
       }
     }, builder: (context, state) {
       return Scaffold(
           backgroundColor: defaultColor,
-          /* appBar: AppBar(
-          backgroundColor: defaultColor,
-          elevation: 0.0,
-          toolbarHeight: 140,
-          centerTitle: true,
-          flexibleSpace: Center(
-            child: ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                physics: ScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return categoryItem(categoryItems[index]);
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                      width: 10.0,
-                    ),
-                itemCount: categoryItems.length),
-          ),
-          /* ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              physics: ScrollPhysics(),
-              itemBuilder: (context, index) {
-                return categoryItem(categoryItems[index]);
-              },
-              separatorBuilder: (context, index) => const SizedBox(
-                    width: 10.0,
-                  ),
-              itemCount: categoryItems.length), */
-          /* Container(
-            height: 150,
-            color: defaultColor,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    physics: ScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return categoryItem(categoryItems[index]);
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                          width: 10.0,
-                        ),
-                    itemCount: categoryItems.length),
-              ),
-            ),
-          ), */
-        ),
-       */
           body: Column(
             children: [
               const SizedBox(
@@ -204,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                 splashColor: defaultColor,
                 splashFactory: InkSplash.splashFactory,
                 onTap: () {},
-                child: Container(
+                child: SizedBox(
                   height: 80,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -217,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                           height: 51,
                           width: 50,
                         ),
-                        Container(
+                        SizedBox(
                           height: 17,
                           child: Text(
                             '${model.text}',
@@ -282,15 +227,7 @@ class HomeScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           ],
-                        )
-                        /* Image.network(
-                        "https://scontent.faly3-1.fna.fbcdn.net/v/t1.6435-9/119635227_2753084281647593_5838415930791994978_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=174925&_nc_ohc=qYivtokcF3kAX-5qShK&tn=gDLS0pIvW-5tRwod&_nc_ht=scontent.faly3-1.fna&oh=00_AT8nAdcTadjv2N4z4LtN1JOW4_Gf-lREcmnkKXuRhGNvnA&oe=623A444D",
-                        
-                        width: 89,
-                        height: 134,
-                        fit: BoxFit.cover,
-                      ), */
-                        ),
+                        )),
                     const SizedBox(
                       width: 14.89,
                     ),
@@ -312,7 +249,7 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 6.11,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 140,
                                       child: Text(
                                         model.doctors[index].name.toString(),
@@ -335,7 +272,7 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 6.11,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 140.0,
                                       child: Text(
                                         model.doctors[index].profession
@@ -358,7 +295,7 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                       width: 6.11,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 140.0,
                                       child: Text(
                                         model.doctors[index].birthDate
@@ -372,18 +309,18 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ]),
-                                  Row(children: [
-                                    const Icon(
+                                  Row(children: const [
+                                    Icon(
                                       Icons.stars,
                                       color: defaultColor,
                                       size: 14.0,
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 6.11,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 180,
-                                      child: const Text(
+                                      child: Text(
                                         '',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -396,12 +333,8 @@ class HomeScreen extends StatelessWidget {
                                   ]),
                                 ],
                               ),
-                              //  SizedBox(),
                             ],
                           ),
-                          /* const SizedBox(
-                            height: 10.0,
-                          ),  */ //buttons
                         ],
                       ),
                     ),
@@ -435,7 +368,7 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
+                        SizedBox(
                           height: 23,
                           child: defaultButton(
                             function: () {
@@ -465,7 +398,7 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(
                           width: 5.0,
                         ),
-                        Container(
+                        SizedBox(
                           height: 23,
                           child: defaultButton(
                             function: () {

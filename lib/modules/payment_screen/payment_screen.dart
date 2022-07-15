@@ -70,6 +70,7 @@ class _PaymentScreenState extends State<PaymentScreen>
   Animation<double>? flipAnimation;
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     animationController?.dispose();
     super.dispose();
@@ -250,11 +251,8 @@ class _PaymentScreenState extends State<PaymentScreen>
         child: flipAnimation!.value < 0.5 ? front() : back());
   }
 
-  /* decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Colors.indigo, Colors.indigoAccent])), */
   Widget front() {
-    return Container(
+    return SizedBox(
       width: 500,
       height: 260,
       child: Card(
@@ -265,10 +263,7 @@ class _PaymentScreenState extends State<PaymentScreen>
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                  image: AssetImage('icons/card_bg.png'), fit: BoxFit.cover)
-              /* gradient:
-                  LinearGradient(colors: [Colors.indigo, Colors.indigoAccent]) */
-              ),
+                  image: AssetImage('icons/card_bg.png'), fit: BoxFit.cover)),
           child: Padding(
             padding: const EdgeInsets.all(18),
             child: Stack(
@@ -361,7 +356,7 @@ class _PaymentScreenState extends State<PaymentScreen>
         ..setEntry(3, 2, 0.001)
         ..rotateY(pi * value),
       origin: Offset(MediaQuery.of(context).size.width / 2, 0),
-      child: Container(
+      child: SizedBox(
         width: 500,
         height: 260,
         child: Card(

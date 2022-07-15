@@ -29,7 +29,6 @@ class ProfileScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var model = AppCubit.get(context).reviewModel?.reviews;
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -90,23 +89,6 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                 )
-
-                                /* Container(
-                              height: 120,
-                              width: 110,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 6,
-                                      offset: Offset(0, 3),
-                                    )
-                                  ],
-                                  image:  DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: )),
-                            ), */
                               ],
                             ),
                           ),
@@ -279,7 +261,6 @@ class ProfileScreen extends StatelessWidget {
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
-//              const Spacer(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,

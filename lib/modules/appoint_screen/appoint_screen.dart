@@ -46,6 +46,7 @@ class _AppointScreenState extends State<AppointScreen> {
   void initState() {
     selectedEvents = {};
     events = [];
+    // ignore: todo
     // TODO: implement initState
     super.initState();
   }

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register1.dart';
 import 'package:sizer/sizer.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';

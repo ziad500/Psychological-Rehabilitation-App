@@ -1,18 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register3.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
-import 'package:phsyo/modules/register/register_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
@@ -168,9 +161,8 @@ class _clientRegister2State extends State<clientRegister2> {
                                     if (value!.isEmpty) {
                                       return "Date must not be empty";
                                     }
+                                    return null;
                                   },
-                                  /* onTap: () {
-                        }, */
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -189,9 +181,6 @@ class _clientRegister2State extends State<clientRegister2> {
                                       borderSide: const BorderSide(
                                           color: Colors.white, width: 0.0),
                                     ),
-                                    /* contentPadding: EdgeInsets.symmetric(
-                            vertical: 0.0,
-                          ), */
                                   ),
                                 )
                               ],
@@ -207,6 +196,7 @@ class _clientRegister2State extends State<clientRegister2> {
                           if (value!.isEmpty) {
                             return "Mobile Emergency must not be Empty";
                           }
+                          return null;
                         }, hint: 'Mobile Emergency'),
                         SizedBox(
                           height: 2.h,
@@ -217,6 +207,7 @@ class _clientRegister2State extends State<clientRegister2> {
                           if (value!.isEmpty) {
                             return "Relation must not be Empty";
                           }
+                          return null;
                         }, hint: 'Contact Relation'),
                         SizedBox(
                           height: 2.h,
@@ -232,6 +223,7 @@ class _clientRegister2State extends State<clientRegister2> {
                             if (value!.isEmpty) {
                               return "Medical History must not be Empty";
                             }
+                            return null;
                           },
                         ),
                         SizedBox(
@@ -240,8 +232,6 @@ class _clientRegister2State extends State<clientRegister2> {
                         defaultButton(
                             function: () {
                               if (formKey.currentState!.validate()) {
-                                // passData();
-                                ///  print('login Success');
                                 navigateTo(
                                     context,
                                     clientRegister3(

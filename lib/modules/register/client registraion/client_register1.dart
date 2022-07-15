@@ -84,6 +84,7 @@ class clientRegister1 extends StatelessWidget {
                                   text: "Please Enter Your first name",
                                   state: ToastStates.ERROR); */
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -100,6 +101,7 @@ class clientRegister1 extends StatelessWidget {
                                     if (value!.isEmpty) {
                                       return "Please Enter Your last name";
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -117,6 +119,7 @@ class clientRegister1 extends StatelessWidget {
                               if (value!.length != 11) {
                                 return "please enter avalid number ";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -180,6 +183,7 @@ class clientRegister1 extends StatelessWidget {
                               if (isValid == false || value.isEmpty) {
                                 return "Please Enter valid Email";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -202,6 +206,7 @@ class clientRegister1 extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return "Please Enter Your Password";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -222,6 +227,7 @@ class clientRegister1 extends StatelessWidget {
                             },
                             onSubmit: (value) {
                               if (formKey.currentState!.validate()) {}
+                              return null;
                             },
                             validate: (String? value) {
                               if (value!.isEmpty) {
@@ -229,6 +235,7 @@ class clientRegister1 extends StatelessWidget {
                               } else if (value != passwordController.text) {
                                 return "password not match";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -238,7 +245,6 @@ class clientRegister1 extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 3.h),
                             child: defaultButton(
                                 function: () {
-                                  //print(RegisterCubit.get(context).radiovalue);
                                   if (formKey.currentState!.validate()) {
                                     navigateTo(
                                         context,
@@ -260,7 +266,7 @@ class clientRegister1 extends StatelessWidget {
                                   } else {
                                     showToast(
                                         text: 'please enter data',
-                                        state: ToastStates.ERROR);
+                                        state: ToastStates.error);
                                   }
                                 },
                                 text: 'Continue',
