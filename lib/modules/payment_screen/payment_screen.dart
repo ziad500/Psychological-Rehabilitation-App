@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/styles/colors.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -94,21 +93,6 @@ class _PaymentScreenState extends State<PaymentScreen>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        actions: [
-          TextButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  Navigator.of(context).pop();
-                }
-              },
-              child: const Text(
-                'Save',
-                style: TextStyle(
-                    color: defaultColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15),
-              ))
-        ],
         title: const Text(
           'Payment',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

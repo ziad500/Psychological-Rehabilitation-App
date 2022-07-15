@@ -84,36 +84,37 @@ class HomeScreen extends StatelessWidget {
                             height: 10,
                           ),
                           Padding(
-                              padding: const EdgeInsets.only(
-                                left: 18.0,
-                                right: 18.0,
-                                bottom: 15,
-                              ),
-                              child: AppCubit.get(context).doctorsModel != null
-                                  ? ListView.separated(
-                                      reverse: true,
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      physics: const ScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return doctorCard(
-                                            context,
-                                            AppCubit.get(context).doctorsModel,
-                                            index);
-                                      },
-                                      separatorBuilder: (context, index) =>
-                                          const SizedBox(
-                                            height: 15.0,
-                                          ),
-                                      itemCount: AppCubit.get(context)
-                                          .doctorsModel!
-                                          .doctors
-                                          .length)
-                                  : const Center(
-                                      child: CircularProgressIndicator(
-                                        color: defaultColor,
-                                      ),
-                                    ))
+                            padding: const EdgeInsets.only(
+                              left: 18.0,
+                              right: 18.0,
+                              bottom: 15,
+                            ),
+                            child: AppCubit.get(context).doctorsModel != null
+                                ? ListView.separated(
+                                    reverse: true,
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return doctorCard(
+                                          context,
+                                          AppCubit.get(context).doctorsModel,
+                                          index);
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(
+                                          height: 15.0,
+                                        ),
+                                    itemCount: AppCubit.get(context)
+                                        .doctorsModel!
+                                        .doctors
+                                        .length)
+                                : const Center(
+                                    child: CircularProgressIndicator(
+                                      color: defaultColor,
+                                    ),
+                                  ),
+                          )
                         ],
                       ),
                     ),
