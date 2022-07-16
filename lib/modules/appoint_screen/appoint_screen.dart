@@ -7,8 +7,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'appoint_payment.dart';
 
 class AppointScreen extends StatefulWidget {
-  const AppointScreen({Key? key}) : super(key: key);
-
+  AppointScreen({Key? key, required this.isDoctor}) : super(key: key);
+  final bool isDoctor;
   @override
   State<AppointScreen> createState() => _AppointScreenState();
 }
@@ -20,6 +20,7 @@ class _AppointScreenState extends State<AppointScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   var eventController = TextEditingController();
+
   String radiovalue = '';
   void changeRadio(value) {
     setState(() {
@@ -49,6 +50,7 @@ class _AppointScreenState extends State<AppointScreen> {
     // ignore: todo
     // TODO: implement initState
     super.initState();
+    widget.isDoctor;
   }
 
   @override
@@ -264,108 +266,32 @@ class _AppointScreenState extends State<AppointScreen> {
                       ]),
                     )
                   ],
-                ))
-            /*     Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text(
-                  'Morning Slots',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              height: 78,
-              child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: morningSlots.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 6,
-                    mainAxisExtent: 40,
-                  ),
-                  itemBuilder: (_, index) => Card(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: defaultColor, width: 1.8)),
-                          child: Center(
-                            child: Text(
-                              morningSlots[index],
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
+                )),
+            widget.isDoctor == false
+                ? Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Type of Session',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      )),
-            ),
-            const SizedBox(
-              height: 6,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text(
-                  'Evening Slots',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-                height: 78,
-                child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: morningSlots.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 6,
-                      mainAxisExtent: 40,
-                    ),
-                    itemBuilder: (_, index) => Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: defaultColor, width: 1.8)),
-                            child: Center(
-                              child: Text(
-                                morningSlots[index],
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ))),
-        */
-
-            ,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text(
-                  'Type of Session',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                buildRadioBig('chat', context),
-                const Spacer(),
-                buildRadioBig('video', context),
-              ],
-            ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          buildRadioBig('chat', context),
+                          const Spacer(),
+                          buildRadioBig('video', context),
+                        ],
+                      ),
+                    ],
+                  )
+                : Container(),
             const SizedBox(
               height: 20,
             ),
@@ -374,7 +300,9 @@ class _AppointScreenState extends State<AppointScreen> {
               children: [
                 defaultButton(
                     function: () {
-                      navigateTo(context, const PaymentAppointScreen());
+                      widget.isDoctor == false
+                          ? navigateTo(context, const PaymentAppointScreen())
+                          : Navigator.pop(context);
                     },
                     text: 'Confirm',
                     width: 250),

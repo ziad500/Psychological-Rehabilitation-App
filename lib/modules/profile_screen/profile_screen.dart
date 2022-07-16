@@ -178,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
                                     width: 6.11,
                                   ),
                                   Text(
-                                    languages.toString(),
+                                    languages.join(','),
                                     style: const TextStyle(
                                       fontSize: 20.0,
                                       color: Color(0XFF616161),

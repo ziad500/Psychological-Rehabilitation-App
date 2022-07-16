@@ -63,7 +63,7 @@ class AppointmentsScreen extends StatelessWidget {
                     separatorBuilder: (context, index) => const SizedBox(
                           height: 8,
                         ),
-                    itemCount: 10),
+                    itemCount: 3),
                 ListView.separated(
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),

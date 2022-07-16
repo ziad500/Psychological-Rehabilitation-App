@@ -28,7 +28,8 @@ class EditeProfileScreen extends StatelessWidget {
         cubit.professionController.text = cubit.professionValue == ''
             ? '${model?.profession}'
             : cubit.professionValue;
-        cubit.professionlanguagesController.text = '${model?.languages}';
+        cubit.professionlanguagesController.text =
+            '${model?.languages.join(',')}';
         return Scaffold(
             backgroundColor: defaultColor,
             appBar: AppBar(

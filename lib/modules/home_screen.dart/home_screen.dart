@@ -379,6 +379,7 @@ class HomeScreen extends StatelessWidget {
                             function: () {
                               AppCubit.get(context).getReviews(
                                   model.doctors[index].id.toString());
+
                               navigateTo(
                                   context,
                                   ProfileScreen(
@@ -407,7 +408,11 @@ class HomeScreen extends StatelessWidget {
                           height: 23,
                           child: defaultButton(
                             function: () {
-                              navigateTo(context, const AppointScreen());
+                              navigateTo(
+                                  context,
+                                  AppointScreen(
+                                    isDoctor: false,
+                                  ));
                             },
                             isUpperCase: false,
                             text: 'Book a Session',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
+import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
@@ -41,20 +42,20 @@ class MenuScreen extends StatelessWidget {
                         Icons.person,
                         color: Color(0xFF4A4B4D),
                       ),
-                      onTap: () => navigateTo(context, EditeProfileScreen()
-                          /*    doctor == true
-                              ? EditeProfileDoctorScreen()
-                              : EditeProfileScreen() */
-                          )),
+                      onTap: () => navigateTo(context, EditeProfileScreen())),
                   if (doctor == true)
                     menuItem(
-                      context,
-                      'Available Hours',
-                      const Icon(
-                        Icons.timer,
-                        color: Color(0xFF4A4B4D),
-                      ),
-                    ),
+                        context,
+                        'Available Hours',
+                        const Icon(
+                          Icons.timer,
+                          color: Color(0xFF4A4B4D),
+                        ),
+                        onTap: () => navigateTo(
+                            context,
+                            AppointScreen(
+                              isDoctor: true,
+                            ))),
                   if (doctor == false)
                     menuItem(
                       context,
