@@ -249,7 +249,7 @@ class AppointmentsScreen extends StatelessWidget {
                       defaultButton(
                         height: 30,
                         function: () {
-                          // navigateTo(context, Meeting());
+                          navigateTo(context, const Meeting());
                         },
                         isUpperCase: false,
                         icon: Icons.call,

@@ -38,6 +38,12 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(ChangeRadioState());
   }
 
+  String professionValue = '';
+  void changeProfessinValue(value) {
+    professionValue = value;
+    emit(ProfessinvalueSuccessState());
+  }
+
   LoginModel? loginmodel;
   void userLogin({required String email, required String password}) {
     emit(AppLoginLoadingState());

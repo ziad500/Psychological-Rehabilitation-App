@@ -97,6 +97,8 @@ Widget defaultFormField(
             borderRadius: BorderRadius.circular(20.0),
           ),
           filled: true,
+          floatingLabelStyle: const TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
           fillColor: const Color(0xffE8E8EE),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),

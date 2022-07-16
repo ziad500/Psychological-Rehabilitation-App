@@ -108,6 +108,7 @@ class _clientRegister3State extends State<clientRegister3> {
                   showToast(text: 'Please Chosse', state: ToastStates.error);
                 } else {
                   CasheHelper.saveData(key: 'Services', value: text.toList());
+
                   navigateTo(
                       context,
                       clientRegister4(

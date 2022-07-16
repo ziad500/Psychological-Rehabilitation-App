@@ -344,15 +344,19 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
-                    children: const [
+                    children: [
                       Text(
-                        '1000 EGP',
-                        style: TextStyle(
+                        AppCubit.get(context)
+                            .doctorsModel!
+                            .doctors[index]
+                            .sessionPrice
+                            .toString(),
+                        style: const TextStyle(
                             fontSize: 16.0,
                             color: Color(0XFF616161),
                             fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         '/ Session',
                         style: TextStyle(
                             fontSize: 14.0,

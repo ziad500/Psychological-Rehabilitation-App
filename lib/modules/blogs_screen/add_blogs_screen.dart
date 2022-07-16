@@ -14,8 +14,6 @@ class AddBlogsScreen extends StatelessWidget {
 
   var formKey = GlobalKey<FormState>();
 
-  String category = 'Category';
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -143,7 +141,7 @@ class AddBlogsScreen extends StatelessWidget {
                                         size: 35,
                                       ),
                                       Text(
-                                        'Upload photo of license',
+                                        'Upload Your Photo / Video',
                                         style: TextStyle(
                                             color: Colors.grey,
                                             fontSize: 17,

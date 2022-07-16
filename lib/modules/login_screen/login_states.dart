@@ -7,6 +7,8 @@ class LoginInitialState extends LoginStates {}
 
 class ChangePasswordVisiblilityState extends LoginStates {}
 
+class ProfessinvalueSuccessState extends LoginStates {}
+
 class AppLoginLoadingState extends LoginStates {}
 
 class AppLoginSuccessState extends LoginStates {

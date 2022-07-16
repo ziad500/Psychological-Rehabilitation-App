@@ -106,86 +106,89 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                const Icon(
-                                  Icons.add_circle_outline,
-                                  color: defaultColor,
-                                  size: 17.0,
-                                ),
-                                const SizedBox(
-                                  width: 6.11,
-                                ),
-                                Text(
-                                  name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 21.0,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  const Icon(
+                                    Icons.add_circle_outline,
+                                    color: defaultColor,
+                                    size: 17.0,
                                   ),
-                                ),
-                              ]),
-                              Row(children: [
-                                const Icon(
-                                  Icons.work,
-                                  color: defaultColor,
-                                  size: 17.0,
-                                ),
-                                const SizedBox(
-                                  width: 6.11,
-                                ),
-                                Text(
-                                  profission,
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    color: Color(0XFF616161),
+                                  const SizedBox(
+                                    width: 6.11,
                                   ),
-                                )
-                              ]),
-                              Row(children: const [
-                                Icon(
-                                  Icons.stars,
-                                  color: defaultColor,
-                                  size: 17.0,
-                                ),
-                                SizedBox(
-                                  width: 6.11,
-                                ),
-                                Text(
-                                  '6 Years Of Experience',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Color(0XFF616161),
+                                  Text(
+                                    name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 21.0,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ]),
-                              Row(children: [
-                                const Icon(
-                                  Icons.language,
-                                  color: defaultColor,
-                                  size: 17.0,
-                                ),
-                                const SizedBox(
-                                  width: 6.11,
-                                ),
-                                Text(
-                                  languages.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    color: Color(0XFF616161),
+                                ]),
+                                Row(children: [
+                                  const Icon(
+                                    Icons.work,
+                                    color: defaultColor,
+                                    size: 17.0,
                                   ),
-                                ),
-                              ]),
-                            ],
-                          ),
-                        ],
+                                  const SizedBox(
+                                    width: 6.11,
+                                  ),
+                                  Text(
+                                    profission,
+                                    style: const TextStyle(
+                                      fontSize: 20.0,
+                                      color: Color(0XFF616161),
+                                    ),
+                                  )
+                                ]),
+                                Row(children: const [
+                                  Icon(
+                                    Icons.stars,
+                                    color: defaultColor,
+                                    size: 17.0,
+                                  ),
+                                  SizedBox(
+                                    width: 6.11,
+                                  ),
+                                  Text(
+                                    '6 Years Of Experience',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: Color(0XFF616161),
+                                    ),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Icon(
+                                    Icons.language,
+                                    color: defaultColor,
+                                    size: 17.0,
+                                  ),
+                                  const SizedBox(
+                                    width: 6.11,
+                                  ),
+                                  Text(
+                                    languages.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 20.0,
+                                      color: Color(0XFF616161),
+                                    ),
+                                  ),
+                                ]),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 12,

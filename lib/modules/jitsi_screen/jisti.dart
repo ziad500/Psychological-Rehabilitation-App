@@ -2,7 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
+import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/login_screen/login_cubit.dart';
+import 'package:phsyo/modules/login_screen/login_states.dart';
+import 'package:phsyo/shared/components/components.dart';
 import 'package:uuid/uuid.dart';
 
 class Meeting extends StatefulWidget {
@@ -14,11 +19,11 @@ class Meeting extends StatefulWidget {
 
 class _MeetingState extends State<Meeting> {
   final serverText = TextEditingController();
-  final roomText = TextEditingController(text: "zzzzzzz");
+  final roomText = TextEditingController(text: "ziad");
 
   //final roomText = const Uuid().v4();
-  final subjectText = TextEditingController(text: "My Plugin Test Meeting");
-  final nameText = TextEditingController(text: "Plugin Test User");
+  final subjectText = TextEditingController(text: "Session");
+  //var nameText = TextEditingController(text: LoginCubit.get(context).profileModel?.user.name);
   final emailText = TextEditingController(text: "fake@email.com");
   final iosAppBarRGBAColor =
       TextEditingController(text: "#0080FF80"); //transparent blue
@@ -34,7 +39,7 @@ class _MeetingState extends State<Meeting> {
         onConferenceJoined: _onConferenceJoined,
         onConferenceTerminated: _onConferenceTerminated,
         onError: _onError));
-    // _joinMeeting();
+    _joinMeeting();
   }
 
   @override
@@ -47,46 +52,58 @@ class _MeetingState extends State<Meeting> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
+        home: BlocConsumer<LoginCubit, LoginStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var nameText = TextEditingController(
+            text: LoginCubit.get(context).profileModel?.user.name);
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back)),
           ),
-          child: kIsWeb
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: width * 0.30,
-                      child: meetConfig(),
-                    ),
-                    SizedBox(
-                        width: width * 0.60,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                              color: Colors.white54,
-                              child: SizedBox(
-                                width: width * 0.60 * 0.70,
-                                height: width * 0.60 * 0.70,
-                                child: JitsiMeetConferencing(
-                                  extraJS: const [
-                                    // extraJs setup example
-                                    '<script>function echo(){console.log("echo!!!")};</script>',
-                                    '<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>'
-                                  ],
-                                ),
-                              )),
-                        ))
-                  ],
-                )
-              : meetConfig(),
-        ),
-      ),
-    );
+          body: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+            ),
+            child: kIsWeb
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: width * 0.30,
+                        child: meetConfig(),
+                      ),
+                      SizedBox(
+                          width: width * 0.60,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                                color: Colors.white54,
+                                child: SizedBox(
+                                  width: width * 0.60 * 0.70,
+                                  height: width * 0.60 * 0.70,
+                                  child: JitsiMeetConferencing(
+                                    extraJS: const [
+                                      // extraJs setup example
+                                      '<script>function echo(){console.log("echo!!!")};</script>',
+                                      '<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>'
+                                    ],
+                                  ),
+                                )),
+                          ))
+                    ],
+                  )
+                : meetConfig(),
+          ),
+        );
+      },
+    ));
   }
 
   Widget meetConfig() {
@@ -126,13 +143,13 @@ class _MeetingState extends State<Meeting> {
           const SizedBox(
             height: 14.0,
           ),
-          TextField(
+          /*   TextField(
             controller: nameText,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Display Name",
             ),
-          ),
+          ), */
           const SizedBox(
             height: 14.0,
           ),
@@ -246,7 +263,7 @@ class _MeetingState extends State<Meeting> {
     var options = JitsiMeetingOptions(room: roomText.text)
       ..serverURL = serverUrl
       ..subject = subjectText.text
-      ..userDisplayName = nameText.text
+      ..userDisplayName = LoginCubit.get(context).profileModel?.user.name
       ..userEmail = emailText.text
       ..iosAppBarRGBAColor = iosAppBarRGBAColor.text
       ..audioOnly = isAudioOnly
@@ -259,7 +276,9 @@ class _MeetingState extends State<Meeting> {
         "height": "100%",
         "enableWelcomePage": false,
         "chromeExtensionBanner": null,
-        "userInfo": {"displayName": nameText.text}
+        "userInfo": {
+          "displayName": LoginCubit.get(context).profileModel?.user.name
+        }
       };
 
     debugPrint("JitsiMeetingOptions: $options");
@@ -294,6 +313,8 @@ class _MeetingState extends State<Meeting> {
   }
 
   void _onConferenceTerminated(message) {
+    navigateTo(context, const Applayout());
+
     debugPrint("_onConferenceTerminated broadcasted with message: $message");
   }
 

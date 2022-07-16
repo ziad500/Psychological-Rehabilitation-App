@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
@@ -60,7 +61,7 @@ Future<void> main() async {
     /* DevicePreview(
     builder: (context) =>  */
     MyApp(widget),
-    /*  enabled: !kReleaseMode,
+    /* enabled: !kReleaseMode,
   ) */
   );
 }

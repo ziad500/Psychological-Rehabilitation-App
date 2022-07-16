@@ -225,6 +225,17 @@ class doctorRegister4 extends StatelessWidget {
                                                     if (formKey.currentState!
                                                         .validate()) {
                                                       RegisterCubit.get(context)
+                                                          .verifyEmail(
+                                                              email,
+                                                              code1controller
+                                                                      .text +
+                                                                  code2controller
+                                                                      .text +
+                                                                  code3controller
+                                                                      .text +
+                                                                  code4controller
+                                                                      .text);
+                                                      /*  RegisterCubit.get(context)
                                                           .signUpDoctor(
                                                               firstName:
                                                                   firstName,
@@ -244,7 +255,7 @@ class doctorRegister4 extends StatelessWidget {
                                                               licIssuedDate:
                                                                   licIssuedDate,
                                                               licExpiryDate:
-                                                                  licExpiryDate);
+                                                                  licExpiryDate); */
                                                     }
                                                   },
                                                   text: 'Verify',
