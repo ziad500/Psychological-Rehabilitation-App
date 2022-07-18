@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/layout/cubit/abb_states.dart';
+import 'package:phsyo/layout/cubit/app_cubit.dart';
+import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
@@ -6,9 +10,29 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:uuid/uuid.dart';
 
 class AppointDetails extends StatelessWidget {
-  var id = const Uuid().v4();
-
-  AppointDetails({Key? key}) : super(key: key);
+  AppointDetails(
+      {Key? key,
+      required this.day,
+      required this.startDate,
+      required this.date,
+      required this.roomName,
+      required this.doctorId,
+      required this.image,
+      required this.name,
+      required this.job,
+      required this.typeOfSession,
+      required this.appointmentId})
+      : super(key: key);
+  final String day;
+  final String startDate;
+  final String date;
+  final String roomName;
+  final String doctorId;
+  final String image;
+  final String name;
+  final String job;
+  final String typeOfSession;
+  final String appointmentId;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +79,7 @@ class AppointDetails extends StatelessWidget {
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            'Booking ID : $id',
+                            'Booking ID : $appointmentId',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 2.h),
                           ),
@@ -129,8 +153,7 @@ class AppointDetails extends StatelessWidget {
                                   fadeInDuration:
                                       const Duration(milliseconds: 300),
                                   placeholder: kTransparentImage,
-                                  image:
-                                      'https://scontent.fcai22-1.fna.fbcdn.net/v/t39.30808-6/280198885_3204029853219698_8376329503209490497_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=RrjXLjRKX_IAX-RCutq&_nc_ht=scontent.fcai22-1.fna&oh=00_AT-2KVoLkPpML4rOFcnVqaTaXV-rF3OmaNbCBYMKY2kqLQ&oe=62D4CE8F',
+                                  image: image,
                                   width: 89,
                                   height: 15.h,
                                   fit: BoxFit.cover,
@@ -144,14 +167,14 @@ class AppointDetails extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dr. Ahmed Ali',
+                            name,
                             style: TextStyle(
                                 color: Colors.red,
                                 fontSize: 3.h,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Yoga Instructor',
+                            job,
                             style: TextStyle(
                               color: const Color(0xff606060),
                               fontSize: 2.5.h,
@@ -183,7 +206,7 @@ class AppointDetails extends StatelessWidget {
                             style: TextStyle(fontSize: 2.5.h),
                           ),
                           const Spacer(),
-                          const Text('15 March | 5 PM')
+                          Text('$date | $startDate')
                         ],
                       ),
                       const SizedBox(
@@ -203,17 +226,19 @@ class AppointDetails extends StatelessWidget {
                             style: TextStyle(fontSize: 2.5.h),
                           ),
                           const Spacer(),
-                          const Text('Video Call')
+                          Text(typeOfSession)
                         ],
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 2.5.h,
                       ),
                       //const Spacer(),
                       defaultButton(
-                          function: () {},
+                          function: () {
+                            navigateAndFinish(context, const Applayout());
+                          },
                           text: 'Done',
-                          height: 7.5.h,
+                          height: 6.5.h,
                           width: 60.w)
                     ],
                   ),

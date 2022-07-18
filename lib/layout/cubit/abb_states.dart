@@ -49,3 +49,25 @@ class AppSuccessAddArticleState extends AppStates {
 }
 
 class AppErrorAddArticleState extends AppStates {}
+
+class AppLoadingGetDoctorHoursState extends AppStates {}
+
+class AppSuccessGetDoctorHoursState extends AppStates {}
+
+class AppErrorGetDoctorHoursState extends AppStates {}
+
+class AppLoadingGetDoctorHourssState extends AppStates {}
+
+class AppGetDoctorHoursState extends AppStates {}
+
+class AppLoadingDoctorReservationState extends AppStates {}
+
+class AppSuccessDoctorReservationState extends AppStates {}
+
+class AppErrorDoctorReservationState extends AppStates {}
+
+class AppLoadingClientReservationState extends AppStates {}
+
+class AppSuccessClientReservationState extends AppStates {}
+
+class AppErrorClientReservationState extends AppStates {}

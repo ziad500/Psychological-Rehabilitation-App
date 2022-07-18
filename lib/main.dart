@@ -118,7 +118,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: startWidget
+                  home: Applayout()
                   /* clientRegister4(
                       firstName: 'firstName',
                       lastName: 'lastName',

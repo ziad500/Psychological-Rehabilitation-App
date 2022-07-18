@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
+import 'package:phsyo/models/login_model/user_login_model.dart';
+import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
+import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
@@ -54,7 +57,16 @@ class MenuScreen extends StatelessWidget {
                         onTap: () => navigateTo(
                             context,
                             AppointScreen(
+                              id: LoginCubit.get(context)
+                                  .profileModel!
+                                  .user
+                                  .id
+                                  .toString(),
                               isDoctor: true,
+                              salary: '',
+                              image: '',
+                              job: '',
+                              name: '',
                             ))),
                   if (doctor == false)
                     menuItem(

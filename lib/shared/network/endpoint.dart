@@ -5,3 +5,5 @@ const REGISTER_DOCTOR = 'auth/signup/Doctor';
 const GETDOCTORS = 'doctors';
 const ARTICLES = 'articles';
 const VERIFY = 'verify/email';
+const CALENDER = 'calender';
+const RESERVATION = 'reservation';

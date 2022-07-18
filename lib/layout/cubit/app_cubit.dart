@@ -7,11 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:phsyo/models/clientReservatiomModel/client_reservation_model.dart';
 
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/models/get_article_model/get_article_model.dart';
+import 'package:phsyo/models/hourModel.dart';
 import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/models/reviewModel/review_model.dart';
+import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
@@ -21,6 +24,7 @@ import 'package:phsyo/shared/network/endpoint.dart';
 
 import '../../models/addArticles/add_articles_model.dart';
 import '../../models/articlesModel/articles_model.dart';
+import '../../models/doctor_hours_model/doctor_hours_model.dart';
 import '../../shared/network/dio_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -203,7 +207,7 @@ class AppCubit extends Cubit<AppStates> {
     var data = FormData.fromMap({
       'cover': await MultipartFile.fromFile(
         coverArticleImage!.path,
-        contentType: new MediaType('image', 'jpg'),
+        contentType: MediaType('image', 'jpg'),
       ),
       'title': title,
       'content': content,
@@ -227,6 +231,95 @@ class AppCubit extends Cubit<AppStates> {
         print('error is ${error.response?.data}');
       }
       emit(AppErrorAddArticleState());
+    });
+  }
+
+  DoctorHoursModel? doctorHoursModel;
+  void getDoctorHours(String id) {
+    emit(AppLoadingGetDoctorHoursState());
+    DioHelper.getData(url: 'doctor/$id').then((value) {
+      doctorHoursModel = DoctorHoursModel.fromJson(value.data);
+      emit(AppSuccessGetDoctorHoursState());
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorGetDoctorHoursState());
+    });
+  }
+
+  List<HourModel> doctorsEveningHours = [];
+  List<HourModel> doctorsMorningHours = [];
+  void getHours(String date) {
+    emit(AppLoadingGetDoctorHourssState());
+    doctorsEveningHours = [];
+    doctorsMorningHours = [];
+    doctorHoursModel?.calender.forEach((element) {
+      if (element.date == date) {
+        if (element.startAt!.contains('pm')) {
+          doctorsEveningHours.add(HourModel(element.startAt.toString(), false));
+        }
+        if (element.startAt!.contains('am')) {
+          doctorsMorningHours.add(HourModel(element.startAt.toString(), false));
+        }
+      }
+    });
+    emit(AppGetDoctorHoursState());
+  }
+
+  void doctorReservation({
+    required String day,
+    required String startAt,
+    required String endAt,
+    required String date,
+  }) {
+    emit(AppLoadingDoctorReservationState());
+    DioHelper.postData(
+            url: CALENDER,
+            data: {
+              "weekday": day,
+              "startAt": startAt,
+              "endAt": endAt,
+              "date": date
+            },
+            token: token)
+        .then((value) {
+      emit(AppSuccessDoctorReservationState());
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorDoctorReservationState());
+    });
+  }
+
+  ClientReservationModel? clientReservationModel;
+  void clientReservation({
+    required String day,
+    required String startAt,
+    required String roomName,
+    required String date,
+    required String doctorId,
+  }) {
+    emit(AppLoadingClientReservationState());
+    DioHelper.postData(
+            url: RESERVATION,
+            data: {
+              "weekday": day,
+              "startDate": startAt,
+              "date": date,
+              "roomName": roomName,
+              "doctor": doctorId
+            },
+            token: token)
+        .then((value) {
+      clientReservationModel = ClientReservationModel.fromJson(value.data);
+      emit(AppSuccessClientReservationState());
+    }).catchError((error) {
+      if (error is DioError) {
+        print('error is ${error.response?.data}');
+      }
+      emit(AppErrorClientReservationState());
     });
   }
 }

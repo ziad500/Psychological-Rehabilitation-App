@@ -411,7 +411,15 @@ class HomeScreen extends StatelessWidget {
                               navigateTo(
                                   context,
                                   AppointScreen(
+                                    image:
+                                        model.doctors[index].image.toString(),
+                                    id: model.doctors[index].id.toString(),
                                     isDoctor: false,
+                                    job: model.doctors[index].profession
+                                        .toString(),
+                                    name: model.doctors[index].name.toString(),
+                                    salary: model.doctors[index].sessionPrice
+                                        .toString(),
                                   ));
                             },
                             isUpperCase: false,
