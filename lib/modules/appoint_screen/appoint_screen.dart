@@ -484,11 +484,12 @@ class _AppointScreenState extends State<AppointScreen> {
     value = '${model?.hour}$type';
     return InkWell(
       onTap: () {
-        startAt = model?.hour;
-        endAt = widget.isDoctor == true
-            ? '${int.parse(model!.hour!) + 1}$type'
-            : '';
         startAtfull = '${model!.hour}$type';
+
+        startAt = model.hour;
+        endAt =
+            widget.isDoctor == true ? '${int.parse(model.hour!) + 1}$type' : '';
+        print(startAtfull);
 
         for (var element in morningSlots) {
           String? t;

@@ -1,4 +1,4 @@
-class DoctorRegisterModel {
+/* class DoctorRegisterModel {
   String? message;
   String? id;
   Data? data;
@@ -35,3 +35,4 @@ class Data {
     return data;
   }
 }
+ */

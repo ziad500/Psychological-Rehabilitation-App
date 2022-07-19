@@ -383,10 +383,18 @@ class HomeScreen extends StatelessWidget {
                               navigateTo(
                                   context,
                                   ProfileScreen(
+                                    id: model.doctors[index].id.toString(),
+                                    isDoctor: false,
+                                    job: model.doctors[index].profession
+                                        .toString(),
+                                    salary: model.doctors[index].sessionPrice
+                                        .toString(),
                                     image:
                                         model.doctors[index].image.toString(),
                                     name: model.doctors[index].name.toString(),
-                                    yearOfExperience: '',
+                                    yearOfExperience: model
+                                        .doctors[index].licIssuedDate
+                                        .toString(),
                                     languages: model.doctors[index].languages,
                                     profission: model.doctors[index].profession
                                         .toString(),

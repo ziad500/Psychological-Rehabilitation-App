@@ -123,7 +123,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
     print(profileDoctorImage!.path);
   }
 
-  DoctorRegisterModel? doctorRegisterModel;
+/*   DoctorRegisterModel? doctorRegisterModel;
+ */
   void signUpDoctor(
       {required String firstName,
       required String lastName,
@@ -140,7 +141,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     var data = FormData.fromMap({
       'profileImage': await MultipartFile.fromFile(
         profileDoctorImage!.path,
-        contentType: MediaType('image', 'jpg'),
+        contentType: new MediaType('image', 'jpg'),
       ),
       'firstName': firstName,
       'lastName': lastName,
@@ -155,15 +156,19 @@ class RegisterCubit extends Cubit<RegisterStates> {
       'licExpiryDate': licExpiryDate
     });
 
-    await DioHelper.postData(url: REGISTER_DOCTOR, data: data).then((value) {
-      doctorRegisterModel = DoctorRegisterModel.fromJson(value.data);
+    DioHelper.postData(url: REGISTER_DOCTOR, data: data).then((value) {
+      print(value);
+      //   doctorRegisterModel = DoctorRegisterModel.fromJson(value.data);
       emit(AppRegisterDoctorSuccessState());
     }).catchError((error) {
+      print(error);
       if (error is DioError) {
-        doctorRegisterModel =
-            DoctorRegisterModel.fromJson(error.response!.data);
-        showToast(
-            text: doctorRegisterModel?.data?.msg, state: ToastStates.error);
+        print(error.response);
+
+        /*   doctorRegisterModel =
+            DoctorRegisterModel.fromJson(error.response!.data); */
+        /*   showToast(
+            text: doctorRegisterModel?.data?.msg, state: ToastStates.error); */
       }
       emit(AppRegisterDoctorErrorState());
     });

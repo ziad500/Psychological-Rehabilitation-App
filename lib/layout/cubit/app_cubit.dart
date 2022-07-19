@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:phsyo/models/appointmentModel/appointment_model.dart';
 import 'package:phsyo/models/clientReservatiomModel/client_reservation_model.dart';
 
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
@@ -239,6 +240,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetDoctorHoursState());
     DioHelper.getData(url: 'doctor/$id').then((value) {
       doctorHoursModel = DoctorHoursModel.fromJson(value.data);
+      print(value);
       emit(AppSuccessGetDoctorHoursState());
     }).catchError((error) {
       if (error is DioError) {
@@ -313,13 +315,42 @@ class AppCubit extends Cubit<AppStates> {
             },
             token: token)
         .then((value) {
+      print(value);
+
       clientReservationModel = ClientReservationModel.fromJson(value.data);
+      print(value);
       emit(AppSuccessClientReservationState());
     }).catchError((error) {
-      if (error is DioError) {
-        print('error is ${error.response?.data}');
-      }
+      print('........$error');
+      // clientReservationModel = ClientReservationModel.fromJson(error);
+
       emit(AppErrorClientReservationState());
+    });
+  }
+
+  AppointmentModel? appointmentModel;
+  void getAppointment() async {
+    emit(AppLoadingGetReservationState());
+    await DioHelper.getData(url: GETALLRESERVATION, token: token).then((value) {
+      appointmentModel = AppointmentModel.fromJson(value.data);
+      print(appointmentModel?.totalReservations);
+      emit(AppSuccessGetReservationState());
+    }).catchError((error) {
+      emit(AppErrorGetReservationState());
+    });
+  }
+
+  void addReview(
+      {required String id, required String rating, required String comment}) {
+    emit(AppLoadingAddReviewState());
+    DioHelper.postData(
+        url: 'doctors/$id/reviews',
+        token: token,
+        data: {"rating": rating, "comment": comment}).then((value) {
+      print(value);
+      emit(AppSuccessAddReviewState());
+    }).catchError((error) {
+      emit(AppErrorAddReviewState());
     });
   }
 }

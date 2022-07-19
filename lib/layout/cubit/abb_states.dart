@@ -71,3 +71,15 @@ class AppLoadingClientReservationState extends AppStates {}
 class AppSuccessClientReservationState extends AppStates {}
 
 class AppErrorClientReservationState extends AppStates {}
+
+class AppLoadingGetReservationState extends AppStates {}
+
+class AppSuccessGetReservationState extends AppStates {}
+
+class AppErrorGetReservationState extends AppStates {}
+
+class AppLoadingAddReviewState extends AppStates {}
+
+class AppSuccessAddReviewState extends AppStates {}
+
+class AppErrorAddReviewState extends AppStates {}

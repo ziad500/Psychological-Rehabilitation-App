@@ -7,3 +7,4 @@ const ARTICLES = 'articles';
 const VERIFY = 'verify/email';
 const CALENDER = 'calender';
 const RESERVATION = 'reservation';
+const GETALLRESERVATION = 'reservation';

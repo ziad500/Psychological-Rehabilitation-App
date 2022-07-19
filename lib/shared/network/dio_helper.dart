@@ -28,10 +28,7 @@ class DioHelper {
     String? lang = 'en',
     String? token,
   }) async {
-    dio.options.headers = {
-      'Content-Type': 'application/json',
-      'Authorization': token
-    };
+    dio.options.headers = {'Content-Type': 'application/json', 'token': token};
     return await dio.get(url, queryParameters: query);
   }
 

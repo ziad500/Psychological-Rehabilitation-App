@@ -46,33 +46,32 @@ Widget titleText(String title) => Text(
       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
     );
 
-Widget defaultFormField(
-  context, {
-  required TextEditingController controller,
-  required TextInputType type,
-  String? Function(String?)? onSubmit,
-  String? Function(String?)? onChange,
-  Function()? onTap,
-  bool isPassword = false,
-  required String? Function(String?)? validate,
-  String? label,
-  double height = 7.5,
-  String? hint,
-  Color? bodercolor,
-  IconData? prefix,
-  IconData? suffix,
-  int maxlines = 1,
-  double hintsize = 2.5 /* 18.0 */,
-  double labelsize = 2.5,
-  double verticalpadding = 18.0,
-  double horizontalpadding = 15.0,
-  Color borderEnableColor = defaultColor,
-  Color borderColor = Colors.grey,
-  int? maxLength,
-  FocusNode? focusNode,
-  Function()? suffixPressed,
-  bool isClickable = true,
-}) =>
+Widget defaultFormField(context,
+        {required TextEditingController controller,
+        required TextInputType type,
+        String? Function(String?)? onSubmit,
+        String? Function(String?)? onChange,
+        Function()? onTap,
+        bool isPassword = false,
+        required String? Function(String?)? validate,
+        String? label,
+        double height = 7.5,
+        String? hint,
+        Color? bodercolor,
+        IconData? prefix,
+        IconData? suffix,
+        int maxlines = 1,
+        double hintsize = 2.5 /* 18.0 */,
+        double labelsize = 2.5,
+        double verticalpadding = 18.0,
+        double horizontalpadding = 15.0,
+        Color borderEnableColor = defaultColor,
+        Color borderColor = Colors.grey,
+        int? maxLength,
+        FocusNode? focusNode,
+        Function()? suffixPressed,
+        bool isClickable = true,
+        bool review = false}) =>
     SizedBox(
       height: height.h,
       child: TextFormField(
@@ -99,7 +98,7 @@ Widget defaultFormField(
           filled: true,
           floatingLabelStyle: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
-          fillColor: const Color(0xffE8E8EE),
+          fillColor: review ? Colors.white : const Color(0xffE8E8EE),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
             borderSide: const BorderSide(
@@ -215,7 +214,7 @@ Widget defaultButton(
                   Icon(
                     icon,
                     color: Colors.white,
-                    size: 20,
+                    size: 15,
                   ),
                   const SizedBox(
                     width: 5.0,

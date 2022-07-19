@@ -9,6 +9,7 @@ import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/blogs_screen/add_blogs_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_details_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
+import 'package:phsyo/modules/jitsi_screen/jisti.dart';
 
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_states.dart';
@@ -17,9 +18,13 @@ import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 import 'package:phsyo/modules/onboarding_screen/onboarding_screen.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
 import 'package:phsyo/modules/register/client%20registraion/client_register4.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register1.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register2.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register3.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register4.dart';
 
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
+import 'package:phsyo/modules/reviewScreen/review_screen.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:device_preview/device_preview.dart';
@@ -29,6 +34,8 @@ import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/shared/network/bloc_observer.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
+
+import 'modules/client_profile/client_profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +49,9 @@ Future<void> main() async {
   token = CasheHelper.getData(key: 'token');
   Userid = CasheHelper.getData(key: 'Userid');
   doctor = CasheHelper.getData(key: 'doctor');
+  /*  CasheHelper.removeData(key: 'token');
+ CasheHelper.removeData(key: 'Userid');
+ CasheHelper.removeData(key: 'doctor'); */
   print(doctor);
   print(role);
 
@@ -78,7 +88,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => AppCubit()
                 ..getDoctorsData()
-                ..getArticles()),
+                ..getArticles()
+                ..getAppointment()),
           BlocProvider(
             create: (context) =>
                 LoginCubit()..getProfileData(Userid.toString()),
@@ -118,41 +129,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: Applayout()
-                  /* clientRegister4(
-                      firstName: 'firstName',
-                      lastName: 'lastName',
-                      mobileNumber: 'mobileNumber',
-                      Gender: 'Gender',
-                      email: 'email',
-                      password: 'password',
-                      date: 'date',
-                      MopileEmergency: 'MopileEmergency',
-                      contactRelation: 'contactRelation',
-                      mediacalHistory: 'mediacalHistory',
-                      services: 'services')
-                 */ /*     doctorRegister3(
-                    /*  Gender: '',
-                    LicExpiryDate: '',
-                    LicIssuedDate: '',
-                    Profession: '', */
-                    date: '',
-                    email: '',
-                    firstName: '',
-                    gender: '',
-                    profession: '',
-                    languages: [],
-                    lastName: '',
-                    mobileNumber: '',
-                    password: 's',
-                  ) */
-                  /*     AnimatedSplashScreen(
-                  splash: const SplashScreen(),
-                  nextScreen: startWidget,
-                  duration: 3000,
-                  splashTransition: SplashTransition.fadeTransition,
-                ), */
-                  );
+                  home: startWidget);
             });
           },
         ));

@@ -12,32 +12,14 @@ import 'package:sizer/sizer.dart';
 import '../register_cubit/register_states.dart';
 
 class doctorRegister4 extends StatelessWidget {
-  final String firstName;
-  final String lastName;
-  var mobileNumber;
-  final String gender;
   final String email;
   final String password;
-  final String date;
-  final String profession;
-  final List languages;
-  final String licIssuedDate;
-  final String licExpiryDate;
 
-  doctorRegister4(
-      {Key? key,
-      required this.firstName,
-      required this.lastName,
-      required this.gender,
-      required this.email,
-      required this.password,
-      required this.date,
-      required this.profession,
-      required this.languages,
-      required this.licIssuedDate,
-      required this.licExpiryDate,
-      required this.mobileNumber})
-      : super(key: key);
+  doctorRegister4({
+    Key? key,
+    required this.email,
+    required this.password,
+  }) : super(key: key);
 
   var formKey = GlobalKey<FormState>();
   var code1controller = TextEditingController();
@@ -235,27 +217,6 @@ class doctorRegister4 extends StatelessWidget {
                                                                       .text +
                                                                   code4controller
                                                                       .text);
-                                                      /*  RegisterCubit.get(context)
-                                                          .signUpDoctor(
-                                                              firstName:
-                                                                  firstName,
-                                                              lastName:
-                                                                  lastName,
-                                                              email: email,
-                                                              password:
-                                                                  password,
-                                                              mobilePhone:
-                                                                  mobileNumber,
-                                                              gender: gender,
-                                                              birthDate: date,
-                                                              languages:
-                                                                  languages,
-                                                              profession:
-                                                                  profession,
-                                                              licIssuedDate:
-                                                                  licIssuedDate,
-                                                              licExpiryDate:
-                                                                  licExpiryDate); */
                                                     }
                                                   },
                                                   text: 'Verify',

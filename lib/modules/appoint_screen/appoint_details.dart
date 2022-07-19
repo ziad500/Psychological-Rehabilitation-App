@@ -21,7 +21,7 @@ class AppointDetails extends StatelessWidget {
       required this.name,
       required this.job,
       required this.typeOfSession,
-      required this.appointmentId})
+      this.appointmentId})
       : super(key: key);
   final String day;
   final String startDate;
@@ -32,7 +32,7 @@ class AppointDetails extends StatelessWidget {
   final String name;
   final String job;
   final String typeOfSession;
-  final String appointmentId;
+  String? appointmentId = '';
 
   @override
   Widget build(BuildContext context) {
@@ -201,12 +201,16 @@ class AppointDetails extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            'Date & Time',
-                            style: TextStyle(fontSize: 2.5.h),
+                          const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Date & Time',
+                            ),
                           ),
                           const Spacer(),
-                          Text('$date | $startDate')
+                          FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text('$date | $startDate'))
                         ],
                       ),
                       const SizedBox(
@@ -221,9 +225,8 @@ class AppointDetails extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             'Type of Session',
-                            style: TextStyle(fontSize: 2.5.h),
                           ),
                           const Spacer(),
                           Text(typeOfSession)

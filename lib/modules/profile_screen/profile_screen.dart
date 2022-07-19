@@ -1,28 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/models/reviewModel/review_model.dart';
+import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../styles/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen(
+  ProfileScreen(
       {Key? key,
       required this.name,
       required this.image,
       required this.profission,
       required this.languages,
-      required this.yearOfExperience})
+      required this.yearOfExperience,
+      required this.isDoctor,
+      required this.id,
+      required this.job,
+      required this.salary})
       : super(key: key);
   final String name;
   final String image;
   final String profission;
   final List<String> languages;
-
   final String yearOfExperience;
+  final bool isDoctor;
+  final String id;
+
+  final String job;
+  final String salary;
+
+  IconData? _selectedIcon;
+  bool _isVertical = false;
+  double _userRating = 3.0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +61,8 @@ class ProfileScreen extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 33.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 33.0, vertical: 15),
               child: Column(
                 children: [
                   const SizedBox(
@@ -161,7 +177,12 @@ class ProfileScreen extends StatelessWidget {
                                     width: 6.11,
                                   ),
                                   Text(
-                                    '6 Years Of Experience',
+                                    '6 years Of Experience'
+                                    /*  DateFormat('yyyy-MM-dd | hh:mm')
+                                        .format(DateTime.parse(
+                                            yearOfExperience.toString()))
+                                        .toString() */
+                                    ,
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       color: Color(0XFF616161),
@@ -194,7 +215,17 @@ class ProfileScreen extends StatelessWidget {
                         height: 12,
                       ),
                       defaultButton(
-                          function: () {},
+                          function: () {
+                            navigateTo(
+                                context,
+                                AppointScreen(
+                                    isDoctor: false,
+                                    id: id,
+                                    image: image,
+                                    name: name,
+                                    job: job,
+                                    salary: salary));
+                          },
                           text: 'Book a Session',
                           height: 40,
                           verticalpadding: 5),
@@ -234,7 +265,7 @@ class ProfileScreen extends StatelessWidget {
                                   AppCubit.get(context).reviewModel, index),
                               separatorBuilder: (context, index) =>
                                   const SizedBox(
-                                    height: 15.0,
+                                    height: 2.0,
                                   ),
                               itemCount: AppCubit.get(context)
                                   .reviewModel!
@@ -251,99 +282,79 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget reviewItem(ReviewModel? model, var index) => Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                model!.reviews[index].user!.name,
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    model.reviews[index].createdAt.toString(),
-                    style: TextStyle(color: Colors.grey[850]),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        model.reviews[index].rating.toString(),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      const SizedBox(
-                        width: 3.5,
-                      ),
-                      Icon(Icons.star, color: Colors.yellow[800]),
-                    ],
-                  )
-                ],
+  Widget reviewItem(ReviewModel? model, var index) => Card(
+          child: Container(
+        decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 6,
+                offset: Offset(0, 3),
               )
             ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                model.reviews[index].comment.toString(),
-                style: const TextStyle(
-                  color: Color(0xff414141),
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.all(color: defaultColor)),
+        child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      model!.reviews[index].user!.name,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          DateFormat('yyyy-MM-dd | hh:mm')
+                              .format(DateTime.parse(
+                                  model.reviews[index].createdAt.toString()))
+                              .toString(),
+                          /* model.reviews[index].createdAt.toString() */
+                          style: TextStyle(color: Colors.grey[850]),
+                        ),
+                        Row(
+                          children: [
+                            RatingBarIndicator(
+                              rating: model.reviews[index].rating!.toDouble(),
+                              itemBuilder: (context, index) => Icon(
+                                _selectedIcon ?? Icons.star,
+                                color: Colors.amber,
+                              ),
+                              itemCount: 5,
+                              itemSize: 15.0,
+                              unratedColor: Colors.amber.withAlpha(50),
+                              direction:
+                                  _isVertical ? Axis.vertical : Axis.horizontal,
+                            ),
+                            // Icon(Icons.star, color: Colors.yellow[800]),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
                 ),
-              ),
-            ],
-          )
-        ],
-      );
-
-  Widget reviewwItem(ReviewModel? model, var index) => Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                model!.reviews[index].user!.name,
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              Column(
-                children: [
-                  Text(
-                    model.reviews[index].createdAt.toString(),
-                    style: TextStyle(color: Colors.grey[850]),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        model.reviews[index].rating.toString(),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      model.reviews[index].comment.toString(),
+                      style: const TextStyle(
+                        color: Color(0xff414141),
                       ),
-                      const SizedBox(
-                        width: 3.5,
-                      ),
-                      Icon(Icons.star, color: Colors.yellow[800]),
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-          Text(
-            model.reviews[index].comment.toString(),
-            style: const TextStyle(color: Color(0xff414141)),
-          )
-        ],
-      );
+                    ),
+                  ],
+                )
+              ],
+            )),
+      ));
 }

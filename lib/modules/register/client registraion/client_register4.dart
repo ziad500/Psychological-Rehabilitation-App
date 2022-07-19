@@ -5,6 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/login_screen/login_cubit.dart';
 
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
@@ -30,13 +31,13 @@ class clientRegister4 extends StatelessWidget {
       required this.lastName,
       required this.mobileNumber,
       required this.Gender,
-      required this.email,
       required this.password,
       required this.date,
       required this.MobileEmergency,
       required this.contactRelation,
       required this.mediacalHistory,
-      required this.services})
+      required this.services,
+      required this.email})
       : super(key: key);
 
   var formKey = GlobalKey<FormState>();
@@ -54,20 +55,6 @@ class clientRegister4 extends StatelessWidget {
           showToast(text: 'Code is Wrong', state: ToastStates.error);
         }
         if (state is AppSuccessVerifyState) {
-          RegisterCubit.get(context).clientSignUp(
-              firstName: firstName,
-              lastName: lastName,
-              email: email,
-              password: password,
-              mobilePhone: mobileNumber,
-              gender: Gender,
-              birthDate: date,
-              trustContact: MobileEmergency,
-              contactRelation: contactRelation,
-              medicalHistory: mediacalHistory,
-              sessions: ['services']);
-        }
-        if (state is AppRegisterSuccessState) {
           showModalBottomSheet(
             barrierColor: Colors.transparent,
             isDismissible: false,
@@ -93,11 +80,12 @@ class clientRegister4 extends StatelessWidget {
             ),
             body: Stack(
               children: [
-                Column(
-                  children: [
-                    Container(height: 20.h, color: defaultColor),
-                    Expanded(
-                      child: Container(
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(height: 20.h, color: defaultColor),
+                      Container(
+                        height: 70.h,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           boxShadow: [BoxShadow(blurRadius: 60.0)],
@@ -252,16 +240,20 @@ class clientRegister4 extends StatelessWidget {
                                                         if (formKey
                                                             .currentState!
                                                             .validate()) {
-                                                          RegisterCubit.get(context).verifyEmail(
-                                                              email,
-                                                              code1controller
-                                                                      .text +
-                                                                  code2controller
-                                                                      .text +
-                                                                  code3controller
-                                                                      .text +
-                                                                  code4controller
-                                                                      .text);
+                                                          print(code1controller
+                                                                  .text +
+                                                              code2controller
+                                                                  .text +
+                                                              code3controller
+                                                                  .text +
+                                                              code4controller
+                                                                  .text);
+                                                          RegisterCubit.get(
+                                                                  context)
+                                                              .verifyEmail(
+                                                                  email
+                                                                      .toString(),
+                                                                  '${code1controller.text}${code2controller.text}${code3controller.text}${code4controller.text}');
                                                         }
                                                       },
                                                       text: 'Verify',
@@ -273,9 +265,9 @@ class clientRegister4 extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.only(top: 0.1.h),
@@ -342,7 +334,9 @@ class clientRegister4 extends StatelessWidget {
                   ),
                   defaultButton(
                       function: () {
-                        navigateAndFinish(context, const Applayout());
+                        LoginCubit.get(context)
+                            .userLogin(email: email, password: password);
+                        // navigateAndFinish(context, const Applayout());
                       },
                       text: 'Start Your Journey')
                 ],

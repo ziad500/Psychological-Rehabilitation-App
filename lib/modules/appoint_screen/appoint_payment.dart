@@ -51,6 +51,10 @@ class PaymentAppointScreen extends StatelessWidget {
                 typeOfSession: typeOfSession,
                 appointmentId: AppCubit.get(context).clientReservationModel!.id,
               ));
+        } else if (state is AppErrorClientReservationState) {
+          showToast(
+              text: AppCubit.get(context).clientReservationModel?.message,
+              state: ToastStates.error);
         }
       },
       builder: (context, state) {
@@ -86,7 +90,7 @@ class PaymentAppointScreen extends StatelessWidget {
                     const Spacer(),
                     Text(
                       '$salary EGP',
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     )
                   ],
                 ),
@@ -98,6 +102,12 @@ class PaymentAppointScreen extends StatelessWidget {
                           )
                         : defaultButton(
                             function: () {
+                              /*    print(day);
+                              print(startDate);
+                              print(roomName);
+                              print(date);
+                              print(doctorId); */
+
                               AppCubit.get(context).clientReservation(
                                   day: day,
                                   startAt: startDate,

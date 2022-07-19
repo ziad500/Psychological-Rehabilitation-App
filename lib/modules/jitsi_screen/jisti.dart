@@ -4,14 +4,35 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
+import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_states.dart';
+import 'package:phsyo/modules/reviewScreen/review_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:uuid/uuid.dart';
 
 class Meeting extends StatefulWidget {
-  const Meeting({Key? key}) : super(key: key);
+  const Meeting(
+      {Key? key,
+      required this.roomName,
+      required this.name,
+      required this.profession,
+      required this.appointmentId,
+      required this.date,
+      required this.image,
+      required this.startDate,
+      required this.idDoctor})
+      : super(key: key);
+  final String roomName;
+  final String name;
+  final String profession;
+  final String appointmentId;
+  final String date;
+  final String idDoctor;
+
+  final String image;
+  final String startDate;
 
   @override
   _MeetingState createState() => _MeetingState();
@@ -51,7 +72,8 @@ class _MeetingState extends State<Meeting> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return MaterialApp(
+    return Container();
+    /* MaterialApp(
         home: BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -104,6 +126,7 @@ class _MeetingState extends State<Meeting> {
         );
       },
     ));
+ */
   }
 
   Widget meetConfig() {
@@ -264,14 +287,14 @@ class _MeetingState extends State<Meeting> {
       ..serverURL = serverUrl
       ..subject = subjectText.text
       ..userDisplayName = LoginCubit.get(context).profileModel?.user.name
-      ..userEmail = emailText.text
+      ..userEmail = LoginCubit.get(context).profileModel?.user.email
       ..iosAppBarRGBAColor = iosAppBarRGBAColor.text
       ..audioOnly = isAudioOnly
       ..audioMuted = isAudioMuted
       ..videoMuted = isVideoMuted
       ..featureFlags.addAll(featureFlags)
       ..webOptions = {
-        "roomName": roomText,
+        "roomName": widget.roomName,
         "width": "100%",
         "height": "100%",
         "enableWelcomePage": false,
@@ -313,7 +336,19 @@ class _MeetingState extends State<Meeting> {
   }
 
   void _onConferenceTerminated(message) {
-    navigateTo(context, const Applayout());
+    doctor == false
+        ? navigateAndFinish(
+            context,
+            ReviewScreen(
+              idDoctor: widget.idDoctor,
+              appointmentId: widget.appointmentId,
+              date: widget.date,
+              name: widget.name,
+              profession: widget.profession,
+              image: widget.image,
+              startDate: widget.startDate,
+            ))
+        : Navigator.pop(context);
 
     debugPrint("_onConferenceTerminated broadcasted with message: $message");
   }
