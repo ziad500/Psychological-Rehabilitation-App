@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/constants.dart';
 import 'package:phsyo/models/login_model/user_login_model.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
@@ -69,6 +70,38 @@ class LoginCubit extends Cubit<LoginStates> {
     }).catchError((error) {
       if (error is DioError) {}
       emit(AppErrorProfileDataState());
+    });
+  }
+
+  void updateUser({
+    String? id,
+    String? userName,
+    String? email,
+    String? mobilePhone,
+    String? trustContact,
+    String? contactRelation,
+    List? languages,
+    String? profession,
+    String? medicalHistory,
+  }) {
+    emit(AppLoadingUpdateProfileState());
+    DioHelper.postData(url: 'profile/$id', token: token, data: {
+      'name': userName,
+      'email': email,
+      'mobilePhone': mobilePhone,
+      'trustContact': trustContact,
+      if (doctor == false) 'contactRelation': contactRelation,
+      if (doctor == false) 'medicalHistory': medicalHistory,
+      if (doctor == true) 'languages': languages,
+      if (doctor == true) 'profession': profession,
+    }).then((value) {
+      //print(value);
+      getProfileData(id.toString());
+      showToast(text: 'Update Successfully', state: ToastStates.success);
+      emit(AppSuccessUpdateProfileState());
+    }).catchError((error) {
+      emit(AppErrorUpdateProfileState());
+      // print(error);
     });
   }
 }

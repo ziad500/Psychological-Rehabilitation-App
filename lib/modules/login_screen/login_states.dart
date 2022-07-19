@@ -40,3 +40,9 @@ class AppSuccessProfileDataState extends LoginStates {
 }
 
 class AppErrorProfileDataState extends LoginStates {}
+
+class AppLoadingUpdateProfileState extends LoginStates {}
+
+class AppSuccessUpdateProfileState extends LoginStates {}
+
+class AppErrorUpdateProfileState extends LoginStates {}

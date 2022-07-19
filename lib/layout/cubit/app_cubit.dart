@@ -13,9 +13,7 @@ import 'package:phsyo/models/clientReservatiomModel/client_reservation_model.dar
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/models/get_article_model/get_article_model.dart';
 import 'package:phsyo/models/hourModel.dart';
-import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/models/reviewModel/review_model.dart';
-import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
@@ -55,7 +53,7 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<Widget> bottomDoctorScreens = [
-    AppointmentsScreen(),
+    const AppointmentsScreen(),
     BlogsScreen(),
     const MenuScreen()
 /*     const MenuDoctorScreen(),
@@ -64,7 +62,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> bottomScreens = [
     HomeScreen(),
-    AppointmentsScreen(),
+    const AppointmentsScreen(),
     BlogsScreen(),
     const MenuScreen(),
   ];
@@ -333,7 +331,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetReservationState());
     await DioHelper.getData(url: GETALLRESERVATION, token: token).then((value) {
       appointmentModel = AppointmentModel.fromJson(value.data);
-      print(appointmentModel?.totalReservations);
+      // print(appointmentModel?.totalReservations);
       emit(AppSuccessGetReservationState());
     }).catchError((error) {
       emit(AppErrorGetReservationState());

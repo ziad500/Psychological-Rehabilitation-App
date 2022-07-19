@@ -263,7 +263,35 @@ class EditeProfileScreen extends StatelessWidget {
                                               ),
                                               Expanded(
                                                   child: defaultButton(
-                                                      function: () {},
+                                                      function: () {
+                                                        LoginCubit.get(context)
+                                                            .updateUser(
+                                                                contactRelation:
+                                                                    cubit
+                                                                        .trustContactRelationController
+                                                                        .text,
+                                                                email: cubit
+                                                                    .emailController
+                                                                    .text,
+                                                                id: Userid,
+                                                                /* languages:
+                                                                cubit.professionlanguagesController.text, */
+                                                                medicalHistory:
+                                                                    cubit
+                                                                        .mediacalHistoryController
+                                                                        .text,
+                                                                mobilePhone: cubit
+                                                                    .phoneController
+                                                                    .text,
+                                                                profession: cubit
+                                                                    .professionValue,
+                                                                trustContact: cubit
+                                                                    .trustContactController
+                                                                    .text,
+                                                                userName: cubit
+                                                                    .nameController
+                                                                    .text);
+                                                      },
                                                       text: 'Save',
                                                       isUpperCase: false))
                                             ],

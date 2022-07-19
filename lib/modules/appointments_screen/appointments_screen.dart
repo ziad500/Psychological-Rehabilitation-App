@@ -124,12 +124,14 @@ class AppointmentsScreen extends StatelessWidget {
                           const CircularProgressIndicator(
                             color: defaultColor,
                           ),
-                          Image.network(
-                            model!.allReservations[index].doctor.image,
-                            width: 89,
-                            height: 139,
-                            fit: BoxFit.cover,
-                          )
+                          model!.allReservations[index].doctor.image == null
+                              ? Container()
+                              : Image.network(
+                                  model.allReservations[index].doctor.image,
+                                  width: 89,
+                                  height: 139,
+                                  fit: BoxFit.cover,
+                                )
                           /*  FadeInImage.memoryNetwork(
                             fadeInDuration: const Duration(milliseconds: 300),
                             placeholder: kTransparentImage,

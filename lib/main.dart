@@ -1,31 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
-import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
-import 'package:phsyo/modules/blogs_screen/add_blogs_screen.dart';
-import 'package:phsyo/modules/blogs_screen/blogs_details_screen.dart';
-import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
-import 'package:phsyo/modules/jitsi_screen/jisti.dart';
-
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
-import 'package:phsyo/modules/login_screen/login_states.dart';
-import 'package:phsyo/modules/menu_screen/menu_screen.dart';
-
 import 'package:phsyo/modules/onboarding_screen/onboarding_screen.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register1.dart';
-import 'package:phsyo/modules/register/client%20registraion/client_register4.dart';
-import 'package:phsyo/modules/register/doctor%20registration/doctor_register1.dart';
-import 'package:phsyo/modules/register/doctor%20registration/doctor_register2.dart';
-import 'package:phsyo/modules/register/doctor%20registration/doctor_register3.dart';
-import 'package:phsyo/modules/register/doctor%20registration/doctor_register4.dart';
-
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
-import 'package:phsyo/modules/reviewScreen/review_screen.dart';
-
 import 'package:sizer/sizer.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,8 +15,6 @@ import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/shared/network/bloc_observer.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
-
-import 'modules/client_profile/client_profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +32,7 @@ Future<void> main() async {
  CasheHelper.removeData(key: 'Userid');
  CasheHelper.removeData(key: 'doctor'); */
   print(doctor);
+  print('.....${Userid}');
   print(role);
 
   print(token);
@@ -91,9 +71,27 @@ class MyApp extends StatelessWidget {
                 ..getArticles()
                 ..getAppointment()),
           BlocProvider(
-            create: (context) =>
-                LoginCubit()..getProfileData(Userid.toString()),
-          ),
+              create: (context) =>
+                  LoginCubit()..getProfileData(Userid.toString())
+              /*  ..updateUser(
+                id: '62cf2fb5e036240baf7ae8b8',
+                mobilePhone: '01224122391',
+                /*  email: LoginCubit.get(context).profileModel!.user.email,
+                  languages:
+                      LoginCubit.get(context).profileModel!.user.languages,
+                  medicalHistory:
+                      LoginCubit.get(context).profileModel!.user.medicalHistory,
+                  profession:
+                      LoginCubit.get(context).profileModel!.user.profession,
+                  trustContact:
+                      LoginCubit.get(context).profileModel!.user.trustContact,
+                  userName: LoginCubit.get(context).profileModel!.user.name,
+                  contactRelation: LoginCubit.get(context)
+                      .profileModel!
+                      .user
+                      .contactRelation */
+              ), */
+              ),
           BlocProvider(
             create: (context) => RegisterCubit(),
           ),
