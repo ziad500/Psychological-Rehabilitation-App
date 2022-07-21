@@ -5,6 +5,7 @@ import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
+import 'package:phsyo/modules/favoriteScreen/favorite_screen.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
@@ -70,13 +71,14 @@ class MenuScreen extends StatelessWidget {
                             ))),
                   if (doctor == false)
                     menuItem(
-                      context,
-                      'Favourite Doctor',
-                      const Icon(
-                        Icons.favorite_border,
-                        color: Color(0xFF4A4B4D),
-                      ),
-                    ),
+                        context,
+                        'Favourite Doctor',
+                        const Icon(
+                          Icons.favorite_border,
+                          color: Color(0xFF4A4B4D),
+                        ),
+                        onTap: () =>
+                            navigateTo(context, const FavoriteScreen())),
                   menuItem(
                       context,
                       'Payment Info',

@@ -85,7 +85,7 @@ class LoginCubit extends Cubit<LoginStates> {
     String? medicalHistory,
   }) {
     emit(AppLoadingUpdateProfileState());
-    DioHelper.postData(url: 'profile/$id', token: token, data: {
+    DioHelper.putData(url: 'profile/$id', token: token, data: {
       'name': userName,
       'email': email,
       'mobilePhone': mobilePhone,

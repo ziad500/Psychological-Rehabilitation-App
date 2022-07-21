@@ -1,12 +1,18 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/addReportScreen/add_report_screen.dart';
+import 'package:phsyo/modules/favoriteScreen/favorite_screen.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/onboarding_screen/onboarding_screen.dart';
+import 'package:phsyo/modules/register/doctor%20registration/doctor_register4.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
+import 'package:phsyo/modules/splashScreen/splash_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,12 +28,14 @@ Future<void> main() async {
   await CasheHelper.init();
   Bloc.observer = MyBlocObserver();
   Widget widget = OnBoardingScreen();
+
   //bool? isDark = CasheHelper.getData(key: 'isDark');
 
   bool? onBoarding = CasheHelper.getData(key: 'onBoarding');
   token = CasheHelper.getData(key: 'token');
   Userid = CasheHelper.getData(key: 'Userid');
   doctor = CasheHelper.getData(key: 'doctor');
+  // favorite != null ? favorite = CasheHelper.getData(key: 'favorite') : null;
   /*  CasheHelper.removeData(key: 'token');
  CasheHelper.removeData(key: 'Userid');
  CasheHelper.removeData(key: 'doctor'); */
@@ -42,6 +50,7 @@ Future<void> main() async {
       widget = const Applayout();
     } else {
       widget = LoginScreen();
+      // CasheHelper.removeData(key: 'onBoarding');
     }
   } else {
     widget = OnBoardingScreen();
@@ -69,29 +78,12 @@ class MyApp extends StatelessWidget {
               create: (context) => AppCubit()
                 ..getDoctorsData()
                 ..getArticles()
-                ..getAppointment()),
+                ..getAppointment()
+                ..getDoctorAppointment()
+                ..getReviews('62d82f417dc08dbe9076c259')),
           BlocProvider(
               create: (context) =>
-                  LoginCubit()..getProfileData(Userid.toString())
-              /*  ..updateUser(
-                id: '62cf2fb5e036240baf7ae8b8',
-                mobilePhone: '01224122391',
-                /*  email: LoginCubit.get(context).profileModel!.user.email,
-                  languages:
-                      LoginCubit.get(context).profileModel!.user.languages,
-                  medicalHistory:
-                      LoginCubit.get(context).profileModel!.user.medicalHistory,
-                  profession:
-                      LoginCubit.get(context).profileModel!.user.profession,
-                  trustContact:
-                      LoginCubit.get(context).profileModel!.user.trustContact,
-                  userName: LoginCubit.get(context).profileModel!.user.name,
-                  contactRelation: LoginCubit.get(context)
-                      .profileModel!
-                      .user
-                      .contactRelation */
-              ), */
-              ),
+                  LoginCubit()..getProfileData(Userid.toString())),
           BlocProvider(
             create: (context) => RegisterCubit(),
           ),
@@ -127,7 +119,15 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: startWidget);
+                  home: AnimatedSplashScreen(
+                    splash: const SplashScreen(),
+                    duration: 3000,
+                    nextScreen: /* doctorRegister4(
+                        email: '', password: '')  */
+                        startWidget,
+                    splashTransition: SplashTransition.fadeTransition,
+                    pageTransitionType: PageTransitionType.fade,
+                  ));
             });
           },
         ));

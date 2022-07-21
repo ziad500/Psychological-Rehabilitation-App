@@ -109,7 +109,7 @@ class _AppointScreenState extends State<AppointScreen> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is AppSuccessDoctorReservationState) {
-          showToast(text: 'Done', state: ToastStates.success);
+          showToast(text: 'Appoint Success', state: ToastStates.success);
         }
       },
       builder: (context, state) {
@@ -252,7 +252,7 @@ class _AppointScreenState extends State<AppointScreen> {
                                       'Sorry Their Is No Available Hours This Day',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.red),
+                                          color: Colors.grey),
                                     ),
                                   ),
                                 )
@@ -318,7 +318,7 @@ class _AppointScreenState extends State<AppointScreen> {
                                       'Sorry Their Is No Available Hours This Day',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.red),
+                                          color: Colors.grey),
                                     ),
                                   ),
                                 )

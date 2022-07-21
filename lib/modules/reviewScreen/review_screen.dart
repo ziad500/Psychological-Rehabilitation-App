@@ -43,6 +43,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
   double _userRating = 3.0;
   int _ratingBarMode = 1;
   double _initialRating = 2.0;
+  var formKey = GlobalKey<FormState>();
+
   bool _isRTLMode = false;
   bool _isVertical = false;
 
@@ -74,124 +76,106 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   maxHeight: MediaQuery.of(context).size.height - 90),
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            color: Colors.transparent,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Card(
-                                  elevation: 10,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        const CircularProgressIndicator(
-                                          color: defaultColor,
-                                        ),
-                                        Image.network(
-                                          widget.image,
-                                          width: 89,
-                                          height: 134,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Row(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              color: Colors.transparent,
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
-                                    Icons.add_circle_outline,
-                                    color: defaultColor,
-                                    size: 17.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 6.11,
-                                  ),
-                                  Text(
-                                    widget.name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 21.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.work,
-                                    color: defaultColor,
-                                    size: 17.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 6.11,
-                                  ),
-                                  Text(
-                                    widget.profession,
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      color: Color(0XFF616161),
+                                  Card(
+                                    elevation: 10,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          const CircularProgressIndicator(
+                                            color: defaultColor,
+                                          ),
+                                          Image.network(
+                                            widget.image,
+                                            width: 89,
+                                            height: 134,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )
-                                ]),
-                          ),
-                          const Text(
-                            'You Visited On',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.grey,
+                                ],
+                              ),
                             ),
-                          ),
-                          Text(
-                            '${widget.date} at ${widget.startDate}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.grey,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.add_circle_outline,
+                                      color: defaultColor,
+                                      size: 17.0,
+                                    ),
+                                    const SizedBox(
+                                      width: 6.11,
+                                    ),
+                                    Text(
+                                      widget.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 21.0,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ]),
                             ),
-                          ),
-                          const Text(
-                            'For Regular Checkup',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.grey,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.work,
+                                      color: defaultColor,
+                                      size: 17.0,
+                                    ),
+                                    const SizedBox(
+                                      width: 6.11,
+                                    ),
+                                    Text(
+                                      widget.profession,
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        color: Color(0XFF616161),
+                                      ),
+                                    )
+                                  ]),
                             ),
-                          ),
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Appointment id : ${widget.appointmentId}',
+                            const Text(
+                              'You Visited On',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(
+                              '${widget.date} at ${widget.startDate}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -199,76 +183,105 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                 color: Colors.grey,
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      // fit: FlexFit.loose  ,
-                      child: Container(
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(70),
-                                topRight: Radius.circular(70)),
-                            color: Color(0xffE8E8EE)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'How Was Your Visit ?',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                            const Text(
+                              'For Regular Checkup',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.grey,
                               ),
-                              _ratingBar(_ratingBarMode),
-                              const Text(
-                                'Write A Review',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                width: 80.w,
-                                child: defaultFormField(
-                                  context,
-                                  hint: 'write a review',
-                                  controller: reviewController,
-                                  type: TextInputType.visiblePassword,
-                                  maxlines: 7,
-                                  height: 20,
-                                  review: true,
-                                  validate: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please Enter Your Password";
-                                    }
-                                  },
+                            ),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Appointment id : ${widget.appointmentId}',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.grey,
                                 ),
                               ),
-                              state is AppLoadingAddReviewState
-                                  ? const Center(
-                                      child: CircularProgressIndicator(
-                                        color: defaultColor,
-                                      ),
-                                    )
-                                  : defaultButton(
-                                      function: () {
-                                        AppCubit.get(context).addReview(
-                                            id: widget.idDoctor,
-                                            rating: _rating.toString(),
-                                            comment: reviewController.text);
-                                      },
-                                      text: 'submit',
-                                      color: Colors.white,
-                                      textColor: Colors.black,
-                                      isUpperCase: true)
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  ],
+                      Expanded(
+                        // fit: FlexFit.loose  ,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(70),
+                                  topRight: Radius.circular(70)),
+                              color: Color(0xffE8E8EE)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'How Was Your Visit ?',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                _ratingBar(_ratingBarMode),
+                                const Text(
+                                  'Write A Review',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 80.w,
+                                  child: defaultFormField(
+                                    context,
+                                    borderrrrrcolor: defaultColor,
+                                    hint: 'write a review',
+                                    controller: reviewController,
+                                    type: TextInputType.visiblePassword,
+                                    maxlines: 7,
+                                    height: 20,
+                                    review: true,
+                                    validate: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Please Enter Your Password";
+                                      }
+                                    },
+                                  ),
+                                ),
+                                state is AppLoadingAddReviewState
+                                    ? const Center(
+                                        child: CircularProgressIndicator(
+                                          color: defaultColor,
+                                        ),
+                                      )
+                                    : defaultButton(
+                                        function: () {
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            AppCubit.get(context).addReview(
+                                                id: widget.idDoctor,
+                                                rating: _rating.toString(),
+                                                comment: reviewController.text);
+                                            showToast(
+                                                text:
+                                                    'Thank\'s For Your Review',
+                                                state: ToastStates.success);
+                                          }
+                                        },
+                                        text: 'submit',
+                                        color: Colors.white,
+                                        textColor: Colors.black,
+                                        isUpperCase: true)
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

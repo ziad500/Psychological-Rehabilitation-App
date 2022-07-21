@@ -4,11 +4,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../login_screen/login_cubit.dart';
 import '../register_cubit/register_states.dart';
 
 class doctorRegister4 extends StatelessWidget {
@@ -206,7 +208,25 @@ class doctorRegister4 extends StatelessWidget {
                                                   function: () {
                                                     if (formKey.currentState!
                                                         .validate()) {
-                                                      RegisterCubit.get(context)
+                                                      showModalBottomSheet(
+                                                        barrierColor:
+                                                            Colors.transparent,
+                                                        isDismissible: false,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      40.0),
+                                                        ),
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            bottomSheet(
+                                                                context),
+                                                      );
+                                                      /* RegisterCubit.get(context)
                                                           .verifyEmail(
                                                               email,
                                                               code1controller
@@ -216,7 +236,7 @@ class doctorRegister4 extends StatelessWidget {
                                                                   code3controller
                                                                       .text +
                                                                   code4controller
-                                                                      .text);
+                                                                      .text); */
                                                     }
                                                   },
                                                   text: 'Verify',
@@ -298,13 +318,39 @@ class doctorRegister4 extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
+                    height: 10,
+                  ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'we have to complete a background check',
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      ' on your previously provided data',
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
                       function: () {
-                        navigateAndFinish(context, const Applayout());
+                        navigateAndFinish(context, LoginScreen());
+                        /*  LoginCubit.get(context)
+                            .userLogin(email: email, password: password); */
+                        // navigateAndFinish(context, const Applayout());
                       },
-                      text: 'Start Your Journey')
+                      text: 'Confirm')
                 ],
               ),
             ),

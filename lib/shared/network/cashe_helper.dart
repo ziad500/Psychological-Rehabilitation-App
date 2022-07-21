@@ -1,3 +1,4 @@
+import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CasheHelper {
@@ -10,8 +11,10 @@ class CasheHelper {
     return sharedPreferences!.get(key);
   }
 
-  static Future<bool> saveData(
-      {required String key, required dynamic value}) async {
+  static Future<bool> saveData({
+    required String key,
+    required dynamic value,
+  }) async {
     if (value is String) {
       return await sharedPreferences!.setString(key, value);
     } else if (value is bool) {

@@ -46,32 +46,35 @@ Widget titleText(String title) => Text(
       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
     );
 
-Widget defaultFormField(context,
-        {required TextEditingController controller,
-        required TextInputType type,
-        String? Function(String?)? onSubmit,
-        String? Function(String?)? onChange,
-        Function()? onTap,
-        bool isPassword = false,
-        required String? Function(String?)? validate,
-        String? label,
-        double height = 7.5,
-        String? hint,
-        Color? bodercolor,
-        IconData? prefix,
-        IconData? suffix,
-        int maxlines = 1,
-        double hintsize = 2.5 /* 18.0 */,
-        double labelsize = 2.5,
-        double verticalpadding = 18.0,
-        double horizontalpadding = 15.0,
-        Color borderEnableColor = defaultColor,
-        Color borderColor = Colors.grey,
-        int? maxLength,
-        FocusNode? focusNode,
-        Function()? suffixPressed,
-        bool isClickable = true,
-        bool review = false}) =>
+Widget defaultFormField(
+  context, {
+  required TextEditingController controller,
+  required TextInputType type,
+  String? Function(String?)? onSubmit,
+  String? Function(String?)? onChange,
+  Function()? onTap,
+  bool isPassword = false,
+  required String? Function(String?)? validate,
+  String? label,
+  double height = 7.5,
+  String? hint,
+  Color? bodercolor,
+  IconData? prefix,
+  IconData? suffix,
+  int maxlines = 1,
+  double hintsize = 2.5 /* 18.0 */,
+  double labelsize = 2.5,
+  double verticalpadding = 18.0,
+  double horizontalpadding = 15.0,
+  Color borderEnableColor = defaultColor,
+  Color borderColor = Colors.grey,
+  int? maxLength,
+  FocusNode? focusNode,
+  Function()? suffixPressed,
+  bool isClickable = true,
+  bool review = false,
+  Color borderrrrrcolor = const Color(0xffE8E8EE),
+}) =>
     SizedBox(
       height: height.h,
       child: TextFormField(
@@ -101,8 +104,8 @@ Widget defaultFormField(context,
           fillColor: review ? Colors.white : const Color(0xffE8E8EE),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: const BorderSide(
-              color: Color(0xffE8E8EE),
+            borderSide: BorderSide(
+              color: borderrrrrcolor,
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -294,16 +297,17 @@ Widget myDivider() => Container(
       color: const Color(0xff707070),
     );
 
-Widget bottomSheet({Function()? camera, Function()? gallery}) {
+Widget bottomSheet(
+    {Function()? camera, Function()? gallery, String text = 'Profile'}) {
   return Container(
     height: 100.0,
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
     child: Column(
       children: [
-        const Text(
-          'choose Profile Photo',
-          style: TextStyle(fontSize: 20.0),
+        Text(
+          'choose $text Photo',
+          style: const TextStyle(fontSize: 20.0),
         ),
         const SizedBox(
           height: 20.0,

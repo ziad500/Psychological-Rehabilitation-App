@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/forget_password/forget_password.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
@@ -33,6 +34,8 @@ class LoginScreen extends StatelessWidget {
           role = state.profileModel.user.role;
           CasheHelper.saveData(key: 'doctor', value: Doctor(context))
               .then((value) {
+            AppCubit.get(context).getAppointment();
+            AppCubit.get(context).getDoctorAppointment();
             navigateAndFinish(context, const Applayout());
           });
         }

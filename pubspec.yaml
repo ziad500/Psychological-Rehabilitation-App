@@ -50,6 +50,7 @@ dependencies:
   jitsi_meet: ^4.0.0
   multiselect: ^0.0.4
   page_transition: ^2.0.5
+  video_player: ^2.4.5
   shared_preferences: ^2.0.8
   sizer: ^2.0.15
   smooth_page_indicator: ^1.0.0+2

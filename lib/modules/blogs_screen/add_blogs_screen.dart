@@ -26,7 +26,18 @@ class AddBlogsScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: const Text('Add Article'),
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  AppCubit.get(context).titleController.clear();
+                  AppCubit.get(context).contentController.clear();
+                  AppCubit.get(context).categoryArticlevalue = 'Category';
+                  AppCubit.get(context).coverArticleImage = null;
+                },
+                icon: const Icon(Icons.arrow_back)),
+          ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: SingleChildScrollView(
@@ -115,6 +126,7 @@ class AddBlogsScreen extends StatelessWidget {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) => bottomSheet(
+                            text: 'Your',
                             camera: () => AppCubit.get(context)
                                 .getCoverArticleImage(ImageSource.camera),
                             gallery: () => AppCubit.get(context)

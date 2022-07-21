@@ -74,6 +74,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
                               showModalBottomSheet(
                                 context: context,
                                 builder: (context) => bottomSheet(
+                                  text: 'License',
                                   camera: () => AppCubit.get(context)
                                       .getlicenseImage(ImageSource.camera),
                                   gallery: () => AppCubit.get(context)

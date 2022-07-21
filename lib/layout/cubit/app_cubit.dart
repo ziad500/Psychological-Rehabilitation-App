@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:phsyo/models/ReportsModel/reports_model.dart';
 import 'package:phsyo/models/appointmentModel/appointment_model.dart';
 import 'package:phsyo/models/clientReservatiomModel/client_reservation_model.dart';
 
@@ -19,8 +20,10 @@ import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
 import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
+import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 
+import '../../models/Doctorappointment/DoctorAppointment.dart';
 import '../../models/addArticles/add_articles_model.dart';
 import '../../models/articlesModel/articles_model.dart';
 import '../../models/doctor_hours_model/doctor_hours_model.dart';
@@ -38,6 +41,12 @@ class AppCubit extends Cubit<AppStates> {
     'Yoga instructor',
     'Nutrionist '
   ];
+  bool isFavorite = false;
+  List<DoctorsDataModel> favorite = [];
+  void makeFavorite() {
+    isFavorite = !isFavorite;
+    emit(AppaddFavoriteState());
+  }
 
 //  List<String> TitleScreens = ['Home', 'Appointments', 'Blogs', 'Menu'];
   List<Widget> titleScreen = [
@@ -53,7 +62,7 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<Widget> bottomDoctorScreens = [
-    const AppointmentsScreen(),
+    AppointmentsScreen(),
     BlogsScreen(),
     const MenuScreen()
 /*     const MenuDoctorScreen(),
@@ -62,7 +71,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> bottomScreens = [
     HomeScreen(),
-    const AppointmentsScreen(),
+    AppointmentsScreen(),
     BlogsScreen(),
     const MenuScreen(),
   ];
@@ -148,9 +157,13 @@ class AppCubit extends Cubit<AppStates> {
   ReviewModel? reviewModel;
   void getReviews(String doctorId) {
     emit(AppLoadingGetReviewState());
+    //  await Future.delayed(Duration(milliseconds: 200));
     DioHelper.getData(url: 'doctors/$doctorId/reviews').then((value) {
+//      print(value.data[0]['name']);
+
       reviewModel = ReviewModel.fromJson(value.data);
       // print('comment is ${reviewModel?.reviews[0].comment}');
+      // print(value['reviews'][0]['name']);
       emit(AppSuccessGetReviewState());
     }).catchError((error) {
       if (error is DioError) {
@@ -314,6 +327,8 @@ class AppCubit extends Cubit<AppStates> {
             token: token)
         .then((value) {
       print(value);
+      getAppointment();
+      //getDoctorAppointment();
 
       clientReservationModel = ClientReservationModel.fromJson(value.data);
       print(value);
@@ -332,9 +347,27 @@ class AppCubit extends Cubit<AppStates> {
     await DioHelper.getData(url: GETALLRESERVATION, token: token).then((value) {
       appointmentModel = AppointmentModel.fromJson(value.data);
       // print(appointmentModel?.totalReservations);
+      //print(value);
+/*       print(appointmentModel!.allReservations[0].doctor!.name);
+ */
       emit(AppSuccessGetReservationState());
     }).catchError((error) {
       emit(AppErrorGetReservationState());
+    });
+  }
+
+  DoctorAppointmentModel? doctorAppointmentModel;
+  void getDoctorAppointment() {
+    emit(AppLoadingGetDoctorAppointmentState());
+    DioHelper.getData(url: 'getall', token: token).then((value) {
+      doctorAppointmentModel = DoctorAppointmentModel.fromJson(value.data);
+      print(doctorAppointmentModel!.totalbooking[0].userId!.email);
+      //print(doctorAppointmentModel!.totalbooking!.length);
+
+      emit(AppSuccessGetDoctorAppointmentState());
+    }).catchError((error) {
+      print(error);
+      emit(AppErrorGetDoctorAppointmentState());
     });
   }
 
@@ -349,6 +382,42 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccessAddReviewState());
     }).catchError((error) {
       emit(AppErrorAddReviewState());
+    });
+  }
+
+  GetReportModel? getReportModel;
+  void getReport(String id) {
+    // '62cf2fb5e036240baf7ae8b8'
+    emit(AppLoadingGetReportState());
+    DioHelper.getData(url: 'reports/$id').then((value) {
+      getReportModel = GetReportModel.fromJson(value.data);
+      print(value);
+      emit(AppSuccessGetReportState());
+    }).catchError((error) {
+      emit(AppErrorGetReportState());
+    });
+  }
+
+  void addReport(
+      {required String id,
+      required String condition,
+      required String plan,
+      required String progress,
+      required String activities,
+      required String sessionType}) {
+    // '62cf2fb5e036240baf7ae8b8'
+    emit(AppLoadingAddReportState());
+    DioHelper.postData(url: 'reports/$id', token: token, data: {
+      "condition": condition,
+      "plan": plan,
+      "progress": progress,
+      "activities": activities,
+      "sessionType": sessionType
+    }).then((value) {
+      emit(AppSuccessAddReportState());
+    }).catchError((error) {
+      print(error);
+      emit(AppErrorAddReportState());
     });
   }
 }

@@ -1,84 +1,91 @@
+// To parse this JSON data, do
+//
+//     final welcome = welcomeFromJson(jsonString);
+
+import 'dart:convert';
+
+ReviewModel welcomeFromJson(String str) =>
+    ReviewModel.fromJson(json.decode(str));
+
+String welcomeToJson(ReviewModel data) => json.encode(data.toJson());
+
 class ReviewModel {
   ReviewModel({
-    required this.reviews,
+    this.reviews,
   });
-  List<Reviews> reviews = [];
 
-  ReviewModel.fromJson(Map<String, dynamic> json) {
-    json['reviews'].forEach((element) {
-      reviews.add(Reviews.fromJson(element));
-    });
-  }
+  List<Review>? reviews;
 
-/*   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['reviews'] = reviews.map((e) => e.toJson()).toList();
-    return _data;
-  } */
+  factory ReviewModel.fromJson(Map<String, dynamic> json) => ReviewModel(
+        reviews:
+            List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "reviews": List<dynamic>.from(reviews!.map((x) => x.toJson())),
+      };
 }
 
-class Reviews {
-  Reviews({
-    required this.id,
-    required this.rating,
-    required this.comment,
-    required this.doctorId,
-    required this.user,
-    required this.createdAt,
-    required this.V,
+class Review {
+  Review({
+    this.id,
+    this.rating,
+    this.comment,
+    this.doctorId,
+    this.user,
+    this.createdAt,
+    this.v,
   });
+
   String? id;
-  int? rating;
+  double? rating;
   String? comment;
   String? doctorId;
   User? user;
-  String? createdAt;
-  int? V;
+  DateTime? createdAt;
+  int? v;
 
-  Reviews.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    rating = json['rating'];
-    comment = json['comment'];
-    doctorId = json['doctorId'];
-    user = User.fromJson(json['user']);
-    createdAt = json['createdAt'];
-    V = json['__v'];
-  }
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["_id"],
+        rating: json["rating"].toDouble(),
+        comment: json["comment"],
+        doctorId: json["doctorId"],
+        user: User.fromJson(json["user"]),
+        createdAt: DateTime.parse(json["createdAt"]),
+        v: json["__v"],
+      );
 
-/*   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['rating'] = rating;
-    _data['comment'] = comment;
-    _data['doctorId'] = doctorId;
-    _data['user'] = user.toJson();
-    _data['createdAt'] = createdAt;
-    _data['__v'] = V;
-    return _data;
-  } */
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "rating": rating,
+        "comment": comment,
+        "doctorId": doctorId,
+        "user": user!.toJson(),
+        "createdAt": createdAt!.toIso8601String(),
+        "__v": v,
+      };
 }
 
 class User {
   User({
-    required this.id,
-    required this.image,
-    required this.name,
+    this.id,
+    this.image,
+    this.name,
   });
-  late final String id;
-  late final String image;
-  late final String name;
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    image = json['image'];
-    name = json['name'];
-  }
+  String? id;
+  String? image;
+  String? name;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['image'] = image;
-    _data['name'] = name;
-    return _data;
-  }
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["_id"],
+        image: json["image"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "image": image,
+        "name": name,
+      };
 }

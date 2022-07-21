@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/layout.dart';
+import 'package:phsyo/modules/addReportScreen/add_report_screen.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/login_screen/login_states.dart';
 import 'package:phsyo/modules/reviewScreen/review_screen.dart';
@@ -22,7 +23,8 @@ class Meeting extends StatefulWidget {
       required this.date,
       required this.image,
       required this.startDate,
-      required this.idDoctor})
+      required this.idDoctor,
+      required this.idUser})
       : super(key: key);
   final String roomName;
   final String name;
@@ -30,6 +32,7 @@ class Meeting extends StatefulWidget {
   final String appointmentId;
   final String date;
   final String idDoctor;
+  final String idUser;
 
   final String image;
   final String startDate;
@@ -40,7 +43,6 @@ class Meeting extends StatefulWidget {
 
 class _MeetingState extends State<Meeting> {
   final serverText = TextEditingController();
-  final roomText = TextEditingController(text: "ziad");
 
   //final roomText = const Uuid().v4();
   final subjectText = TextEditingController(text: "Session");
@@ -146,13 +148,13 @@ class _MeetingState extends State<Meeting> {
           const SizedBox(
             height: 14.0,
           ),
-          TextField(
+          /*   TextField(
             controller: roomText,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Room",
             ),
-          ),
+          ), */
           const SizedBox(
             height: 14.0,
           ),
@@ -283,7 +285,7 @@ class _MeetingState extends State<Meeting> {
       }
     }
     // Define meetings options here
-    var options = JitsiMeetingOptions(room: roomText.text)
+    var options = JitsiMeetingOptions(room: widget.roomName)
       ..serverURL = serverUrl
       ..subject = subjectText.text
       ..userDisplayName = LoginCubit.get(context).profileModel?.user.name
@@ -348,7 +350,11 @@ class _MeetingState extends State<Meeting> {
               image: widget.image,
               startDate: widget.startDate,
             ))
-        : Navigator.pop(context);
+        : navigateAndFinish(
+            context,
+            AddReportScreen(
+              id: widget.idUser,
+            ));
 
     debugPrint("_onConferenceTerminated broadcasted with message: $message");
   }

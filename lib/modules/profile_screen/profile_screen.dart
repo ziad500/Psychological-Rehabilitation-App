@@ -4,11 +4,14 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
+import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/models/reviewModel/review_model.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
+import 'package:sizer/sizer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import '../../constants.dart';
 import '../../styles/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -27,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
   final String name;
   final String image;
   final String profission;
-  final List<String> languages;
+  final List<String>? languages;
   final String yearOfExperience;
   final bool isDoctor;
   final String id;
@@ -58,6 +61,12 @@ class ProfileScreen extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.white,
             elevation: 5.0,
+            leading: IconButton(
+                onPressed: () {
+                  AppCubit.get(context).isFavorite = false;
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back)),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -110,11 +119,35 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           IconButton(
                             padding: EdgeInsets.zero,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite,
+                            onPressed: () {
+                              AppCubit.get(context).makeFavorite();
+                              AppCubit.get(context).favorite.add(
+                                  DoctorsDataModel(
+                                      emailVerified: false,
+                                      id: id,
+                                      image: image,
+                                      name: name,
+                                      mobilePhone: '',
+                                      gender: 'gender',
+                                      email: '',
+                                      birthDate: 'birthDate',
+                                      sessions: ['sessions'],
+                                      languages: languages!.toList(),
+                                      licIssuedDate: 'licIssuedDate',
+                                      licExpiryDate: 'licExpiryDate',
+                                      profession: job,
+                                      role: 'role',
+                                      V: 0,
+                                      sessionPrice: '400'));
+                            },
+                            icon: Icon(
+                              AppCubit.get(context).isFavorite == true
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
                               size: 30,
-                              color: Colors.red,
+                              color: AppCubit.get(context).isFavorite == true
+                                  ? Colors.red
+                                  : Colors.black,
                             ),
                           ),
                         ],
@@ -199,7 +232,7 @@ class ProfileScreen extends StatelessWidget {
                                     width: 6.11,
                                   ),
                                   Text(
-                                    languages.join(','),
+                                    languages!.join(','),
                                     style: const TextStyle(
                                       fontSize: 20.0,
                                       color: Color(0XFF616161),
@@ -257,20 +290,22 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       state is AppLoadingGetReviewState
                           ? const CircularProgressIndicator()
-                          : ListView.separated(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) => reviewItem(
-                                  AppCubit.get(context).reviewModel, index),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                    height: 2.0,
-                                  ),
-                              itemCount: AppCubit.get(context)
-                                  .reviewModel!
-                                  .reviews
-                                  .length)
+                          : AppCubit.get(context).reviewModel == null
+                              ? Container()
+                              : ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const ScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, index) => reviewItem(
+                                      AppCubit.get(context).reviewModel, index),
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                        height: 2.0,
+                                      ),
+                                  itemCount: AppCubit.get(context)
+                                      .reviewModel!
+                                      .reviews!
+                                      .length)
                     ],
                   ),
                 ],
@@ -303,12 +338,17 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      model!.reviews[index].user!.name,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: 30.w,
+                      child: Text(
+                        model!.reviews![index].user!.name.toString(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -317,7 +357,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           DateFormat('yyyy-MM-dd | hh:mm')
                               .format(DateTime.parse(
-                                  model.reviews[index].createdAt.toString()))
+                                  model.reviews![index].createdAt.toString()))
                               .toString(),
                           /* model.reviews[index].createdAt.toString() */
                           style: TextStyle(color: Colors.grey[850]),
@@ -325,7 +365,7 @@ class ProfileScreen extends StatelessWidget {
                         Row(
                           children: [
                             RatingBarIndicator(
-                              rating: model.reviews[index].rating!.toDouble(),
+                              rating: model.reviews![index].rating!.toDouble(),
                               itemBuilder: (context, index) => Icon(
                                 _selectedIcon ?? Icons.star,
                                 color: Colors.amber,
@@ -347,7 +387,7 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      model.reviews[index].comment.toString(),
+                      model.reviews![index].comment.toString(),
                       style: const TextStyle(
                         color: Color(0xff414141),
                       ),

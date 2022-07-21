@@ -1,4 +1,5 @@
 import 'package:phsyo/layout/cubit/app_cubit.dart';
+import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';

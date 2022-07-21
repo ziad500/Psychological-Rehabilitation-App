@@ -83,3 +83,23 @@ class AppLoadingAddReviewState extends AppStates {}
 class AppSuccessAddReviewState extends AppStates {}
 
 class AppErrorAddReviewState extends AppStates {}
+
+class AppaddFavoriteState extends AppStates {}
+
+class AppLoadingAddReportState extends AppStates {}
+
+class AppSuccessAddReportState extends AppStates {}
+
+class AppErrorAddReportState extends AppStates {}
+
+class AppLoadingGetReportState extends AppStates {}
+
+class AppSuccessGetReportState extends AppStates {}
+
+class AppErrorGetReportState extends AppStates {}
+
+class AppLoadingGetDoctorAppointmentState extends AppStates {}
+
+class AppSuccessGetDoctorAppointmentState extends AppStates {}
+
+class AppErrorGetDoctorAppointmentState extends AppStates {}

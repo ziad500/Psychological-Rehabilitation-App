@@ -58,9 +58,9 @@ class Doctor {
     required this.image,
     required this.name,
   });
-  late final String id;
-  late final String image;
-  late final String name;
+  String? id;
+  String? image;
+  String? name;
 
   Doctor.fromJson(Map<String, dynamic> json) {
     id = json['_id'];

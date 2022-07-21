@@ -203,7 +203,7 @@ class _clientRegister2State extends State<clientRegister2> {
                         ),
                         defaultFormField(context,
                             controller: contactRelationController,
-                            type: TextInputType.number, validate: (value) {
+                            type: TextInputType.text, validate: (value) {
                           if (value!.isEmpty) {
                             return "Relation must not be Empty";
                           }

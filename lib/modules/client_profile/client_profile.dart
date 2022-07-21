@@ -2,221 +2,269 @@ import 'dart:ui';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:phsyo/layout/cubit/abb_states.dart';
+import 'package:phsyo/layout/cubit/app_cubit.dart';
+import 'package:phsyo/models/ReportsModel/reports_model.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
 class ClientProfileScreen extends StatelessWidget {
-  const ClientProfileScreen({Key? key}) : super(key: key);
+  const ClientProfileScreen(
+      {Key? key,
+      required this.name,
+      required this.id,
+      required this.image,
+      required this.gender,
+      required this.birthDate,
+      required this.trustedContact,
+      required this.medicalHistory,
+      required this.contactRelation})
+      : super(key: key);
+  final String name;
+  final String id;
+  final String image;
+  final String gender;
+  final String birthDate;
+  final String trustedContact;
+  final String medicalHistory;
+  final String contactRelation;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        title: const Text(
-          'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 5.0,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 33.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
+    return BlocConsumer<AppCubit, AppStates>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.black,
+            ),
+            title: const Text(
+              'Profile',
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 5.0,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 33.0),
+              child: Column(
                 children: [
-                  Stack(
-                    alignment: Alignment.topRight,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        color: Colors.transparent,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 120,
-                              width: 110,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 6,
-                                      offset: Offset(0, 3),
-                                    )
-                                  ],
-                                  image: const DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                          "https://scontent.fcai22-1.fna.fbcdn.net/v/t39.30808-6/280198885_3204029853219698_8376329503209490497_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Tf-Grz-lkzEAX8mIDYa&_nc_ht=scontent.fcai22-1.fna&oh=00_AT8aYTIE1-cEvjpbVFCnrtdjcjWhpCdcMGyDGB-9ijo3tQ&oe=62DABD4F"))),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Stack(
+                        alignment: Alignment.topRight,
                         children: [
-                          Row(children: const [
-                            Icon(
-                              Icons.assignment_ind_rounded,
-                              color: defaultColor,
-                              size: 17.0,
+                          Container(
+                            width: double.infinity,
+                            color: Colors.transparent,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 120,
+                                  width: 110,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 6,
+                                          offset: Offset(0, 3),
+                                        )
+                                      ],
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(image))),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: 6.11,
-                            ),
-                            Text(
-                              'Gamal Sayed',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 21.0,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ]),
-                          Row(children: const [
-                            Icon(
-                              Icons.male_rounded,
-                              color: defaultColor,
-                              size: 18,
-                            ),
-                            SizedBox(
-                              width: 6.11,
-                            ),
-                            Text(
-                              'Male',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Color(0XFF616161),
-                              ),
-                            )
-                          ]),
-                          Row(children: const [
-                            Icon(
-                              Icons.calendar_today,
-                              color: defaultColor,
-                              size: 17.0,
-                            ),
-                            SizedBox(
-                              width: 6.11,
-                            ),
-                            Text(
-                              '4/11/1998',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Color(0XFF616161),
-                              ),
-                            ),
-                          ]),
-                          Row(children: const [
-                            Icon(
-                              Icons.person_pin,
-                              color: defaultColor,
-                              size: 17.0,
-                            ),
-                            SizedBox(
-                              width: 6.11,
-                            ),
-                            Text(
-                              'Trusted Contact',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Color(0XFF616161),
-                              ),
-                            ),
-                          ]),
-                          Row(children: const [
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Text(
-                              'Phone',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                                color: Color(0XFF616161),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '0123456789 "Uncle"',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Color(0XFF616161),
-                              ),
-                            ),
-                          ]),
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  myDivider(),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.medical_services_rounded,
-                        color: defaultColor,
+                      const SizedBox(
+                        height: 10,
                       ),
-                      SizedBox(
-                        width: 5,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(children: [
+                                const Icon(
+                                  Icons.assignment_ind_rounded,
+                                  color: defaultColor,
+                                  size: 17.0,
+                                ),
+                                const SizedBox(
+                                  width: 6.11,
+                                ),
+                                Text(
+                                  name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 21.0,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ]),
+                              Row(children: [
+                                const Icon(
+                                  Icons.male_rounded,
+                                  color: defaultColor,
+                                  size: 18,
+                                ),
+                                const SizedBox(
+                                  width: 6.11,
+                                ),
+                                Text(
+                                  gender,
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    color: Color(0XFF616161),
+                                  ),
+                                )
+                              ]),
+                              Row(children: [
+                                const Icon(
+                                  Icons.calendar_today,
+                                  color: defaultColor,
+                                  size: 17.0,
+                                ),
+                                const SizedBox(
+                                  width: 6.11,
+                                ),
+                                Text(
+                                  birthDate,
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    color: Color(0XFF616161),
+                                  ),
+                                ),
+                              ]),
+                              Row(children: const [
+                                Icon(
+                                  Icons.person_pin,
+                                  color: defaultColor,
+                                  size: 17.0,
+                                ),
+                                SizedBox(
+                                  width: 6.11,
+                                ),
+                                Text(
+                                  'Trusted Contact',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Color(0XFF616161),
+                                  ),
+                                ),
+                              ]),
+                              Row(children: [
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                const Text(
+                                  'Phone',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.0,
+                                    color: Color(0XFF616161),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '$trustedContact "$contactRelation"',
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Color(0XFF616161),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      myDivider(),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.medical_services_rounded,
+                            color: defaultColor,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Medical History',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
                       ),
                       Text(
-                        'Medical History',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )
+                        medicalHistory,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w300),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      myDivider(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      /* AppCubit.get(context).getReportModel == null */ state
+                              is AppLoadingGetReportState
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) => reportItem(
+                                  context,
+                                  AppCubit.get(context).getReportModel,
+                                  index),
+                              itemCount: AppCubit.get(context)
+                                  .getReportModel!
+                                  .report
+                                  .length,
+                            )
+/*                   reportItem(context,AppCubit.get(context).getReportModel,index)
+ */
                     ],
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Text(
-                    'ahbdhjbvjdbnvjsdldvnlsknvlknvjnvdahbdhjbvjdbnvjsdldvnlsknvlk',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  myDivider(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  reportItem(context)
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
+      listener: (context, state) {},
     );
   }
 
@@ -268,7 +316,15 @@ class ClientProfileScreen extends StatelessWidget {
       );
  */
 
-  Widget report(context) => Center(
+  Widget report(context,
+          {required String doctorName,
+          required String doctorProfession,
+          required String sessionType,
+          required String condition,
+          required String progress,
+          required String plan,
+          required String activities}) =>
+      Center(
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -315,9 +371,9 @@ class ClientProfileScreen extends StatelessWidget {
                                   fontSize: 16,
                                 ),
                               ),
-                              const Text(
-                                'Rawan Amr',
-                                style: TextStyle(
+                              Text(
+                                doctorName,
+                                style: const TextStyle(
                                   fontSize: 16,
                                 ),
                               ),
@@ -337,9 +393,9 @@ class ClientProfileScreen extends StatelessWidget {
                                   color: Colors.blue[900],
                                 ),
                               ),
-                              const Text(
-                                'Rawan Amr',
-                                style: TextStyle(fontSize: 16),
+                              Text(
+                                doctorProfession,
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
@@ -357,9 +413,9 @@ class ClientProfileScreen extends StatelessWidget {
                                   color: Colors.blue[900],
                                 ),
                               ),
-                              const Text(
-                                'Rawan Amr',
-                                style: TextStyle(fontSize: 16),
+                              Text(
+                                sessionType,
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
@@ -396,9 +452,9 @@ class ClientProfileScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              const Text(
-                                'Descripe The Patient\'s Condition Descripe The Patient\'s Condition Descr',
-                                style: TextStyle(fontSize: 16),
+                              Text(
+                                condition,
+                                style: const TextStyle(fontSize: 16),
                               ),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -426,9 +482,9 @@ class ClientProfileScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              const Text(
-                                'Descripe The Patient\'s Condition Descripe The Patient\'s Condition Desc',
-                                style: TextStyle(fontSize: 16),
+                              Text(
+                                progress,
+                                style: const TextStyle(fontSize: 16),
                               ),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -456,9 +512,9 @@ class ClientProfileScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              const Text(
-                                'Descripe The Patient\'s Condition Descripe The Patient\'s Condition De',
-                                style: TextStyle(fontSize: 16),
+                              Text(
+                                plan,
+                                style: const TextStyle(fontSize: 16),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -486,9 +542,9 @@ class ClientProfileScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              const Text(
-                                '- Descripe The Patient\'s Condition Descripe The Patient\'s Condition Deson',
-                                style: TextStyle(fontSize: 16),
+                              Text(
+                                activities,
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
@@ -511,30 +567,21 @@ class ClientProfileScreen extends StatelessWidget {
         ),
       );
 
-  Widget reportItem(context) => InkWell(
+  Widget reportItem(context, GetReportModel? model, index) => InkWell(
         onTap: () {
-          /* Navigator.of(context).push(
-                  PageRouteBuilder(
-                      pageBuilder: (context, _, __) => repro(),
-                      opaque: false),
-); */
           showDialog(
             context: context,
             builder: (context) {
-              return report(context);
+              return report(context,
+                  doctorName: model!.report[index].doctor.name,
+                  sessionType: model.report[index].sessionType,
+                  doctorProfession: model.report[index].doctor.profession,
+                  condition: model.report[index].condition,
+                  activities: model.report[index].activities,
+                  plan: model.report[index].plan,
+                  progress: model.report[index].progress);
             },
           );
-
-          /*   showModalBottomSheet(
-            barrierColor: Colors.transparent,
-            isDismissible: false,
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40.0),
-            ),
-            context: context,
-            builder: (context) => bottomSheet(context),
-          ); */
         },
         child: Card(
             child: Container(
@@ -560,20 +607,33 @@ class ClientProfileScreen extends StatelessWidget {
                   size: 50,
                 ),
                 Column(
-                  children: const [
-                    Text(
-                      'Reprt by Dr.Rawan Amr',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  children: [
+                    SizedBox(
+                      width: 50.w,
+                      child: Text(
+                        'Reprt by ${model!.report[index].doctor.name}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
                     ),
-                    Text(
-                      '15 jul',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    SizedBox(
+                      width: 50.w,
+                      child: Text(
+                        DateFormat('yyyy-MM-dd | hh:mm')
+                            .format(DateTime.parse(
+                                model.report[index].createdAt.toString()))
+                            .toString(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
                     )
                   ],
                 ),
-                Icon(Icons.arrow_forward_ios_outlined)
+                const Icon(Icons.arrow_forward_ios_outlined)
               ],
             ),
           ),
