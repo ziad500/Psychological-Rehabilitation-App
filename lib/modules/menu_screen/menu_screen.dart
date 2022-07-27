@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
-import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
+import 'package:phsyo/modules/faqs_screen/faqssscreen.dart';
 import 'package:phsyo/modules/favoriteScreen/favorite_screen.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/payment_screen/payment_screen.dart';
