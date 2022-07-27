@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const REGISTER = 'auth/signup/User';
 const LOGIN = 'auth/login';
 const LOGINDOCTOR = 'auth/login';

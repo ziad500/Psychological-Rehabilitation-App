@@ -18,19 +18,22 @@ class ServicesModel {
       {required this.title, required this.avatarImage, required isCheck});
 }
 
-class clientRegister3 extends StatefulWidget {
+// ignore: must_be_immutable
+class ClientRegister3 extends StatefulWidget {
   final String firstName;
   final String lastName;
+  // ignore: prefer_typing_uninitialized_variables
   var mobileNumber;
   final String gender;
   final String email;
   final String password;
   final String date;
+  // ignore: prefer_typing_uninitialized_variables
   var mobileEmergency;
   final String contactRelation;
   final String mediacalHistory;
 
-  clientRegister3({
+  ClientRegister3({
     Key? key,
     required this.firstName,
     required this.lastName,
@@ -44,10 +47,10 @@ class clientRegister3 extends StatefulWidget {
     required this.mediacalHistory,
   }) : super(key: key);
   @override
-  State<clientRegister3> createState() => _clientRegister3State();
+  State<ClientRegister3> createState() => _ClientRegister3State();
 }
 
-class _clientRegister3State extends State<clientRegister3> {
+class _ClientRegister3State extends State<ClientRegister3> {
   var listController = PageController();
   List<String> text = [];
 
@@ -137,7 +140,7 @@ class _clientRegister3State extends State<clientRegister3> {
                           sessions: text.toList());
                       navigateTo(
                           context,
-                          clientRegister4(
+                          ClientRegister4(
                             Gender: widget.gender,
                             MobileEmergency: widget.mobileEmergency,
                             contactRelation: widget.contactRelation,

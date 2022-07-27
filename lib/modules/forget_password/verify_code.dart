@@ -4,12 +4,15 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class VerifyCodeScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var code1controller = TextEditingController();
   var code2controller = TextEditingController();
   var code3controller = TextEditingController();
   var code4controller = TextEditingController();
+
+  VerifyCodeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

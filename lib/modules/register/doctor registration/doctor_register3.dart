@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +13,7 @@ import 'package:sizer/sizer.dart';
 import '../../../layout/cubit/app_cubit.dart';
 import '../register_cubit/register_cubit.dart';
 
-class doctorRegister3 extends StatefulWidget {
+class DoctorRegister3 extends StatefulWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
@@ -21,7 +23,7 @@ class doctorRegister3 extends StatefulWidget {
   final String date;
   final String profession;
   var languages;
-  doctorRegister3(
+  DoctorRegister3(
       {Key? key,
       required this.firstName,
       required this.lastName,
@@ -35,10 +37,10 @@ class doctorRegister3 extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<doctorRegister3> createState() => _doctorRegister3State();
+  State<DoctorRegister3> createState() => _DoctorRegister3State();
 }
 
-class _doctorRegister3State extends State<doctorRegister3> {
+class _DoctorRegister3State extends State<DoctorRegister3> {
   var formKey = GlobalKey<FormState>();
   // bool TermsOfService = false;
 
@@ -55,7 +57,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
               showToast(text: 'success', state: ToastStates.success);
               navigateTo(
                   context,
-                  doctorRegister4(
+                  DoctorRegister4(
                       email: widget.email, password: widget.password));
             }
           },
@@ -155,6 +157,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
                                     if (value!.isEmpty) {
                                       return "Please Enter avalid Date";
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -188,6 +191,7 @@ class _doctorRegister3State extends State<doctorRegister3> {
                                     if (value!.isEmpty) {
                                       return "Please Enter avalid Date";
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -240,8 +244,8 @@ class _doctorRegister3State extends State<doctorRegister3> {
                               textsize: 10.0,
                               function: () {
                                 if (formKey.currentState!.validate()) {
-                                  print(widget.profession);
-                                  print(widget.languages);
+                                  /*  print(widget.profession);
+                                  print(widget.languages); */
 
                                   //  print('success');
                                   RegisterCubit.get(context).signUpDoctor(

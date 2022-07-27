@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phsyo/shared/components/components.dart';
 
 class PaymentScreen extends StatefulWidget {
+  const PaymentScreen({Key? key}) : super(key: key);
+
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
@@ -133,18 +135,19 @@ class _PaymentScreenState extends State<PaymentScreen>
                           hint: 'Card Number',
                           maxLength: 16,
                           onChange: (value) {
-                            formatedCardNumber =
-                                this.cardNumber.padRight(16, '*');
+                            formatedCardNumber = cardNumber.padRight(16, '*');
 
                             formatedCardNumber =
                                 formatedCardNumber.replaceAllMapped(
                                     RegExp(r".{4}"),
                                     (match) => "${match.group(0)} ");
+                            return null;
                           },
                           validate: (String? value) {
                             if (value!.isEmpty) {
                               return 'please Enter Card Number';
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(
@@ -158,6 +161,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                           if (value!.isEmpty) {
                             return 'please Enter your name';
                           }
+                          return null;
                         }),
                         const SizedBox(
                           height: 10,
@@ -171,16 +175,18 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 hint: 'Expiry Date',
                                 maxLength: 4, onChange: (value) {
                               formatedExpiryDate =
-                                  this.expiryDate!.padRight(2, 'YYY');
+                                  expiryDate!.padRight(2, 'YYY');
 
                               formatedExpiryDate =
                                   formatedExpiryDate.replaceFirstMapped(
                                       RegExp(r".{2}"),
                                       (match) => "${match.group(0)}/");
+                              return null;
                             }, validate: (String? value) {
                               if (value!.isEmpty) {
                                 return 'please Enter Expiry Date';
                               }
+                              return null;
                             }),
                           ),
                           const SizedBox(
@@ -194,11 +200,13 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 maxLength: 4,
                                 focusNode: cvvFocus,
                                 hint: 'CVV', onChange: (value) {
-                              formatedCVV = this.cVV!.padRight(4, '*');
+                              formatedCVV = cVV!.padRight(4, '*');
+                              return null;
                             }, validate: (String? value) {
                               if (value!.isEmpty) {
                                 return 'please Enter CVV';
                               }
+                              return null;
                             }),
                           )
                         ]),

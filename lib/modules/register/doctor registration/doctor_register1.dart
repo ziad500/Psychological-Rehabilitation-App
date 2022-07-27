@@ -2,7 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/modules/register/doctor%20registration/doctor_register2.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
@@ -10,7 +9,8 @@ import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 
-class doctorRegister1 extends StatelessWidget {
+// ignore: must_be_immutable
+class DoctorRegister1 extends StatelessWidget {
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var businessMobileNumberController = TextEditingController();
@@ -21,7 +21,7 @@ class doctorRegister1 extends StatelessWidget {
 
   var radioValue = 0;
 
-  doctorRegister1({Key? key}) : super(key: key);
+  DoctorRegister1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +83,7 @@ class doctorRegister1 extends StatelessWidget {
                                     if (value!.isEmpty) {
                                       return "Please Enter Your first name";
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -99,6 +100,7 @@ class doctorRegister1 extends StatelessWidget {
                                     if (value!.isEmpty) {
                                       return "Please Enter Your last name";
                                     }
+                                    return null;
                                   },
                                 ),
                               ),
@@ -116,6 +118,7 @@ class doctorRegister1 extends StatelessWidget {
                               if (value!.length != 11) {
                                 return "please enter avalid number ";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -130,7 +133,8 @@ class doctorRegister1 extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(20.0)),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 0.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,6 +179,7 @@ class doctorRegister1 extends StatelessWidget {
                               if (isValid == false || value.isEmpty) {
                                 return "Please Enter valid Email";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -197,6 +202,7 @@ class doctorRegister1 extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return "Please Enter Your Password";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -217,6 +223,7 @@ class doctorRegister1 extends StatelessWidget {
                             },
                             onSubmit: (value) {
                               if (formKey.currentState!.validate()) {}
+                              return null;
                             },
                             validate: (String? value) {
                               if (value!.isEmpty) {
@@ -224,6 +231,7 @@ class doctorRegister1 extends StatelessWidget {
                               } else if (value != passwordController.text) {
                                 return "password not match";
                               }
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -236,7 +244,7 @@ class doctorRegister1 extends StatelessWidget {
                                   if (formKey.currentState!.validate()) {
                                     navigateTo(
                                         context,
-                                        doctorRegister2(
+                                        DoctorRegister2(
                                           gender: RegisterCubit.get(context)
                                               .radiovalue
                                               .toString(),

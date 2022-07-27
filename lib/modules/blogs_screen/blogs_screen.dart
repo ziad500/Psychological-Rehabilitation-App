@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../../models/get_article_model/get_article_model.dart';
 import '../appointments_screen/appointments_screen.dart';
 
+// ignore: must_be_immutable
 class BlogsScreen extends StatelessWidget {
   BlogsScreen({Key? key}) : super(key: key);
   List<CategoryModel> categoryItems = [

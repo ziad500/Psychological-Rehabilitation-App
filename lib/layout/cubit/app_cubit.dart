@@ -13,17 +13,16 @@ import 'package:phsyo/models/clientReservatiomModel/client_reservation_model.dar
 
 import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/models/get_article_model/get_article_model.dart';
-import 'package:phsyo/models/hourModel.dart';
+import 'package:phsyo/models/hour_model.dart';
 import 'package:phsyo/models/reviewModel/review_model.dart';
 import 'package:phsyo/modules/appointments_screen/appointments_screen.dart';
 import 'package:phsyo/modules/blogs_screen/blogs_screen.dart';
 import 'package:phsyo/modules/home_screen.dart/home_screen.dart';
 import 'package:phsyo/modules/menu_screen/menu_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:phsyo/shared/network/cashe_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
 
-import '../../models/Doctorappointment/DoctorAppointment.dart';
+import '../../models/Doctorappointment/doctor_appointment.dart';
 import '../../models/addArticles/add_articles_model.dart';
 import '../../models/articlesModel/articles_model.dart';
 import '../../models/doctor_hours_model/doctor_hours_model.dart';
@@ -62,7 +61,7 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<Widget> bottomDoctorScreens = [
-    AppointmentsScreen(),
+    const AppointmentsScreen(),
     BlogsScreen(),
     const MenuScreen()
 /*     const MenuDoctorScreen(),
@@ -71,7 +70,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> bottomScreens = [
     HomeScreen(),
-    AppointmentsScreen(),
+    const AppointmentsScreen(),
     BlogsScreen(),
     const MenuScreen(),
   ];
@@ -148,7 +147,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccessDoctorsDataState());
     }).catchError((error) {
       if (error is DioError) {
-        print('error is ${error.response?.data}');
+        //   print('error is ${error.response?.data}');
       }
       emit(AppErrorDoctorsDataState());
     });
@@ -167,7 +166,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccessGetReviewState());
     }).catchError((error) {
       if (error is DioError) {
-        print('error is ${error.response?.data}');
+        //print('error is ${error.response?.data}');
       }
       emit(AppErrorGetReviewState());
     });
@@ -182,7 +181,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccessGetArticlesState());
     }).catchError((error) {
       if (error is DioError) {
-        print('error is ${error.response?.data}');
+        //  print('error is ${error.response?.data}');
       }
       emit(AppErrorGetArticlesState());
     });
@@ -234,13 +233,13 @@ class AppCubit extends Cubit<AppStates> {
       categoryArticlevalue = 'Category';
       coverArticleImage = null;
 
-      print(addArticlesModel?.message);
-      print(value);
+      //   print(addArticlesModel?.message);
+      //   print(value);
       emit(AppSuccessAddArticleState(addArticlesModel!));
     }).catchError((error) {
-      print(error);
+      //  print(error);
       if (error is DioError) {
-        print('error is ${error.response?.data}');
+        //    print('error is ${error.response?.data}');
       }
       emit(AppErrorAddArticleState());
     });
@@ -251,11 +250,11 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetDoctorHoursState());
     DioHelper.getData(url: 'doctor/$id').then((value) {
       doctorHoursModel = DoctorHoursModel.fromJson(value.data);
-      print(value);
+      //   print(value);
       emit(AppSuccessGetDoctorHoursState());
     }).catchError((error) {
       if (error is DioError) {
-        print('error is ${error.response?.data}');
+        //    print('error is ${error.response?.data}');
       }
       emit(AppErrorGetDoctorHoursState());
     });
@@ -267,7 +266,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetDoctorHourssState());
     doctorsEveningHours = [];
     doctorsMorningHours = [];
-    doctorHoursModel?.calender.forEach((element) {
+    for (var element in doctorHoursModel!.calender) {
       if (element.date == date) {
         if (element.startAt!.contains('pm')) {
           doctorsEveningHours.add(HourModel(element.startAt.toString(), false));
@@ -276,7 +275,8 @@ class AppCubit extends Cubit<AppStates> {
           doctorsMorningHours.add(HourModel(element.startAt.toString(), false));
         }
       }
-    });
+    }
+
     emit(AppGetDoctorHoursState());
   }
 
@@ -300,7 +300,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppSuccessDoctorReservationState());
     }).catchError((error) {
       if (error is DioError) {
-        print('error is ${error.response?.data}');
+        //  print('error is ${error.response?.data}');
       }
       emit(AppErrorDoctorReservationState());
     });
@@ -326,15 +326,15 @@ class AppCubit extends Cubit<AppStates> {
             },
             token: token)
         .then((value) {
-      print(value);
+      // print(value);
       getAppointment();
       //getDoctorAppointment();
 
       clientReservationModel = ClientReservationModel.fromJson(value.data);
-      print(value);
+      //  print(value);
       emit(AppSuccessClientReservationState());
     }).catchError((error) {
-      print('........$error');
+      //  print('........$error');
       // clientReservationModel = ClientReservationModel.fromJson(error);
 
       emit(AppErrorClientReservationState());
@@ -361,12 +361,12 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetDoctorAppointmentState());
     DioHelper.getData(url: 'getall', token: token).then((value) {
       doctorAppointmentModel = DoctorAppointmentModel.fromJson(value.data);
-      print(doctorAppointmentModel!.totalbooking[0].userId!.email);
+      //  print(doctorAppointmentModel!.totalbooking[0].userId!.email);
       //print(doctorAppointmentModel!.totalbooking!.length);
 
       emit(AppSuccessGetDoctorAppointmentState());
     }).catchError((error) {
-      print(error);
+      //  print(error);
       emit(AppErrorGetDoctorAppointmentState());
     });
   }
@@ -378,7 +378,7 @@ class AppCubit extends Cubit<AppStates> {
         url: 'doctors/$id/reviews',
         token: token,
         data: {"rating": rating, "comment": comment}).then((value) {
-      print(value);
+      //  print(value);
       emit(AppSuccessAddReviewState());
     }).catchError((error) {
       emit(AppErrorAddReviewState());
@@ -391,7 +391,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppLoadingGetReportState());
     DioHelper.getData(url: 'reports/$id').then((value) {
       getReportModel = GetReportModel.fromJson(value.data);
-      print(value);
+      //  print(value);
       emit(AppSuccessGetReportState());
     }).catchError((error) {
       emit(AppErrorGetReportState());
@@ -416,7 +416,7 @@ class AppCubit extends Cubit<AppStates> {
     }).then((value) {
       emit(AppSuccessAddReportState());
     }).catchError((error) {
-      print(error);
+      //  print(error);
       emit(AppErrorAddReportState());
     });
   }

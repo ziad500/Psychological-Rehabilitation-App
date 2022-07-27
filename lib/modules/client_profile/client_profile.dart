@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -457,7 +454,7 @@ class ClientProfileScreen extends StatelessWidget {
                                 style: const TextStyle(fontSize: 16),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
                                     Container(
@@ -487,7 +484,7 @@ class ClientProfileScreen extends StatelessWidget {
                                 style: const TextStyle(fontSize: 16),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
                                     Container(

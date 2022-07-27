@@ -1,4 +1,3 @@
-import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CasheHelper {

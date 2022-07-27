@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:phsyo/models/Doctor_registerModel/Doctor_register_model.dart';
 import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/network/dio_helper.dart';
 import 'package:phsyo/shared/network/endpoint.dart';
@@ -120,7 +119,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     profileDoctorImage = File(image.path);
 
     emit(ImagePickerProfileDoctorSuccess());
-    print(profileDoctorImage!.path);
+    //  print(profileDoctorImage!.path);
   }
 
 /*   DoctorRegisterModel? doctorRegisterModel;
@@ -141,7 +140,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     var data = FormData.fromMap({
       'profileImage': await MultipartFile.fromFile(
         profileDoctorImage!.path,
-        contentType: new MediaType('image', 'jpg'),
+        contentType: MediaType('image', 'jpg'),
       ),
       'firstName': firstName,
       'lastName': lastName,
@@ -157,13 +156,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
     });
 
     DioHelper.postData(url: REGISTER_DOCTOR, data: data).then((value) {
-      print(value);
+      //  print(value);
       //   doctorRegisterModel = DoctorRegisterModel.fromJson(value.data);
       emit(AppRegisterDoctorSuccessState());
     }).catchError((error) {
-      print(error);
+      //  print(error);
       if (error is DioError) {
-        print(error.response);
+        //  print(error.response);
 
         /*   doctorRegisterModel =
             DoctorRegisterModel.fromJson(error.response!.data); */

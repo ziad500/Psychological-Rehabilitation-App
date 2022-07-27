@@ -1,20 +1,23 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  // ignore: prefer_typing_uninitialized_variables
   late final _ratingController;
   late double _rating;
 
   double _userRating = 3.0;
   int _ratingBarMode = 1;
-  double _initialRating = 2.0;
+  final double _initialRating = 2.0;
   bool _isRTLMode = false;
   bool _isVertical = false;
 
@@ -358,3 +361,4 @@ class IconAlert extends StatelessWidget {
         color: Colors.amber,
       );
 }
+ */

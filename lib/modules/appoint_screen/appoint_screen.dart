@@ -1,10 +1,9 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
-import 'package:phsyo/models/hourModel.dart';
+import 'package:phsyo/models/hour_model.dart';
 import 'package:phsyo/modules/appoint_screen/utls.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/shared/components/components.dart';
@@ -489,7 +488,7 @@ class _AppointScreenState extends State<AppointScreen> {
         startAt = model.hour;
         endAt =
             widget.isDoctor == true ? '${int.parse(model.hour!) + 1}$type' : '';
-        print(startAtfull);
+        //  print(startAtfull);
 
         for (var element in morningSlots) {
           String? t;

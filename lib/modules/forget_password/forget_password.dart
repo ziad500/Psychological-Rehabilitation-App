@@ -5,9 +5,12 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable, camel_case_types
 class forgetPassword extends StatelessWidget {
   var emailForgetController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+
+  forgetPassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

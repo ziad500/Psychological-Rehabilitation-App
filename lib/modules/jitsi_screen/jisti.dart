@@ -2,16 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:phsyo/constants.dart';
-import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/addReportScreen/add_report_screen.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
-import 'package:phsyo/modules/login_screen/login_states.dart';
 import 'package:phsyo/modules/reviewScreen/review_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
-import 'package:uuid/uuid.dart';
 
 class Meeting extends StatefulWidget {
   const Meeting(
@@ -73,7 +69,7 @@ class _MeetingState extends State<Meeting> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     return Container();
     /* MaterialApp(
         home: BlocConsumer<LoginCubit, LoginStates>(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:phsyo/constants.dart';
-import 'package:phsyo/models/login_model/user_login_model.dart';
-import 'package:phsyo/models/profileModel/profile_model.dart';
 import 'package:phsyo/modules/appoint_screen/appoint_screen.dart';
 import 'package:phsyo/modules/edite_profile/edite_profile_screen.dart';
 import 'package:phsyo/modules/faqs_screen/faqs_screen.dart';
@@ -46,7 +44,8 @@ class MenuScreen extends StatelessWidget {
                         Icons.person,
                         color: Color(0xFF4A4B4D),
                       ),
-                      onTap: () => navigateTo(context, EditeProfileScreen())),
+                      onTap: () =>
+                          navigateTo(context, const EditeProfileScreen())),
                   if (doctor == true)
                     menuItem(
                         context,
@@ -86,7 +85,7 @@ class MenuScreen extends StatelessWidget {
                         Icons.payment,
                         color: Color(0xFF4A4B4D),
                       ),
-                      onTap: () => navigateTo(context, PaymentScreen())),
+                      onTap: () => navigateTo(context, const PaymentScreen())),
                   if (doctor == false)
                     menuItem(
                       context,

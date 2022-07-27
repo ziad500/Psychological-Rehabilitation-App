@@ -8,8 +8,7 @@ import 'package:phsyo/modules/client_profile/client_profile.dart';
 import 'package:phsyo/modules/jitsi_screen/jisti.dart';
 import 'package:phsyo/modules/profile_screen/profile_screen.dart';
 import 'package:sizer/sizer.dart';
-import 'package:transparent_image/transparent_image.dart';
-import '../../models/Doctorappointment/DoctorAppointment.dart';
+import '../../models/Doctorappointment/doctor_appointment.dart';
 import '../../shared/components/components.dart';
 import '../../styles/colors.dart';
 
@@ -20,7 +19,7 @@ class CategoryModel {
 }
 
 class AppointmentsScreen extends StatelessWidget {
-  AppointmentsScreen({Key? key}) : super(key: key);
+const  AppointmentsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class AppointmentsScreen extends StatelessWidget {
                                     AppCubit.get(context).appointmentModel,
                                     index),
                                 itemCount:
-                                    AppCubit.get(context).appointmentModel == 0
+                                    AppCubit.get(context).appointmentModel == null
                                         ? 0
                                         : AppCubit.get(context)
                                             .appointmentModel!
@@ -522,8 +521,8 @@ class AppointmentsScreen extends StatelessWidget {
                               AppCubit.get(context).getReport(model
                                   .totalbooking[index].userId!.id
                                   .toString());
-                              print(model.totalbooking[index].userId!.id
-                                  .toString());
+                            /*   print(model.totalbooking[index].userId!.id
+                                  .toString()); */
                               navigateTo(
                                   context,
                                   ClientProfileScreen(

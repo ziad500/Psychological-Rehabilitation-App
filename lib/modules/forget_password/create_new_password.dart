@@ -3,10 +3,13 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class CreateNewPasswordScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+
+  CreateNewPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +97,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                             if (value!.isEmpty) {
                                               return "Please Enter Your Password";
                                             }
+                                            return null;
                                           },
                                         ),
                                         SizedBox(
@@ -111,6 +115,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                                                 passwordController.text) {
                                               return "password not match";
                                             }
+                                            return null;
                                           },
                                         ),
                                         SizedBox(

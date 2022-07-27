@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
@@ -8,7 +6,6 @@ import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:sizer/sizer.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 import '../../styles/colors.dart';
 
@@ -37,23 +34,18 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   var reviewController = TextEditingController();
-  late final _ratingController;
   late double _rating;
 
-  double _userRating = 3.0;
-  int _ratingBarMode = 1;
-  double _initialRating = 2.0;
+  final int _ratingBarMode = 1;
+  final double _initialRating = 2.0;
   var formKey = GlobalKey<FormState>();
 
-  bool _isRTLMode = false;
-  bool _isVertical = false;
+  final bool _isVertical = false;
 
   IconData? _selectedIcon;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _ratingController = TextEditingController(text: '3.0');
     _rating = _initialRating;
   }
 
@@ -248,6 +240,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                       if (value!.isEmpty) {
                                         return "Please Enter Your Password";
                                       }
+                                      return null;
                                     },
                                   ),
                                 ),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,15 +13,17 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-class doctorRegister2 extends StatefulWidget {
+// ignore: must_be_immutable
+class DoctorRegister2 extends StatefulWidget {
   final String firstName;
   final String lastName;
+  // ignore: prefer_typing_uninitialized_variables
   var mobileNumber;
   final String gender;
   final String email;
   final String password;
 
-  doctorRegister2(
+  DoctorRegister2(
       {Key? key,
       required this.firstName,
       required this.lastName,
@@ -29,10 +33,10 @@ class doctorRegister2 extends StatefulWidget {
       required this.password})
       : super(key: key);
   @override
-  State<doctorRegister2> createState() => _doctorRegister2State();
+  State<DoctorRegister2> createState() => _DoctorRegister2State();
 }
 
-class _doctorRegister2State extends State<doctorRegister2> {
+class _DoctorRegister2State extends State<DoctorRegister2> {
   var dateController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
@@ -196,6 +200,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                                     if (value!.isEmpty) {
                                       return "Date must not be empty";
                                     }
+                                    return null;
                                   },
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
@@ -314,7 +319,7 @@ class _doctorRegister2State extends State<doctorRegister2> {
                               if (formKey.currentState!.validate()) {
                                 navigateTo(
                                     context,
-                                    doctorRegister3(
+                                    DoctorRegister3(
                                       gender: widget.gender,
                                       profession: Profession,
                                       date: dateController.text.toString(),

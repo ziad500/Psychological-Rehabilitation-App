@@ -8,7 +8,8 @@ import 'package:phsyo/modules/register/register_cubit/register_states.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 
-class clientRegister1 extends StatelessWidget {
+// ignore: must_be_immutable
+class ClientRegister1 extends StatelessWidget {
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var mopileNumberController = TextEditingController();
@@ -19,7 +20,7 @@ class clientRegister1 extends StatelessWidget {
 
   var radioValue = 0;
 
-  clientRegister1({Key? key}) : super(key: key);
+  ClientRegister1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -248,7 +249,7 @@ class clientRegister1 extends StatelessWidget {
                                   if (formKey.currentState!.validate()) {
                                     navigateTo(
                                         context,
-                                        clientRegister2(
+                                        ClientRegister2(
                                           email:
                                               emailController.text.toString(),
                                           firstName: firstNameController.text

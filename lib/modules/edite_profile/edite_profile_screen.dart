@@ -9,9 +9,9 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../layout/cubit/app_cubit.dart';
-
 class EditeProfileScreen extends StatelessWidget {
+  const EditeProfileScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginStates>(
@@ -273,7 +273,7 @@ class EditeProfileScreen extends StatelessWidget {
                                                                 email: cubit
                                                                     .emailController
                                                                     .text,
-                                                                id: Userid,
+                                                                id: userid,
                                                                 /* languages:
                                                                 cubit.professionlanguagesController.text, */
                                                                 medicalHistory:

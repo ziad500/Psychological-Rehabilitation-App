@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
-import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../shared/components/components.dart';
 
+// ignore: must_be_immutable
 class AddReportScreen extends StatelessWidget {
   AddReportScreen({Key? key, required this.id}) : super(key: key);
   final String id;

@@ -11,9 +11,9 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:sizer/sizer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../../constants.dart';
 import '../../styles/colors.dart';
 
+// ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   ProfileScreen(
       {Key? key,
@@ -39,8 +39,7 @@ class ProfileScreen extends StatelessWidget {
   final String salary;
 
   IconData? _selectedIcon;
-  bool _isVertical = false;
-  double _userRating = 3.0;
+  final bool _isVertical = false;
 
   @override
   Widget build(BuildContext context) {

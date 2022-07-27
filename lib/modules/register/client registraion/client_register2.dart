@@ -9,15 +9,17 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-class clientRegister2 extends StatefulWidget {
+// ignore: must_be_immutable
+class ClientRegister2 extends StatefulWidget {
   final String firstName;
   final String lastName;
+  // ignore: prefer_typing_uninitialized_variables
   var mobileNumber;
   final String gender;
   final String email;
   final String password;
 
-  clientRegister2(
+  ClientRegister2(
       {Key? key,
       required this.firstName,
       required this.lastName,
@@ -28,10 +30,10 @@ class clientRegister2 extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<clientRegister2> createState() => _clientRegister2State();
+  State<ClientRegister2> createState() => _ClientRegister2State();
 }
 
-class _clientRegister2State extends State<clientRegister2> {
+class _ClientRegister2State extends State<ClientRegister2> {
   var dateController = TextEditingController();
 
   var mediacalHistoryController = TextEditingController();
@@ -234,7 +236,7 @@ class _clientRegister2State extends State<clientRegister2> {
                               if (formKey.currentState!.validate()) {
                                 navigateTo(
                                     context,
-                                    clientRegister3(
+                                    ClientRegister3(
                                       email: widget.email,
                                       gender: widget.gender,
                                       lastName: widget.lastName,

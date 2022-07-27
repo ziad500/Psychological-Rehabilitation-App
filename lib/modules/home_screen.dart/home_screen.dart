@@ -17,6 +17,7 @@ class CategoryModel {
   CategoryModel({required this.image, required this.text});
 }
 
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   List<CategoryModel> categoryItems = [
     CategoryModel(image: 'icons/icons8-therapy-100.png', text: 'Therapy'),
@@ -24,6 +25,8 @@ class HomeScreen extends StatelessWidget {
     CategoryModel(image: 'icons/icons8-coach-100.png', text: 'Life Coach'),
     CategoryModel(image: 'icons/icons8-nutrition-641.png', text: 'Nutrition')
   ];
+
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:phsyo/constants.dart';
+
 import 'package:phsyo/styles/colors.dart';
 import 'package:transparent_image/transparent_image.dart';
 

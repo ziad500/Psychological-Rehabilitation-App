@@ -1,10 +1,11 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
+
 import 'dart:ui';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
@@ -13,7 +14,8 @@ import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-class clientRegister4 extends StatelessWidget {
+// ignore: must_be_immutable
+class ClientRegister4 extends StatelessWidget {
   final String firstName;
   final String lastName;
   var mobileNumber;
@@ -25,7 +27,7 @@ class clientRegister4 extends StatelessWidget {
   final String contactRelation;
   final String mediacalHistory;
   var services;
-  clientRegister4(
+  ClientRegister4(
       {Key? key,
       required this.firstName,
       required this.lastName,
@@ -240,14 +242,14 @@ class clientRegister4 extends StatelessWidget {
                                                         if (formKey
                                                             .currentState!
                                                             .validate()) {
-                                                          print(code1controller
+                                                          /*     print(code1controller
                                                                   .text +
                                                               code2controller
                                                                   .text +
                                                               code3controller
                                                                   .text +
                                                               code4controller
-                                                                  .text);
+                                                                  .text); */
                                                           RegisterCubit.get(
                                                                   context)
                                                               .verifyEmail(

@@ -6,11 +6,9 @@ import 'package:phsyo/constants.dart';
 import 'package:phsyo/layout/cubit/abb_states.dart';
 import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
-import 'package:phsyo/modules/addReportScreen/add_report_screen.dart';
-import 'package:phsyo/modules/favoriteScreen/favorite_screen.dart';
+
 import 'package:phsyo/modules/login_screen/login_cubit.dart';
 import 'package:phsyo/modules/onboarding_screen/onboarding_screen.dart';
-import 'package:phsyo/modules/register/doctor%20registration/doctor_register4.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/modules/splashScreen/splash_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -27,23 +25,23 @@ Future<void> main() async {
   DioHelper.init();
   await CasheHelper.init();
   Bloc.observer = MyBlocObserver();
-  Widget widget = OnBoardingScreen();
+  Widget widget = const OnBoardingScreen();
 
   //bool? isDark = CasheHelper.getData(key: 'isDark');
 
   bool? onBoarding = CasheHelper.getData(key: 'onBoarding');
   token = CasheHelper.getData(key: 'token');
-  Userid = CasheHelper.getData(key: 'Userid');
+  userid = CasheHelper.getData(key: 'Userid');
   doctor = CasheHelper.getData(key: 'doctor');
   // favorite != null ? favorite = CasheHelper.getData(key: 'favorite') : null;
   /*  CasheHelper.removeData(key: 'token');
  CasheHelper.removeData(key: 'Userid');
  CasheHelper.removeData(key: 'doctor'); */
-  print(doctor);
-  print('.....${Userid}');
-  print(role);
+//  print(doctor);
+//  print('.....${userid}');
+//  print(role);
 
-  print(token);
+  // print(token);
 
   if (onBoarding != null) {
     if (token != null) {
@@ -53,13 +51,13 @@ Future<void> main() async {
       // CasheHelper.removeData(key: 'onBoarding');
     }
   } else {
-    widget = OnBoardingScreen();
+    widget = const OnBoardingScreen();
   }
 
   runApp(
     /* DevicePreview(
     builder: (context) =>  */
-    MyApp(widget),
+    MyApp(startWidget: widget),
     /* enabled: !kReleaseMode,
   ) */
   );
@@ -67,7 +65,9 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final Widget startWidget;
-  const MyApp(this.startWidget);
+
+  const MyApp({Key? key, required this.startWidget}) : super(key: key);
+  //const MyApp(this.startWidget);
 
   // This widget is the root of your application.
   @override
@@ -79,11 +79,10 @@ class MyApp extends StatelessWidget {
                 ..getDoctorsData()
                 ..getArticles()
                 ..getAppointment()
-                ..getDoctorAppointment()
-                ..getReviews('62d82f417dc08dbe9076c259')),
+                ..getDoctorAppointment()),
           BlocProvider(
               create: (context) =>
-                  LoginCubit()..getProfileData(Userid.toString())),
+                  LoginCubit()..getProfileData(userid.toString())),
           BlocProvider(
             create: (context) => RegisterCubit(),
           ),

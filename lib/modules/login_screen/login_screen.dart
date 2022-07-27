@@ -17,10 +17,13 @@ import 'package:sizer/sizer.dart';
 import '../../constants.dart';
 import '../../shared/network/cashe_helper.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class LoginScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is AppSuccessProfileDataState) {
           role = state.profileModel.user.role;
-          CasheHelper.saveData(key: 'doctor', value: Doctor(context))
+          CasheHelper.saveData(key: 'doctor', value: isDoctor(context))
               .then((value) {
             AppCubit.get(context).getAppointment();
             AppCubit.get(context).getDoctorAppointment();
@@ -45,8 +48,8 @@ class LoginScreen extends StatelessWidget {
             CasheHelper.saveData(key: 'Userid', value: state.loginModel.userId);
 
             token = state.loginModel.token;
-            Userid = state.loginModel.userId;
-            LoginCubit.get(context).getProfileData(Userid.toString());
+            userid = state.loginModel.userId;
+            LoginCubit.get(context).getProfileData(userid.toString());
             showToast(
                 text: state.loginModel.message.toString(),
                 state: ToastStates.success);

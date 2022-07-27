@@ -89,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                                         splashFactory: InkSplash.splashFactory,
                                         onTap: () {
                                           navigateTo(
-                                              context, doctorRegister1());
+                                              context, DoctorRegister1());
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -138,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                                         splashFactory: InkSplash.splashFactory,
                                         onTap: () {
                                           navigateTo(
-                                              context, clientRegister1());
+                                              context, ClientRegister1());
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

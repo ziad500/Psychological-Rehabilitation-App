@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/layout/cubit/abb_states.dart';
-import 'package:phsyo/layout/cubit/app_cubit.dart';
 import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:uuid/uuid.dart';
 
+// ignore: must_be_immutable
 class AppointDetails extends StatelessWidget {
   AppointDetails(
       {Key? key,

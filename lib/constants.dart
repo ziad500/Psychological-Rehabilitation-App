@@ -1,5 +1,4 @@
 import 'package:phsyo/layout/cubit/app_cubit.dart';
-import 'package:phsyo/models/doctors_list/doctors_model.dart';
 import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/shared/network/cashe_helper.dart';
@@ -17,7 +16,7 @@ void signout(context) {
   });
 }
 
-bool Doctor(context) {
+bool isDoctor(context) {
   if (role == 'user') {
     doctor = false;
   } else if (role == 'doctor') {
@@ -29,4 +28,4 @@ bool Doctor(context) {
 dynamic token = '';
 bool? doctor;
 dynamic role = '';
-dynamic Userid = '';
+dynamic userid = '';

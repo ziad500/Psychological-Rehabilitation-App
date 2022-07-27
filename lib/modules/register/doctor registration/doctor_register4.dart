@@ -1,23 +1,23 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:ui';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phsyo/layout/layout.dart';
 import 'package:phsyo/modules/login_screen/login_screen.dart';
 import 'package:phsyo/modules/register/register_cubit/register_cubit.dart';
 import 'package:phsyo/shared/components/components.dart';
 import 'package:phsyo/styles/colors.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../login_screen/login_cubit.dart';
 import '../register_cubit/register_states.dart';
 
-class doctorRegister4 extends StatelessWidget {
+class DoctorRegister4 extends StatelessWidget {
   final String email;
   final String password;
 
-  doctorRegister4({
+  DoctorRegister4({
     Key? key,
     required this.email,
     required this.password,
@@ -142,6 +142,7 @@ class doctorRegister4 extends StatelessWidget {
                                                       if (value!.isEmpty) {
                                                         return "Please Enter Your Email";
                                                       }
+                                                      return null;
                                                     },
                                                   ),
                                                 ),
@@ -159,6 +160,7 @@ class doctorRegister4 extends StatelessWidget {
                                                       if (value!.isEmpty) {
                                                         return "Please Enter Your Email";
                                                       }
+                                                      return null;
                                                     },
                                                   ),
                                                 ),
@@ -176,6 +178,7 @@ class doctorRegister4 extends StatelessWidget {
                                                       if (value!.isEmpty) {
                                                         return "Please Enter Your Email";
                                                       }
+                                                      return null;
                                                     },
                                                   ),
                                                 ),
@@ -193,6 +196,7 @@ class doctorRegister4 extends StatelessWidget {
                                                       if (value!.isEmpty) {
                                                         return "Please Enter Your Email";
                                                       }
+                                                      return null;
                                                     },
                                                   ),
                                                 ),
