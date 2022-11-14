@@ -8,20 +8,16 @@
 - There are articles that the doctor has published for patients.
 
 ## Implementation:
--nodej.s
-
--Bloc
-
--Rest Api 
-
--Integration With Video CAll 
-
--Ui 
-
--Dio 
-
--shared Prefference 
-
+- bloc
+- curved_navigation_bar
+- dio
+- fluttertoast
+- google_fonts
+- image_picker
+- intl
+- jitsi_meet
+- shared_preferences
+- table_calendar
 
 Video of the project 
 https://youtu.be/Glrhyky9f3E
