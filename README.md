@@ -8,12 +8,18 @@
 - There are articles that the doctor has published for patients.
 
 ## Technology:
--nodej.s 
--Bloc 
+-nodej.s
+
+-Bloc
+
 -Rest Api 
+
 -Integration With Video CAll 
+
 -Ui 
+
 -Dio 
+
 -shared Prefference 
 
 
